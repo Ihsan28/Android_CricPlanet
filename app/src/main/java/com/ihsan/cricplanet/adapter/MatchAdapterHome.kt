@@ -18,8 +18,8 @@ import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 import com.squareup.picasso.Picasso
 
-class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
-    RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
+class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
+    RecyclerView.Adapter<MatchAdapterHome.MatchViewHolder>() {
     //private val viewModel: CricViewModel = CricViewModel(application = Application())
     class MatchViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
@@ -133,7 +133,8 @@ class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
             holder.run { itemView.findNavController().navigate(action) }*/
             Log.d("cricMatchAdapter", "onBindViewHolder: ${match.id}")
             //crash issue
-            Navigation.findNavController(holder.itemView).navigate(R.id.action_matchTabLayoutFragment_to_matchDetailTabLayoutFragment,
+            Navigation.findNavController(holder.itemView).navigate(
+                R.id.action_homeFragment_to_matchDetailTabLayoutFragment,
                 Bundle().apply { putInt("matchId", match.id)})
         }
     }

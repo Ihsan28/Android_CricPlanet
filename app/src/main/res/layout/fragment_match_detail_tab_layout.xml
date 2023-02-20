@@ -15,7 +15,7 @@
         android:background="@color/horizontalLine"
         android:backgroundTint="@color/colorPrimary">
 
-        <include layout="@layout/match_item" />
+        <include layout="@layout/match_detail_card_item" />
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout

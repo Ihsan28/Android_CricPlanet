@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
 import com.ihsan.cricplanet.viewmodel.CricViewModel
@@ -34,21 +36,27 @@ class MatchDetailTabLayoutFragment : Fragment() {
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPage = binding.viewPager2MatchDetails
+        val fixtureName=view.findViewById<TextView>(R.id.fixture_name)
 
         arguments?.let {
+
             matchId = it.getInt("matchId")
             viewmodel.getFixturesByIdApi(matchId)
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
+
             //Assigning match Adapter
-            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner){
-                val tabMatchDetailAdapter =
-                    TabMatchDetailAdapter(childFragmentManager, lifecycle, it)
+            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner){it1->
+                fixtureName.text=it1.league?.name
+                val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, it1)
                 viewPage.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPage) { tab, position ->
                     tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
             }
+
         }
+
+
 
         //Auto Hide Top view
         var mBottomViewVisible = true

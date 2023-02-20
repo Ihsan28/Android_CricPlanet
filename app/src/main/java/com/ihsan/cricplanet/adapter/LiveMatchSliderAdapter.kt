@@ -33,7 +33,7 @@ class LiveMatchSliderAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView: View =
             (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                R.layout.match_item, null
+                R.layout.match_card_item, null
             )
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)

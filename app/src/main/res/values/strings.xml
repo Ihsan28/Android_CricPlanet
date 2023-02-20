@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CricPlanet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_pager_card_view">view pager card view</string>
+    <string name="matches">Matches</string>
+    <string name="home">Home</string>
+    <string name="team_name">team</string>
+    <string name="favourite_image_button">favourite Image button</string>
+    <string name="image_view">image view</string>
+    <string name="team">Team</string>
+    <string name="fixture_name">ODI</string>
+    <string name="fixture_note">Fixture Note</string>
+    <string name="status">status</string>
+    <string name="vs">VS</string>
+    <string name="find_your_match">Find your match</string>
+    <string name="viewpager_for_slider">viewpager for slider</string>
+    <string name="match_information">Match Information</string>
+</resources>

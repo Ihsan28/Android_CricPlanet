@@ -29,13 +29,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/team2_run"
+                android:id="@+id/visitor_team_run"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/team2_over"
+                android:id="@+id/visitor_team_over"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

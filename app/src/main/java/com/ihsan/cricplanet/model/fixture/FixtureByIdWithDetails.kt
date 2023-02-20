@@ -15,6 +15,7 @@ import com.ihsan.cricplanet.model.fixture.result.winnerteam.WinnerTeamX
 import com.ihsan.cricplanet.model.fixture.scoreboard.Scoreboard
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.Run
+import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -44,7 +45,7 @@ data class FixtureByIdWithDetails(
     val round: String?,
     val rpc_overs: Float?,
     val rpc_target: Int?,
-    val runs: List<Run>?,
+    val runs: List<RunWithTeam>?,
     val scoreboards: List<Scoreboard>?,
     val season: Season?,
     val season_id: Int?,

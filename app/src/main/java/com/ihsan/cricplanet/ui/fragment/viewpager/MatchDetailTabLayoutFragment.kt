@@ -1,10 +1,12 @@
 package com.ihsan.cricplanet.ui.fragment.viewpager
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import com.squareup.picasso.Picasso
 
 class MatchDetailTabLayoutFragment : Fragment() {
 
@@ -37,6 +40,15 @@ class MatchDetailTabLayoutFragment : Fragment() {
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPage = binding.viewPager2MatchDetails
         val fixtureName=view.findViewById<TextView>(R.id.fixture_name)
+        val fixtureStatus=view.findViewById<TextView>(R.id.fixture_status)
+        val localTeamName=view.findViewById<TextView>(R.id.local_team_name)
+        val localTeamRun=view.findViewById<TextView>(R.id.local_team_run)
+        val localTeamOver=view.findViewById<TextView>(R.id.local_team_over)
+        val localTeamImage=view.findViewById<ImageView>(R.id.local_team_image)
+        val visitorTeamName=view.findViewById<TextView>(R.id.visitor_team_name)
+        val visitorTeamRun=view.findViewById<TextView>(R.id.visitor_team_run)
+        val visitorTeamOver=view.findViewById<TextView>(R.id.visitor_team_over)
+        val visitorTeamImage=view.findViewById<ImageView>(R.id.visitor_team_image)
 
         arguments?.let {
 
@@ -46,15 +58,54 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
             //Assigning match Adapter
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner){it1->
-                fixtureName.text=it1.league?.name
                 val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, it1)
                 viewPage.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPage) { tab, position ->
                     tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
+
+                fixtureName.text=it1.league?.name
+                fixtureStatus.text=it1.status
+
+                if (it1.runs?.size!=0 || it1.runs!=null){
+                    localTeamName.text= it1.runs?.get(0)?.team?.name
+                    localTeamRun.text=it1.runs?.get(0)?.score.toString()
+                    localTeamOver.text=it1.runs?.get(0)?.overs.toString()
+
+                    visitorTeamName.text= it1.runs?.get(1)?.team?.name
+                    visitorTeamRun.text=it1.runs?.get(1)?.score.toString()
+                    visitorTeamOver.text=it1.runs?.get(1)?.overs.toString()
+
+                    if (!TextUtils.isEmpty(it1.runs?.get(0)?.team?.image_path)) {
+                        Picasso.get().load(it1.runs?.get(0)?.team?.image_path).fit()
+                            .placeholder(R.drawable.progress_animation).into(localTeamImage)
+                    } else {
+                        localTeamImage.setImageResource(R.drawable.ic_image)
+                    }
+                    if (!TextUtils.isEmpty(it1.runs?.get(1)?.team?.image_path)) {
+                        Picasso.get().load(it1.runs?.get(1)?.team?.image_path).fit()
+                            .placeholder(R.drawable.progress_animation).into(visitorTeamImage)
+                    } else {
+                        localTeamImage.setImageResource(R.drawable.ic_image)
+                    }
+                }else{
+                    localTeamName.text=it1.localteam?.name
+                    visitorTeamName.text=it1.visitorteam?.name
+                    if (!TextUtils.isEmpty(it1.localteam?.image_path)) {
+                        Picasso.get().load(it1.localteam?.image_path).fit()
+                            .placeholder(R.drawable.progress_animation).into(localTeamImage)
+                    } else {
+                        localTeamImage.setImageResource(R.drawable.ic_image)
+                    }
+                    if (!TextUtils.isEmpty(it1.visitorteam?.image_path)) {
+                        Picasso.get().load(it1.visitorteam?.image_path).fit()
+                            .placeholder(R.drawable.progress_animation).into(visitorTeamImage)
+                    } else {
+                        localTeamImage.setImageResource(R.drawable.ic_image)
+                    }
+                }
+
             }
-
-
         }
 
 

@@ -11,9 +11,9 @@
     <string name="team">Team</string>
     <string name="fixture_name">ODI</string>
     <string name="fixture_note">Fixture Note</string>
-    <string name="status">status</string>
     <string name="vs">VS</string>
     <string name="find_your_match">Find your match</string>
     <string name="viewpager_for_slider">viewpager for slider</string>
     <string name="match_information">Match Information</string>
+    <string name="no_status">No Status</string>
 </resources>

@@ -2,7 +2,6 @@ package com.ihsan.cricplanet.model.fixture
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Ignore
 import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.Season
 import com.ihsan.cricplanet.model.Team
@@ -69,7 +68,7 @@ data class FixtureByIdWithDetails(
     val weather_report: List<String>?,
     val winner_team_id: Int?,
     val winnerteam: WinnerTeamX?
-):Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         null,
         null,

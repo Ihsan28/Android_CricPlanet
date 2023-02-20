@@ -1,5 +1,9 @@
 package com.ihsan.cricplanet.model.fixture.referee
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class RefereeX(
     val country_id: Int?,
     val dateofbirth: String?,
@@ -10,7 +14,7 @@ data class RefereeX(
     val lastname: String?,
     val resource: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

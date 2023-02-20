@@ -44,7 +44,6 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         //Assigning dao object to repository instance
         repository = CricRepository(CricDao)
         getTeamsDB = repository.readTeams()
-        getFixturesByIdApi(3)
     }
 
     suspend fun storeLocal(apiTeamList: List<Team>?) {
@@ -86,7 +85,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _fixtureByIdWithDetails.value = repository.getFixturesByIdApi(Id)
-                    Log.d("cricViewModel", "viewModel Api getFixtureById: ${fixtureByIdWithDetails.value}")
+                    Log.d("cricViewModel", "viewModel Api getFixtureById: ${fixtureByIdWithDetails.value?.id}")
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getFixtureById: $e")
                 }

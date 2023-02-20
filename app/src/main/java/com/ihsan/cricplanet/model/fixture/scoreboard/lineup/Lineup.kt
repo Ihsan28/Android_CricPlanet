@@ -1,7 +1,10 @@
 package com.ihsan.cricplanet.model.fixture.scoreboard.lineup
 
+import android.os.Parcelable
 import com.ihsan.cricplanet.model.Position
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Lineup(
     val battingstyle: String?,
     val bowlingstyle: String?,
@@ -17,7 +20,7 @@ data class Lineup(
     val position: Position?,
     val resource: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

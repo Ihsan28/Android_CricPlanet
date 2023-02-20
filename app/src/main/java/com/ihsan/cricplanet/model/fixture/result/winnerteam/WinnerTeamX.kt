@@ -1,5 +1,9 @@
 package com.ihsan.cricplanet.model.fixture.result.winnerteam
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class WinnerTeamX(
     val code: String?,
     val country_id: Int?,
@@ -9,7 +13,7 @@ data class WinnerTeamX(
     val national_team: Boolean?,
     val resource: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

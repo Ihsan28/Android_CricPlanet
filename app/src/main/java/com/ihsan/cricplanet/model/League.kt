@@ -1,5 +1,9 @@
 package com.ihsan.cricplanet.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class League(
     val code: String?,
     val country_id: Int?,
@@ -10,7 +14,7 @@ data class League(
     val season_id: Int?,
     val type: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

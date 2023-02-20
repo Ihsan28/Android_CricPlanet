@@ -1,5 +1,8 @@
 package com.ihsan.cricplanet.model.fixture
 
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.room.Ignore
 import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.Season
 import com.ihsan.cricplanet.model.Team
@@ -13,15 +16,17 @@ import com.ihsan.cricplanet.model.fixture.result.winnerteam.WinnerTeamX
 import com.ihsan.cricplanet.model.fixture.scoreboard.Scoreboard
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.Run
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class FixtureByIdWithDetails(
-    val draw_noresult: Any?,
+    val draw_noresult: String?,
     val elected: String?,
     val first_umpire_id: Int?,
     val firstumpire: Umpire?,
     val follow_on: Boolean?,
     val id: Int,
-    val last_period: Any?,
+    val last_period: String?,
     val league: League?,
     val league_id: Int?,
     val lineup: List<Lineup>?,
@@ -30,7 +35,7 @@ data class FixtureByIdWithDetails(
     val localteam_dl_data: TeamDlData?,
     val localteam_id: Int?,
     val man_of_match_id: Int?,
-    val man_of_series_id: Any?,
+    val man_of_series_id: Int?,
     val manofmatch: ManOfMatch?,
     val manofseries: ManOfSeries?,
     val note: String?,
@@ -38,8 +43,8 @@ data class FixtureByIdWithDetails(
     val referee_id: Int?,
     val resource: String?,
     val round: String?,
-    val rpc_overs: Any?,
-    val rpc_target: Any?,
+    val rpc_overs: Float?,
+    val rpc_target: Int?,
     val runs: List<Run>?,
     val scoreboards: List<Scoreboard>?,
     val season: Season?,
@@ -61,11 +66,11 @@ data class FixtureByIdWithDetails(
     val visitorteam: Team?,
     val visitorteam_dl_data: TeamDlData?,
     val visitorteam_id: Int?,
-    val weather_report: List<Any>?,
+    val weather_report: List<String>?,
     val winner_team_id: Int?,
     val winnerteam: WinnerTeamX?
-) {
-    constructor() : this(
+):Parcelable {
+    constructor(parcel: Parcel) : this(
         null,
         null,
         null,

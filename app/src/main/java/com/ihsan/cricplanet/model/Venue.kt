@@ -1,5 +1,9 @@
 package com.ihsan.cricplanet.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Venue(
     val capacity: Int?,
     val city: String?,
@@ -10,7 +14,7 @@ data class Venue(
     val name: String?,
     val resource: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

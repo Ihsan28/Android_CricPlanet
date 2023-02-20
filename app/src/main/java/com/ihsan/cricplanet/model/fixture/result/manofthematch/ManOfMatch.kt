@@ -1,7 +1,10 @@
 package com.ihsan.cricplanet.model.fixture.result.manofthematch
 
+import android.os.Parcelable
 import com.ihsan.cricplanet.model.Position
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ManOfMatch(
     val battingstyle: String?,
     val bowlingstyle: String?,
@@ -16,7 +19,7 @@ data class ManOfMatch(
     val position: Position?,
     val resource: String?,
     val updated_at: String?
-)
+):Parcelable
 {
     constructor():this(
         null,

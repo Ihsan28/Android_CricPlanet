@@ -16,6 +16,7 @@ class Constant {
         const val fixtures = "fixtures"
         const val players = "players"
         const val liveScores = "livescores"
+        const val rankings = "team-rankings"
 
         //Query Parameters
         const val include = "include"

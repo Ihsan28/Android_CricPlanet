@@ -3,26 +3,21 @@
     <item
         android:id="@+id/homeFragment"
         android:title="@string/home"
-        android:icon="@drawable/ic_home"
-        />
+        android:icon="@drawable/ic_home" />
     <item
         android:id="@+id/matchTabLayoutFragment"
         android:title="@string/matches"
-        android:icon="@drawable/ic_sports_cricket"
-        />
+        android:icon="@drawable/ic_sports_cricket" />
     <item
         android:id="@+id/seriesFragment"
         android:title="Series"
-        android:icon="@drawable/ic_groups"
-        />
+        android:icon="@drawable/ic_groups" />
     <item
         android:id="@id/playerFragment"
         android:title="Players"
-        android:icon="@drawable/ic_groups"
-        />
+        android:icon="@drawable/ic_groups" />
     <item
         android:id="@id/teamTabLayoutFragment"
         android:title="Ranking"
-        android:icon="@drawable/ic_groups"
-        />
+        android:icon="@drawable/ic_groups" />
 </menu>

@@ -17,7 +17,7 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.squareup.picasso.Picasso
 
-class TeamAdapter(private val teamList: List<Team>) : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
+class TeamRankingAdapter(private val teamList: List<Team>) : RecyclerView.Adapter<TeamRankingAdapter.TeamViewHolder>() {
     //private val viewModel: CricViewModel = CricViewModel(application = Application())
     class TeamViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding){
         val teamName: TextView =binding.findViewById(R.id.team)

@@ -10,7 +10,7 @@ import com.ihsan.cricplanet.ui.fragment.*
 class TabTeamAdapter (manager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(manager,lifecycle) {
     companion object{
         val teamListTab = listOf(
-            Tab(TeamFragment(), "All"),
+            Tab(RankingTeamFragment(), "All"),
         )
     }
     override fun getItemCount(): Int {

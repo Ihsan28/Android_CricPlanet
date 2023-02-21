@@ -33,7 +33,7 @@ class LiveMatchSliderAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView: View =
             (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                R.layout.match_card_item, null
+                R.layout.home_match_card_item, null
             )
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)
@@ -43,7 +43,6 @@ class LiveMatchSliderAdapter(
         val visitorTeamImage: ImageView = itemView.findViewById(R.id.visitor_team_image)
         val status: TextView = itemView.findViewById(R.id.fixture_status)
         val noteOrVenue: TextView = itemView.findViewById(R.id.fixture_note_venue)
-        //val upcomingDate: TextView = itemView.findViewById(R.id.fixture_date)
         val upcomingTime: TextView = itemView.findViewById(R.id.fixture_time)
 
         liveMatchList[position].let {

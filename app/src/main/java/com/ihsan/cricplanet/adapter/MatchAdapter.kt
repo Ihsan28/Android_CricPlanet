@@ -57,14 +57,15 @@ class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
         holder.upcomingDate.text = dateTimeList[0]
         holder.upcomingTime.text = dateTimeList[1]
 
-        val utils = Utils()
-        //setting image path
-        utils.loadImageWithPicasso(match.localteam.image_path,holder.localTeamImage)
-        utils.loadImageWithPicasso(match.visitorteam.image_path,holder.visitorTeamImage)
-        //set status
-        utils.setStatus(match.status, match.live, holder.status)
-        //set Venue or Note of the match
-        utils.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
+        Utils().also {
+            //setting image path for team in card
+            it.loadImageWithPicasso(match.localteam.image_path, holder.localTeamImage)
+            it.loadImageWithPicasso(match.visitorteam.image_path, holder.visitorTeamImage)
+            //set status and background color
+            it.setStatus(match.status, match.live, holder.status)
+            //set Venue or Note of the match
+            it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
+        }
 
         holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${match.id}")

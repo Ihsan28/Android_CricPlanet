@@ -14,13 +14,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="225dp"
+            android:layout_height="228dp"
+            android:paddingHorizontal="3dp"
             android:layout_marginVertical="20dp">
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="228dp"
                 android:contentDescription="@string/viewpager_for_slider"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +30,7 @@
             <me.relex.circleindicator.CircleIndicator
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:background="@drawable/background_slider_indicator"
                 android:elevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"

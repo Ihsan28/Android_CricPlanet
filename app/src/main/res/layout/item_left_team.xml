@@ -68,7 +68,7 @@
 
     <TextView
         android:id="@+id/local_team_name"
-        android:layout_width="100dp"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:gravity="center"

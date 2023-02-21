@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso
 
 class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
     RecyclerView.Adapter<MatchAdapterHome.MatchViewHolder>() {
-    //private val viewModel: CricViewModel = CricViewModel(application = Application())
     class MatchViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)
@@ -35,7 +34,7 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(R.layout.match_card_item, parent, false)
+        val root = LayoutInflater.from(parent.context).inflate(R.layout.home_match_card_item, parent, false)
         Log.d("teamAdapter", "onCreateViewHolder: ${matchList.size}")
         return MatchViewHolder(root)
     }

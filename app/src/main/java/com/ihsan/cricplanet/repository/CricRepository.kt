@@ -48,9 +48,8 @@ class CricRepository(private val cricDao: CricDao) {
     }
 
     suspend fun getTodayFixturesApi(): List<FixtureIncludeForCard> {
-        return CricApi.retrofitService.getFixturesResponse(
+        return CricApi.retrofitService.getTodayFixturesResponse(
             Utils().getCurrentDate(),
-            "",
             "localteam,visitorteam,venue.country,season,league",
             "starting_at",
             Constant.API_KEY

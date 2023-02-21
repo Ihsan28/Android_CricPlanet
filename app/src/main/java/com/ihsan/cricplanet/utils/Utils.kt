@@ -64,8 +64,8 @@ class Utils {
         val currentDateTime = LocalDateTime.now()
         val tomorrowDateTime = currentDateTime.plusDays(1)
         // Format the new date as a string
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yy")
-        Log.d("cricUtils", "currentDateTime: $currentDateTime")
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd")
+        Log.d("cricUtils", "currentDateTime: ${currentDateTime.format(formatter)},${tomorrowDateTime.format(formatter)}")
         return "${currentDateTime.format(formatter)},${tomorrowDateTime.format(formatter)}"
     }
 

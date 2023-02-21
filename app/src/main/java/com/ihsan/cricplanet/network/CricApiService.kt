@@ -33,6 +33,14 @@ interface CricApiService {
         @Query(Constant.api_token) api_token: String
     ): ResponseFixtureIncludeForCard
 
+    @GET(Constant.fixtures)
+    suspend fun getTodayFixturesResponse(
+        @Query(Constant.filterDate) startsBetween: String,
+        @Query(Constant.include) include: String,
+        @Query(Constant.sort) sort: String,
+        @Query(Constant.api_token) api_token: String
+    ): ResponseFixtureIncludeForCard
+
     @GET(Constant.liveScores)
     suspend fun getLiveFixturesResponse(
         @Query(Constant.include) include: String,

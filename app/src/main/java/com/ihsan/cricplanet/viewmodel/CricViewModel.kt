@@ -11,6 +11,7 @@ import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.player.PlayerCard
+import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.roomdb.db.CricPlanetDatabase
@@ -41,6 +42,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //Player LiveData Holder
     private val _player = MutableLiveData<List<PlayerCard>>()
     val player: LiveData<List<PlayerCard>> = _player
+    private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
+    val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
 
     init {
         //Getting dao instance
@@ -59,13 +62,15 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         repository.storeTeamsLocal(apiTeamList)
     }
 
-    fun getTeams() {
+    //there was dispather.IO
+    fun getTeamRanking() {
         GlobalScope.launch {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch{
                 try {
-                    storeLocal(repository.getTeamsApi())
+                    _teamRanking.value=repository.getTeamRankingApi()
+                    Log.d("cricTeamViewmodel", "getTeamRanking: ${teamRanking.value?.size}")
                 } catch (e: java.lang.Exception) {
-                    Log.d("teamCatch", "getTeam: $e")
+                    Log.d("cricteamCatch", "getTeam: $e")
                 }
             }
         }

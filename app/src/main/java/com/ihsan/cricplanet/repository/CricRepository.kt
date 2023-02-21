@@ -6,8 +6,8 @@ import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
-import com.ihsan.cricplanet.model.player.Player
 import com.ihsan.cricplanet.model.player.PlayerCard
+import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.network.CricApi
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.utils.Constant
@@ -22,8 +22,8 @@ class CricRepository(private val cricDao: CricDao) {
         return cricDao.storeTeams(team)
     }
 
-    suspend fun getTeamsApi(): List<Team> {
-        return CricApi.retrofitService.getTeamsResponse(Constant.API_KEY).data
+    suspend fun getTeamRankingApi(): List<GlobalTeamRanking> {
+        return CricApi.retrofitService.getTeamRankingResponse(Constant.API_KEY).data
     }
 
     suspend fun getFixturesApi(): List<FixtureIncludeForCard> {
@@ -77,6 +77,7 @@ class CricRepository(private val cricDao: CricDao) {
             Constant.API_KEY
         ).data
     }
+
     suspend fun getPlayersApi(): List<PlayerCard> {
         return CricApi.retrofitService.getPlayersResponse(
             Utils().recentMonthDuration(),

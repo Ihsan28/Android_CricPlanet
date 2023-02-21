@@ -1,6 +1,7 @@
 package com.ihsan.cricplanet.model.fixture
 
 import com.ihsan.cricplanet.model.*
+import com.ihsan.cricplanet.model.team.TeamIncludeRanking
 
 data class FixtureIncludeForLiveCard(
     val draw_noresult: Any?,
@@ -12,7 +13,7 @@ data class FixtureIncludeForLiveCard(
     val league: League?,
     val league_id: Int?,
     val live: Boolean?,
-    val localteam: Team?,
+    val localteam: TeamIncludeRanking?,
     val localteam_dl_data: TeamDlData?,
     val localteam_id: Int?,
     val man_of_match_id: Any?,
@@ -36,7 +37,7 @@ data class FixtureIncludeForLiveCard(
     val type: String?,
     val venue: Venue?,
     val venue_id: Int?,
-    val visitorteam: Team?,
+    val visitorteam: TeamIncludeRanking?,
     val visitorteam_dl_data: TeamDlData?,
     val visitorteam_id: Int?,
     val weather_report: List<Any>?,

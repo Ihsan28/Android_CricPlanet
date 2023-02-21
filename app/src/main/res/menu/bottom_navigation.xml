@@ -17,7 +17,7 @@
         android:title="Players"
         android:icon="@drawable/ic_groups" />
     <item
-        android:id="@id/teamTabLayoutFragment"
+        android:id="@id/teamRankingsFragment"
         android:title="Ranking"
         android:icon="@drawable/ic_groups" />
 </menu>

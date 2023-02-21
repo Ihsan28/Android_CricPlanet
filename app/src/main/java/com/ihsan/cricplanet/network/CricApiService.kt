@@ -17,8 +17,8 @@ private val retrofit =
         .build()
 
 interface CricApiService {
-    @GET(Constant.teams)
-    suspend fun getTeamsResponse(@Query(Constant.api_token) api_token: String): ResponseTeam
+    @GET(Constant.rankings)
+    suspend fun getTeamRankingResponse(@Query(Constant.api_token) api_token: String): ResponseGlobalTeamRanking
 
     @GET(Constant.fixtures)
     suspend fun getFixturesResponse(

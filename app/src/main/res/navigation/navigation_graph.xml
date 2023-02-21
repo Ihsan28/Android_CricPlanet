@@ -100,11 +100,6 @@
         android:label="fragment_test_matches"
         tools:layout="@layout/fragment_test_matches" />
     <fragment
-        android:id="@+id/teamTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.TeamTabLayoutFragment"
-        android:label="fragment_team_tab_layout"
-        tools:layout="@layout/fragment_team_tab_layout" />
-    <fragment
         android:id="@+id/matchDetailTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchDetailTabLayoutFragment"
         android:label="fragment_match_detail_tab_layout"
@@ -171,8 +166,8 @@
         android:label="fragment_series"
         tools:layout="@layout/fragment_series" />
     <fragment
-        android:id="@+id/rankingTeamFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.RankingTeamFragment"
-        android:label="fragment_ranking_team"
-        tools:layout="@layout/fragment_ranking_team" />
+        android:id="@+id/teamRankingsFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.TeamRankingsFragment"
+        android:label="fragment_team_rankings"
+        tools:layout="@layout/fragment_team_rankings" />
 </navigation>

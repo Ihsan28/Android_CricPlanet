@@ -28,15 +28,16 @@ class TeamRankingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = binding.recyclerviewTeam
+        val recyclerView = binding.recyclerviewTeamRanking
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.setHasFixedSize(true)
-        viewModel.getTeamsDB.observe(viewLifecycleOwner) {
+        viewModel.getTeamRanking()
+        viewModel.teamRanking.observe(viewLifecycleOwner) {
             Log.d("cricTeam", "onViewCreated Team teamList: $it")
-            recyclerView.adapter= TeamRankingAdapter(it)
+            recyclerView.adapter= it[0].team?.let { it1 -> TeamRankingAdapter(it1) }
             if (it.isEmpty()) {
                 Log.d("cricTeam", "onViewCreated with empty roomData: APi Call ")
-                viewModel.getTeams()
+
             }
         }
     }

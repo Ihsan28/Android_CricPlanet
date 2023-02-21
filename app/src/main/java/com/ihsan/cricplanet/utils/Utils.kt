@@ -1,5 +1,6 @@
 package com.ihsan.cricplanet.utils
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.util.Log
 import android.widget.ImageView
@@ -104,8 +105,8 @@ class Utils {
         return "$yMDHAgo ago"
     }
 
-    fun getAge(date: String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+    fun getPlayerAge(date: String): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         val date = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
         var days = (currentTime - date.time) / (60 * 60 * 24 * 1000)
@@ -117,6 +118,7 @@ class Utils {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun setStatus(
         status: String?,
         live: Boolean?,
@@ -138,6 +140,7 @@ class Utils {
                     )
                 )
             } else {
+                val liveStatus= listOf("1st Innings","2nd Innings","3rd Innings","4th Innings","Stump Day 1","Stump Day 2","Stump Day 3","Stump Day 4","Innings Break")
 
                 if (status == "Postp.") {
                     statusTextView.text = "POSTPONED"
@@ -146,14 +149,35 @@ class Utils {
                             MyApplication.instance, R.color.md_yellow_900
                         )
                     )
-                } else if (status == "Aban.") {
+                }else if (status == "Delayed") {
+                    statusTextView.text = "DELAYED"
+                    statusTextView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            MyApplication.instance, R.color.md_yellow_900
+                        )
+                    )
+                }else if (status == "Aban.") {
                     statusTextView.text = "ABANDONED"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
                             MyApplication.instance, R.color.md_red_200
                         )
                     )
-                } else if (live == true) {
+                } else if (status == "Int.") {
+                    statusTextView.text = "INTERRUPTED"
+                    statusTextView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            MyApplication.instance, R.color.md_red_200
+                        )
+                    )
+                } else if (status == "Cancl.") {
+                    statusTextView.text = "CANCELLED"
+                    statusTextView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            MyApplication.instance, R.color.md_red_200
+                        )
+                    )
+                }else if (liveStatus.contains(status) ) {
                     statusTextView.text = "• LIVE"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(

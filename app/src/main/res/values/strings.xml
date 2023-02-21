@@ -16,4 +16,7 @@
     <string name="viewpager_for_slider">viewpager for slider</string>
     <string name="match_information">Match Information</string>
     <string name="no_status">No Status</string>
+    <string name="age">age</string>
+    <string name="today_s_match">Today\'s Matches</string>
+    <string name="recent_matches">Recent Matches</string>
 </resources>

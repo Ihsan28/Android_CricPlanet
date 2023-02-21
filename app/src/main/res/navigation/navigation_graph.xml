@@ -165,4 +165,14 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" />
+    <fragment
+        android:id="@+id/seriesFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.SeriesFragment"
+        android:label="fragment_series"
+        tools:layout="@layout/fragment_series" />
 </navigation>

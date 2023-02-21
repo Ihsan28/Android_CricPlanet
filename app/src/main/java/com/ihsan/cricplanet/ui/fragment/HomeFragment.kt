@@ -22,7 +22,7 @@ import me.relex.circleindicator.CircleIndicator
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: CricViewModel by viewModels()
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewToday: RecyclerView
     lateinit var viewPagerAdapter: LiveMatchSliderAdapter
     lateinit var indicator: CircleIndicator
     private val DELAY_MS: Long = 2000
@@ -60,16 +60,27 @@ class HomeFragment : Fragment() {
             autoSlide(viewPager)
         }
 
-        //Recycler view
-        recyclerView = binding.recyclerviewToday
-        recyclerView.layoutManager =
+        //Recycler view for Today
+        recyclerViewToday = binding.recyclerviewToday
+        recyclerViewToday.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.setHasFixedSize(true)
+        recyclerViewToday.setHasFixedSize(true)
         //Get Data From API
         viewModel.getTodayFixturesApi()
         viewModel.todayFixture.observe(viewLifecycleOwner) {
             Log.d("cricTeam", "onViewCreated MatchFixture: $it")
-            recyclerView.adapter = MatchAdapterHome(it)
+            recyclerViewToday.adapter = MatchAdapterHome(it)
+        }
+        //Recycler view for Recent
+        val recyclerViewRecent = binding.recyclerviewRecent
+        recyclerViewRecent.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewRecent.setHasFixedSize(true)
+        //Get Data From API
+        viewModel.getRecentFixturesApi()
+        viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
+            Log.d("cricTeam", "onViewCreated MatchFixture: $it")
+            recyclerViewRecent.adapter = MatchAdapterHome(it)
         }
     }
 

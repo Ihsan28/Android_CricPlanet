@@ -10,6 +10,7 @@ import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
+import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.roomdb.db.CricPlanetDatabase
@@ -24,7 +25,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     private var CricDao: CricDao
 
     val getTeamsDB: LiveData<List<Team>>
-
+    //Fixtures LiveData Holder
     private val _upcomingMatchFixture = MutableLiveData<List<FixtureIncludeForCard>>()
     val upcomingMatchFixture: LiveData<List<FixtureIncludeForCard>> = _upcomingMatchFixture
     private val _recentMatchFixture = MutableLiveData<List<FixtureIncludeForCard>>()
@@ -37,6 +38,9 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     val liveFixture: LiveData<List<FixtureIncludeForLiveCard>> = _liveFixture
     private val _fixtureByIdWithDetails = MutableLiveData<FixtureByIdWithDetails>()
     val fixtureByIdWithDetails: LiveData<FixtureByIdWithDetails> = _fixtureByIdWithDetails
+    //Player LiveData Holder
+    private val _player = MutableLiveData<List<PlayerCard>>()
+    val player: LiveData<List<PlayerCard>> = _player
 
     init {
         //Getting dao instance
@@ -146,6 +150,21 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getRecentFixture: $e")
+                }
+            }
+        }
+    }
+    fun getPlayersApi() {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    _player.value = repository.getPlayersApi()
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getPlayerCard: ${recentMatchFixture.value?.size}"
+                    )
+                } catch (e: java.lang.Exception) {
+                    Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
                 }
             }
         }

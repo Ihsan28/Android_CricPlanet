@@ -1,10 +1,6 @@
 package com.ihsan.cricplanet.network
 
-import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
-import com.ihsan.cricplanet.model.responseapi.ResponseFixtureById
-import com.ihsan.cricplanet.model.responseapi.ResponseFixtureIncludeForCard
-import com.ihsan.cricplanet.model.responseapi.ResponseFixtureIncludeForLiveCard
-import com.ihsan.cricplanet.model.responseapi.ResponseTeam
+import com.ihsan.cricplanet.model.responseapi.*
 import com.ihsan.cricplanet.utils.Constant
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -54,6 +50,13 @@ interface CricApiService {
         @Query(Constant.include) include: String,
         @Query(Constant.api_token) apiToken: String
     ): ResponseFixtureById
+
+    @GET(Constant.players)
+    suspend fun getPlayersResponse(
+        @Query(Constant.fieldsPlayer) fields: String,
+        @Query(Constant.sort) sort: String,
+        @Query(Constant.api_token) api_token: String
+    ): ResponsePlayerCard
 }
 
 object CricApi {

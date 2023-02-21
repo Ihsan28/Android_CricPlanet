@@ -11,8 +11,13 @@
         android:icon="@drawable/ic_sports_cricket"
         />
     <item
-        android:id="@+id/teamTabLayoutFragment"
+        android:id="@+id/seriesFragment"
         android:title="Series"
+        android:icon="@drawable/ic_groups"
+        />
+    <item
+        android:id="@id/playerFragment"
+        android:title="Players"
         android:icon="@drawable/ic_groups"
         />
     <item

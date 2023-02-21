@@ -7,18 +7,22 @@ class Constant {
         const val smsRequestPermissionAccessCode = 1000
 
         //const val API_KEY = "81gSXinE4LtZQ7LiZhwEjYbIvpDElRRlUw4dUEEgxlRgHLVMrIB963vfbYms"
-        const val API_KEY = "m1tLK9vOc6ZSYB4MlTUata7LtOmRlTmWpMavc2xZGztMpkX1QIcLLFQDTFfD" /*utchash-tushar vai*/
-        //const val API_KEY = "KFAaNiXJsDvbDRtIo40z40GS9OAiBPGhiDdogpjFvERYgCoFCokcVAqE446G"/*my p*/
+        //const val API_KEY = "m1tLK9vOc6ZSYB4MlTUata7LtOmRlTmWpMavc2xZGztMpkX1QIcLLFQDTFfD" /*utchash-tushar vai*/
+        const val API_KEY = "KFAaNiXJsDvbDRtIo40z40GS9OAiBPGhiDdogpjFvERYgCoFCokcVAqE446G"/*my p*/
         const val api_token = "api_token"
-        const val countries = "countries"
-        const val continents = "continents"
-        const val include = "include"
-        const val sort = "sort"
         const val live = "live"
+
+        //Base URL End Point
         const val fixtures = "fixtures"
+        const val players = "players"
         const val liveScores = "livescores"
 
-        //Fixture Filter
+        //Query Parameters
+        const val include = "include"
+        const val sort = "sort"
+        //fields
+        const val fieldsPlayer = "fields[players]"
+        //Filter
         const val filterByStatus = "filter[status]"
         const val filterBySeason = "filter[season_id]"
         const val filterByLeague = "filter[league_id]"
@@ -30,6 +34,12 @@ class Constant {
         const val filterByType = "filter[type]"
         const val filterByVenue = "filter[venue_id]"
         const val filterDate = "filter[starts_between]"
+
+        const val countries = "countries"
+        const val continents = "continents"
+        const val teams = "teams"
+        const val league = "leagues"
+        const val teamWithSquad = "teams/:TEAM_ID/squad/:SEASON_ID?include=career"
 
         //Fixture Include
         /*"message":
@@ -65,9 +75,6 @@ class Constant {
     localteam.country, visitorteam.country
         }*/
 
-        const val teams = "teams"
-        const val league = "leagues"
-        const val teamWithSquad = "teams/:TEAM_ID/squad/:SEASON_ID?include=career"
     }
 
 }

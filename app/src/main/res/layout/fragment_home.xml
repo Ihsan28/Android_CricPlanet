@@ -38,10 +38,53 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card_home"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/today_s_match"
+                android:textColor="@color/white"
+                android:padding="4dp"
+                android:gravity="center"
+                android:background="@drawable/background_title_home"
+                android:textSize="20sp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="@drawable/background_card_home"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recent_matches"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            android:gravity="center"
+            android:background="@drawable/background_title_home"
+            android:textSize="20sp"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_today"
+            android:id="@+id/recyclerview_recent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 

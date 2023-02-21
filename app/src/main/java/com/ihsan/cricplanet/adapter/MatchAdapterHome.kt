@@ -57,72 +57,14 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
         holder.upcomingDate.text = dateTimeList[0]
         holder.upcomingTime.text = dateTimeList[1]
 
-        if (!TextUtils.isEmpty(match.localteam.image_path)) {
-            Picasso.get().load(match.localteam.image_path).fit()
-                .placeholder(R.drawable.progress_animation).into(holder.localTeamImage)
-        } else {
-            holder.localTeamImage.setImageResource(R.drawable.ic_image)
-        }
-        if (!TextUtils.isEmpty(match.visitorteam.image_path)) {
-            Picasso.get().load(match.visitorteam.image_path).fit()
-                .placeholder(R.drawable.progress_animation).into(holder.visitorTeamImage)
-        } else {
-            holder.localTeamImage.setImageResource(R.drawable.ic_image)
-        }
-
-        if (match.status == "Finished") {
-            holder.status.setBackgroundColor(
-                ContextCompat.getColor(
-                    MyApplication.instance, R.color.md_blue_grey_700
-                )
-            )
-            holder.status.text = match.status
-            holder.noteOrVenue.text = match.note
-        } else {
-            if (match.status == "NS") {
-                holder.status.text = "UPCOMING"
-                holder.status.setBackgroundColor(
-                    ContextCompat.getColor(
-                        MyApplication.instance, R.color.md_yellow_700
-                    )
-                )
-            } else {
-
-                if (match.status == "Postp.") {
-                    holder.status.text = "POSTPONED"
-                    holder.status.setBackgroundColor(
-                        ContextCompat.getColor(
-                            MyApplication.instance, R.color.md_yellow_900
-                        )
-                    )
-                } else if (match.status == "Aban.") {
-                    holder.status.text = "ABANDONED"
-                    holder.status.setBackgroundColor(
-                        ContextCompat.getColor(
-                            MyApplication.instance, R.color.md_red_200
-                        )
-                    )
-                } else if (match.live == true) {
-                    Log.d("cricMatchAdapter", "onBindViewHolderLive: $match")
-                    holder.status.text = "• LIVE"
-                    holder.status.setBackgroundColor(
-                        ContextCompat.getColor(
-                            MyApplication.instance, R.color.md_red_400
-                        )
-                    )
-                }
-            }
-
-            if (match.venue?.name == null || match.venue.city == null) {
-                "Not Decided Yet".also { holder.noteOrVenue.text = it }
-            } else {
-                if (match.venue.country?.name != null) {
-                    holder.noteOrVenue.text =
-                        "${match.venue.name} • ${match.venue.city} • ${match.venue.country?.name}"
-                }else{
-                    holder.noteOrVenue.text = "${match.venue.name} • ${match.venue.city}"
-                }
-            }
+        Utils().also {
+            //setting image path for team in card
+            it.loadImageWithPicasso(match.localteam.image_path, holder.localTeamImage)
+            it.loadImageWithPicasso(match.visitorteam.image_path, holder.visitorTeamImage)
+            //set status and background color
+            it.setStatus(match.status, match.live, holder.status)
+            //set Venue or Note of the match
+            it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
         }
 
         holder.itemView.setOnClickListener{

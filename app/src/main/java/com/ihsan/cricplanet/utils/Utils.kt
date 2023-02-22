@@ -1,22 +1,23 @@
 package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.adapter.MatchAdapterHome
-import com.ihsan.cricplanet.model.Venue
+import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
+import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
+import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.round
 
 class Utils {
 
@@ -66,7 +67,12 @@ class Utils {
         val tomorrowDateTime = currentDateTime.plusDays(1)
         // Format the new date as a string
         val formatter = DateTimeFormatter.ofPattern("yy-MM-dd")
-        Log.d("cricUtils", "currentDateTime: ${currentDateTime.format(formatter)},${tomorrowDateTime.format(formatter)}")
+        Log.d(
+            "cricUtils",
+            "currentDateTime: ${currentDateTime.format(formatter)},${
+                tomorrowDateTime.format(formatter)
+            }"
+        )
         return "${currentDateTime.format(formatter)},${tomorrowDateTime.format(formatter)}"
     }
 
@@ -113,7 +119,7 @@ class Utils {
         var days = (currentTime - date.time) / (60 * 60 * 24 * 1000)
 
         if (days >= 365) {
-            return "${(days / 365 ).toInt()}"
+            return "${(days / 365).toInt()}"
         } else {
             return ""
         }
@@ -122,7 +128,6 @@ class Utils {
     @SuppressLint("SetTextI18n")
     fun setStatus(
         status: String?,
-        live: Boolean?,
         statusTextView: TextView
     ) {
         if (status == "Finished") {
@@ -141,7 +146,17 @@ class Utils {
                     )
                 )
             } else {
-                val liveStatus= listOf("1st Innings","2nd Innings","3rd Innings","4th Innings","Stump Day 1","Stump Day 2","Stump Day 3","Stump Day 4","Innings Break")
+                val liveStatus = listOf(
+                    "1st Innings",
+                    "2nd Innings",
+                    "3rd Innings",
+                    "4th Innings",
+                    "Stump Day 1",
+                    "Stump Day 2",
+                    "Stump Day 3",
+                    "Stump Day 4",
+                    "Innings Break"
+                )
 
                 if (status == "Postp.") {
                     statusTextView.text = "POSTPONED"
@@ -150,14 +165,14 @@ class Utils {
                             MyApplication.instance, R.color.md_yellow_900
                         )
                     )
-                }else if (status == "Delayed") {
+                } else if (status == "Delayed") {
                     statusTextView.text = "DELAYED"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
                             MyApplication.instance, R.color.md_yellow_900
                         )
                     )
-                }else if (status == "Aban.") {
+                } else if (status == "Aban.") {
                     statusTextView.text = "ABANDONED"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
@@ -178,7 +193,7 @@ class Utils {
                             MyApplication.instance, R.color.md_red_200
                         )
                     )
-                }else if (liveStatus.contains(status) ) {
+                } else if (liveStatus.contains(status)) {
                     statusTextView.text = "• LIVE"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
@@ -190,11 +205,12 @@ class Utils {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun setVenue(
         status: String?,
         note: String?,
         venue: VenueIncludeCountry?,
-        noteOrVenue:TextView
+        noteOrVenue: TextView
     ) {
         if (status == "Finished") {
             noteOrVenue.text = note
@@ -205,14 +221,51 @@ class Utils {
                 if (venue.country?.name != null) {
                     noteOrVenue.text =
                         "${venue.name} • ${venue.city} • ${venue.country?.name}"
-                }else{
+                } else {
                     noteOrVenue.text = "${venue.name} • ${venue.city}"
                 }
             }
         }
     }
 
-    fun loadImageWithPicasso(imagePath:String?,imageView: ImageView){
+    fun setRunsWithTeamName(
+        runs: List<RunWithTeam>?,
+        localTeam: Team?,
+        visitorTeam: Team?,
+        localTeamName: TextView,
+        localTeamImage: ImageView,
+        localTeamRun: TextView,
+        localTeamOver: TextView,
+        visitorTeamName:TextView,
+        visitorTeamImage:ImageView,
+        visitorTeamRun:TextView,
+        visitorTeamOver:TextView
+    ) {
+        if (runs?.size != 0 && runs != null) {
+            localTeamName.text = runs[0].team?.name
+            localTeamRun.text = runs[0].score.toString()
+            localTeamOver.text = runs[0].overs.toString()
+
+            visitorTeamName.text = runs[1].team?.name
+            visitorTeamRun.text = runs[1].score.toString()
+            visitorTeamOver.text = runs[1].overs.toString()
+
+            Utils().also { it2 ->
+                it2.loadImageWithPicasso(runs[0].team?.image_path, localTeamImage)
+                it2.loadImageWithPicasso(runs[1].team?.image_path, visitorTeamImage)
+            }
+
+        } else {
+            localTeamName.text = localTeam?.name
+            visitorTeamName.text = visitorTeam?.name
+            Utils().also { it2 ->
+                it2.loadImageWithPicasso(localTeam?.image_path, localTeamImage)
+                it2.loadImageWithPicasso(visitorTeam?.image_path, visitorTeamImage)
+            }
+        }
+    }
+
+    fun loadImageWithPicasso(imagePath: String?, imageView: ImageView) {
         if (!TextUtils.isEmpty(imagePath)) {
             Picasso.get().load(imagePath).fit()
                 .placeholder(R.drawable.progress_animation).into(imageView)

@@ -63,29 +63,21 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 }.attach()
 
                 fixtureName.text = it1.league?.name
-                fixtureStatus.text = it1.status
-
-                if (it1.runs?.size != 0 && it1.runs != null) {
-                    localTeamName.text = it1.runs.get(0).team?.name
-                    localTeamRun.text = it1.runs.get(0).score.toString()
-                    localTeamOver.text = it1.runs.get(0).overs.toString()
-
-                    visitorTeamName.text = it1.runs.get(1).team?.name
-                    visitorTeamRun.text = it1.runs.get(1).score.toString()
-                    visitorTeamOver.text = it1.runs.get(1).overs.toString()
-
-                    Utils().also {it2->
-                        it2.loadImageWithPicasso(it1.runs.get(0).team?.image_path, localTeamImage)
-                        it2.loadImageWithPicasso(it1.runs.get(1).team?.image_path, visitorTeamImage)
-                    }
-
-                } else {
-                    localTeamName.text = it1.localteam?.name
-                    visitorTeamName.text = it1.visitorteam?.name
-                    Utils().also {it2->
-                        it2.loadImageWithPicasso(it1.localteam?.image_path, localTeamImage)
-                        it2.loadImageWithPicasso(it1.visitorteam?.image_path, visitorTeamImage)
-                    }
+                Utils().also { it2 ->
+                    it2.setStatus(it1.status, fixtureStatus)
+                    it2.setRunsWithTeamName(
+                        it1.runs,
+                        it1.localteam,
+                        it1.visitorteam,
+                        localTeamName,
+                        localTeamImage,
+                        localTeamRun,
+                        localTeamOver,
+                        visitorTeamName,
+                        visitorTeamImage,
+                        visitorTeamRun,
+                        visitorTeamOver
+                    )
                 }
 
             }

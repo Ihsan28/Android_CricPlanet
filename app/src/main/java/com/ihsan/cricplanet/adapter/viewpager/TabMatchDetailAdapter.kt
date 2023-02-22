@@ -11,6 +11,7 @@ import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchInfoFragment
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchScorecardFragment
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchSquadsFragment
+import com.ihsan.cricplanet.utils.Utils
 
 class TabMatchDetailAdapter(
     manager: FragmentManager,
@@ -26,24 +27,25 @@ class TabMatchDetailAdapter(
     }
     init {
         Log.d("cricTabMatchDetailAdapter", "createFragment: ${match.id}")
+
     }
 
     override fun getItemCount(): Int {
         return 3
     }
 
-    private fun addBundle(fragment: Fragment, key:FixtureByIdWithDetails): Fragment {
+    private fun addBundle(fragment: Fragment, key:String, value: FixtureByIdWithDetails): Fragment {
         val bundle = Bundle()
-        bundle.putParcelable("match", key)
+        bundle.putParcelable(key, value)
         fragment.arguments = bundle
         return fragment
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0->addBundle(MatchInfoFragment(),match)
-            1->addBundle(MatchSquadsFragment(),match)
-            else->addBundle(MatchScorecardFragment(),match)
+            0->addBundle(listMatchDetailTab[position].fragment,"match",match)
+            1->addBundle(listMatchDetailTab[position].fragment,"match",match)
+            else->addBundle(listMatchDetailTab[position].fragment,"match",match)
         }
     }
 }

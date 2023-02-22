@@ -62,7 +62,7 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
             it.loadImageWithPicasso(match.localteam.image_path, holder.localTeamImage)
             it.loadImageWithPicasso(match.visitorteam.image_path, holder.visitorTeamImage)
             //set status and background color
-            it.setStatus(match.status, match.live, holder.status)
+            it.setStatus(match.status, holder.status)
             //set Venue or Note of the match
             it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
         }

@@ -65,6 +65,10 @@ interface CricApiService {
         @Query(Constant.fieldsPlayer) fields: String,
         @Query(Constant.api_token) api_token: String
     ): ResponsePlayerCard
+    @GET(Constant.league)
+    suspend fun getLeaguesResponse(
+        @Query(Constant.api_token) api_token: String
+    ): ResponseLeagues
 }
 
 object CricApi {

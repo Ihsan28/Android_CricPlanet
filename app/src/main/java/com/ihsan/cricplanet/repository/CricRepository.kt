@@ -2,6 +2,7 @@ package com.ihsan.cricplanet.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
@@ -81,6 +82,11 @@ class CricRepository(private val cricDao: CricDao) {
     suspend fun getPlayersApi(): List<PlayerCard> {
         return CricApi.retrofitService.getPlayersResponse(
             "id,fullname,image_path,dateofbirth",
+            Constant.API_KEY
+        ).data
+    }
+    suspend fun getLeaguesApi(): List<League> {
+        return CricApi.retrofitService.getLeaguesResponse(
             Constant.API_KEY
         ).data
     }

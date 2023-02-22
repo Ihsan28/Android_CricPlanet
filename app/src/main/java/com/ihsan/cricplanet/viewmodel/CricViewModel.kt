@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
@@ -45,6 +46,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     val player: LiveData<List<PlayerCard>> = _player
     private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
     val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
+    private val _league = MutableLiveData<List<League>>()
+    val league: LiveData<List<League>> = _league
 
     init {
         //Getting dao instance
@@ -173,6 +176,23 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
                 } catch (e: Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
+                }
+            }
+        }
+    }
+    fun getLeagueApi() {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    _league.value = repository.getLeaguesApi()
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getLeague: ${recentMatchFixture.value?.size}"
+                    )
+                } catch (e: HttpException) {
+                    Log.d("cricViewModelCatch", "viewModel Api getLeague: $e")
+                } catch (e: Exception) {
+                    Log.d("cricViewModelCatch", "viewModel Api getLeague: $e")
                 }
             }
         }

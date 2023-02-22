@@ -31,12 +31,17 @@ data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) 
         val view: View = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.match_squad_grid_item, parent, false)
         val player=items[position]
-        val keyTextView = view.findViewById<TextView>(R.id.left_player)
+        val playerName = view.findViewById<TextView>(R.id.left_player)
+        val playerAge = view.findViewById<TextView>(R.id.player_age)
+        val playerPosition = view.findViewById<TextView>(R.id.player_position)
         val playerImage=view.findViewById<ImageView>(R.id.player_image)
-        keyTextView.text = player.fullname
+
+        playerName.text = player.fullname
+        playerPosition.text= player.position?.name
 
         Utils().also {
             it.loadImageWithPicasso(player.image_path,playerImage)
+            playerAge.text= player.dateofbirth?.let { it1 -> it.getPlayerAge(it1) }
         }
 
         return view

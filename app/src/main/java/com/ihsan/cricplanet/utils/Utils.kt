@@ -106,13 +106,14 @@ class Utils {
     }
 
     fun getPlayerAge(date: String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
+
         var days = (currentTime - date.time) / (60 * 60 * 24 * 1000)
 
         if (days >= 365) {
-            return "${(days / 365 * 24).toInt()}"
+            return "${(days / 365 ).toInt()}"
         } else {
             return ""
         }

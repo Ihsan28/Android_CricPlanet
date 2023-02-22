@@ -16,6 +16,7 @@ import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.roomdb.db.CricPlanetDatabase
 import kotlinx.coroutines.*
+import retrofit2.HttpException
 
 @OptIn(DelicateCoroutinesApi::class)
 class CricViewModel(application: Application) : AndroidViewModel(application) {
@@ -62,7 +63,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         repository.storeTeamsLocal(apiTeamList)
     }
 
-    //there was dispather.IO
+    //there was dispacther.IO
     fun getTeamRanking() {
         GlobalScope.launch {
             viewModelScope.launch{
@@ -168,7 +169,9 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                         "cricViewModel",
                         "viewModel Api getPlayerCard: ${recentMatchFixture.value?.size}"
                     )
-                } catch (e: java.lang.Exception) {
+                } catch (e: HttpException) {
+                    Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
+                } catch (e: Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
                 }
             }

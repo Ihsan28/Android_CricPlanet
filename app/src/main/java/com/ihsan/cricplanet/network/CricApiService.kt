@@ -63,7 +63,6 @@ interface CricApiService {
     @GET(Constant.players)
     suspend fun getPlayersResponse(
         @Query(Constant.fieldsPlayer) fields: String,
-        @Query(Constant.sort) sort: String,
         @Query(Constant.api_token) api_token: String
     ): ResponsePlayerCard
 }

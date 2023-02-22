@@ -80,7 +80,6 @@ class CricRepository(private val cricDao: CricDao) {
 
     suspend fun getPlayersApi(): List<PlayerCard> {
         return CricApi.retrofitService.getPlayersResponse(
-            Utils().recentMonthDuration(),
             "id,fullname,image_path,dateofbirth",
             Constant.API_KEY
         ).data

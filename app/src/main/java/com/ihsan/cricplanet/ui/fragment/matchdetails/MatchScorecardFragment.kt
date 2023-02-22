@@ -37,7 +37,6 @@ class MatchScorecardFragment : Fragment() {
             //get match
             match = it.match
             recyclerViewBatting.adapter= match?.batting?.let { it1 -> BattingScorecardAdapter(it1) }
-
         }
     }
 }

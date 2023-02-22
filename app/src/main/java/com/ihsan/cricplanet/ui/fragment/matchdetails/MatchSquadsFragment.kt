@@ -42,11 +42,9 @@ class MatchSquadsFragment : Fragment() {
             Log.d("cricMatchSquad", "onViewCreated: ${localTeam?.size},${visitorTeam?.size}")
             Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
             if (match!=null){
-                //working
+                //set adapter
                 gridViewLocal.adapter= MatchSquadGridAdapter(requireContext(),localTeam as List<Lineup>)
                 gridViewVisitor.adapter= MatchSquadGridAdapter(requireContext(),visitorTeam as List<Lineup>)
-                Toast.makeText(requireContext(), match.toString(), Toast.LENGTH_SHORT).show()
-
             }
         }
     }

@@ -41,7 +41,7 @@ class TeamRankingAdapter(private val teamList: List<TeamIncludeRanking>) : Recyc
         Log.d("teamAdapter", "BindViewHolder: ${teamList.size}")
         holder.teamName.text=team.name
         holder.teamRanking.text=team.ranking?.position.toString()
-        holder.source.text=team.national_team.toString()
+        holder.source.text=team.ranking?.rating.toString()
         Utils().also {
             it.loadImageWithPicasso(team.image_path,holder.image)
         }

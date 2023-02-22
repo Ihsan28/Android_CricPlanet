@@ -33,10 +33,8 @@ class MatchInfoFragment() : Fragment() {
         val gridView=binding.gridView
         args?.let {
             match = it.match
-            Toast.makeText(requireContext(), "$match", Toast.LENGTH_SHORT).show()
             Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
             if (match!=null){
-                Toast.makeText(requireContext(), "${match?.id}", Toast.LENGTH_SHORT).show()
                 Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
                 keyValueList.add(GridItem("Series", "${match?.league?.name ?: "Not Found"}, ${match?.season?.name ?:""}"))
                 keyValueList.add(GridItem("Match",match?.round ?:"Not Found"))

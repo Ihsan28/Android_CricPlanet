@@ -4,16 +4,25 @@ import com.ihsan.cricplanet.model.responseapi.*
 import com.ihsan.cricplanet.utils.Constant
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 private const val BASE_URL = "https://cricket.sportmonks.com/api/v2.0/"
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-private val retrofit =
-    Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
+val client = OkHttpClient.Builder()
+    .connectTimeout(10, TimeUnit.SECONDS) // set connection timeout to 10 seconds
+    .readTimeout(30, TimeUnit.SECONDS) // set read timeout to 30 seconds
+    .writeTimeout(30, TimeUnit.SECONDS) // set write timeout to 30 seconds
+    .build()
+private val retrofit = Retrofit
+        .Builder()
+        .addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
+        .client(client)
         .build()
 
 interface CricApiService {

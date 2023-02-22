@@ -19,4 +19,7 @@
     <string name="age">age</string>
     <string name="today_s_match">Today\'s Matches</string>
     <string name="recent_matches">Recent Matches</string>
+    <string name="series">Series</string>
+    <string name="players">Players</string>
+    <string name="ranking">Ranking</string>
 </resources>

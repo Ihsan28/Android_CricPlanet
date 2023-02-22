@@ -92,7 +92,7 @@ class CricRepository(private val cricDao: CricDao) {
             Id,
             "scoreboards.team,runs.team,tosswon,manofmatch,manofseries,venue.country," +
                     "lineup,winnerteam,season,league,referee,firstumpire,secondumpire,tvumpire," +
-                    "localteam.country, visitorteam.country,visitorteam.results",
+                    "localteam.country, visitorteam.country,visitorteam.results,balls.bowler,batting.batsman",
             Constant.API_KEY
         ).data
     }

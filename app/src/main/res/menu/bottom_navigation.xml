@@ -10,14 +10,14 @@
         android:icon="@drawable/ic_sports_cricket" />
     <item
         android:id="@+id/seriesFragment"
-        android:title="Series"
+        android:title="@string/series"
         android:icon="@drawable/ic_groups" />
     <item
         android:id="@id/playerFragment"
-        android:title="Players"
+        android:title="@string/players"
         android:icon="@drawable/ic_groups" />
     <item
         android:id="@id/teamRankingsFragment"
-        android:title="Ranking"
+        android:title="@string/ranking"
         android:icon="@drawable/ic_groups" />
 </menu>

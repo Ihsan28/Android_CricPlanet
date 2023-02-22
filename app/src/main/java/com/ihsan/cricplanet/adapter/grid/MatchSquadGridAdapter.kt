@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
+import com.ihsan.cricplanet.utils.Utils
 
 data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) : BaseAdapter() {
 
@@ -28,12 +30,14 @@ data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) 
         Log.d("cricMatchSquadAdapter", "getView: ${items.size}")
         val view: View = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.match_squad_grid_item, parent, false)
-
+        val player=items[position]
         val keyTextView = view.findViewById<TextView>(R.id.left_player)
-        keyTextView.text = items[position].fullname
+        val playerImage=view.findViewById<ImageView>(R.id.player_image)
+        keyTextView.text = player.fullname
 
-       /* val valueTextView = view.findViewById<TextView>(R.id.right_player)
-        valueTextView.text = items[position].visitorPlayer?.fullname*/
+        Utils().also {
+            it.loadImageWithPicasso(player.image_path,playerImage)
+        }
 
         return view
     }

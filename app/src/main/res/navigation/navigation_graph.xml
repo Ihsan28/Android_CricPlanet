@@ -29,15 +29,7 @@
         android:id="@+id/liveFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.LiveFragment"
         android:label="fragment_live"
-        tools:layout="@layout/fragment_live" >
-        <action
-            android:id="@+id/action_liveFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-    </fragment>
+        tools:layout="@layout/fragment_live" />
     <fragment
         android:id="@+id/matchesFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.match.MatchesFragment"
@@ -104,13 +96,6 @@
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchDetailTabLayoutFragment"
         android:label="fragment_match_detail_tab_layout"
         tools:layout="@layout/fragment_match_detail_tab_layout" >
-        <action
-            android:id="@+id/action_matchDetailTabLayoutFragment_to_matchTabLayoutFragment"
-            app:destination="@id/matchTabLayoutFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
         <argument
             android:name="matchId"
             app:argType="integer"
@@ -131,9 +116,9 @@
         android:label="fragment_match_info"
         tools:layout="@layout/fragment_match_info" >
         <argument
-            android:name="matchId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="match"
+            app:argType="com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/matchScorecardFragment"
@@ -141,9 +126,9 @@
         android:label="fragment_match_scorecard"
         tools:layout="@layout/fragment_match_scorecard" >
         <argument
-            android:name="matchId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="match"
+            app:argType="com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/matchSquadsFragment"
@@ -151,9 +136,9 @@
         android:label="fragment_match_squads"
         tools:layout="@layout/fragment_match_squads" >
         <argument
-            android:name="matchId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="match"
+            app:argType="com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/playerFragment"

@@ -26,22 +26,24 @@ class TabMatchDetailAdapter(
     }
     init {
         Log.d("cricTabMatchDetailAdapter", "createFragment: ${match.id}")
-        listMatchDetailTab.map { addBundle(it.fragment,match) }
     }
 
     override fun getItemCount(): Int {
-        return listMatchDetailTab.size
+        return 3
     }
 
     private fun addBundle(fragment: Fragment, key:FixtureByIdWithDetails): Fragment {
         val bundle = Bundle()
-        bundle.putParcelable("matchObj", key)
+        bundle.putParcelable("match", key)
         fragment.arguments = bundle
         return fragment
     }
 
     override fun createFragment(position: Int): Fragment {
-
-        return listMatchDetailTab[position].fragment
+        return when(position){
+            0->addBundle(MatchInfoFragment(),match)
+            1->addBundle(MatchSquadsFragment(),match)
+            else->addBundle(MatchScorecardFragment(),match)
+        }
     }
 }

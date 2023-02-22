@@ -67,6 +67,8 @@ data class FixtureByIdWithDetails(
     val visitorteam_dl_data: TeamDlData?,
     val visitorteam_id: Int?,
     val weather_report: List<String>?,
+    val batting: List<BattingIncludeBatsman>?,
+    val balls: List<BallsIncludeBowler>?,
     val winner_team_id: Int?,
     val winnerteam: WinnerTeamX?
 ) : Parcelable {
@@ -77,6 +79,8 @@ data class FixtureByIdWithDetails(
         null,
         null,
         0,
+        null,
+        null,
         null,
         null,
         null,

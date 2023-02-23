@@ -30,16 +30,6 @@
             android:defaultValue='""' />
     </fragment>
     <fragment
-        android:id="@+id/recentMatchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.RecentMatchesFragment"
-        android:label="fragment_recent_matches"
-        tools:layout="@layout/fragment_recent_matches" />
-    <fragment
-        android:id="@+id/upcomingMatchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.UpcomingMatchesFragment"
-        android:label="fragment_upcoming_matches"
-        tools:layout="@layout/fragment_upcoming_matches" />
-    <fragment
         android:id="@+id/matchTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchTabLayoutFragment"
         android:label="fragment_match_tab_layout"
@@ -52,39 +42,9 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <action
-            android:id="@+id/action_matchTabLayoutFragment_to_testMatchesFragment"
-            app:destination="@id/testMatchesFragment" />
-        <action
-            android:id="@+id/action_matchTabLayoutFragment_to_TTwentyMatchesFragment"
-            app:destination="@id/TTwentyMatchesFragment" />
-        <action
-            android:id="@+id/action_matchTabLayoutFragment_to_ODIMatchesFragment"
-            app:destination="@id/ODIMatchesFragment" />
-        <action
             android:id="@+id/action_matchTabLayoutFragment_to_matchesFragment"
             app:destination="@id/matchesFragment" />
-        <action
-            android:id="@+id/action_matchTabLayoutFragment_to_upcomingMatchesFragment"
-            app:destination="@id/upcomingMatchesFragment" />
-        <action
-            android:id="@+id/action_matchTabLayoutFragment_to_recentMatchesFragment"
-            app:destination="@id/recentMatchesFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/ODIMatchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.ODIMatchesFragment"
-        android:label="fragment_o_d_i_matches"
-        tools:layout="@layout/fragment_o_d_i_matches" />
-    <fragment
-        android:id="@+id/TTwentyMatchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.TTwentyMatchesFragment"
-        android:label="fragment_t_twenty_matches"
-        tools:layout="@layout/fragment_t_twenty_matches" />
-    <fragment
-        android:id="@+id/testMatchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.TestMatchesFragment"
-        android:label="fragment_test_matches"
-        tools:layout="@layout/fragment_test_matches" />
     <fragment
         android:id="@+id/matchDetailTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchDetailTabLayoutFragment"

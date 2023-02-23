@@ -1,59 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.fragment.ranking.RankingFragment">
-    <View
-        android:id="@+id/notification"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/horizontalLine" />
-    <com.google.android.material.button.MaterialButtonToggleGroup
+    android:layout_height="match_parent">
 
-        android:id="@+id/genderToggleGroup"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:singleSelection="true"
-        tools:ignore="MissingDefaultResource">
+        android:orientation="vertical"
+        tools:context=".ui.fragment.ranking.RankingFragment">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/menButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+
+            android:id="@+id/genderToggleGroup"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Men"
-            app:cornerRadius="15dp"
-            android:textColor="@drawable/selector_toggle_button_text"
-            app:backgroundTint="@drawable/selector_toggle_button_bg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/app_green"
-            app:strokeWidth="2dp" />
+            android:gravity="center"
+            app:singleSelection="true"
+            tools:ignore="MissingDefaultResource">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/womenButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Women"
-            android:textColor="@drawable/selector_toggle_button_text"
-            app:backgroundTint="@drawable/selector_toggle_button_bg"
-            app:cornerRadius="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/app_green"
-            app:strokeWidth="2dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Men"
+                android:textColor="@drawable/selector_toggle_button_text"
+                app:backgroundTint="@drawable/selector_toggle_button_bg"
+                app:cornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/app_green"
+                app:strokeWidth="2dp" />
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_team_ranking"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="6dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/womenButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Women"
+                android:textColor="@drawable/selector_toggle_button_text"
+                app:backgroundTint="@drawable/selector_toggle_button_bg"
+                app:cornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/app_green"
+                app:strokeWidth="2dp" />
 
-</LinearLayout>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_team_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="6dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="55dp" />
+
+    </LinearLayout>
+</ScrollView>

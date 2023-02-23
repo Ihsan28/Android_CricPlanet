@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.ranking
+package com.ihsan.cricplanet.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

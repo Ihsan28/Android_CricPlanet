@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchesFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.match.MatchesFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.MatchesFragment"
         android:label="fragment_matches"
         tools:layout="@layout/fragment_matches" >
         <argument
@@ -110,22 +110,21 @@
         android:label="fragment_ranking_tab_layout"
         tools:layout="@layout/fragment_ranking_tab_layout" >
         <action
-            android:id="@+id/action_rankingTabLayoutFragment_to_TTwentyRankingFragment"
-            app:destination="@id/TTwentyRankingFragment" />
+            android:id="@+id/action_rankingTabLayoutFragment_to_rankingFragment2"
+            app:destination="@id/rankingFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/TTwentyRankingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.ranking.RankingFragment"
-        android:label="fragment_t_twenty_ranking"
-        tools:layout="@layout/fragment_ranking" >
-        <argument
-            android:name="rankingList"
-            app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"
-            app:nullable="true" />
+        android:id="@+id/rankingFragment2"
+        android:name="com.ihsan.cricplanet.ui.fragment.RankingFragment"
+        android:label="RankingFragment" >
         <argument
             android:name="category"
             app:argType="string"
             app:nullable="true"
             android:defaultValue='""' />
+        <argument
+            android:name="rankingList"
+            app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"
+            app:nullable="true" />
     </fragment>
 </navigation>

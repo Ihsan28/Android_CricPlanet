@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.model.team.GlobalTeamRankingList
-import com.ihsan.cricplanet.ui.fragment.ranking.RankingFragment
+import com.ihsan.cricplanet.ui.fragment.RankingFragment
 
 class TabRankingAdapter(
     manager: FragmentManager,

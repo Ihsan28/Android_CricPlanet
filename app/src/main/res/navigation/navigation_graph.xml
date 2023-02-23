@@ -22,7 +22,13 @@
         android:id="@+id/matchesFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.match.MatchesFragment"
         android:label="fragment_matches"
-        tools:layout="@layout/fragment_matches" />
+        tools:layout="@layout/fragment_matches" >
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+    </fragment>
     <fragment
         android:id="@+id/recentMatchesFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.match.RecentMatchesFragment"

@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.model.team.GlobalTeamRankingList
-import com.ihsan.cricplanet.ui.fragment.ranking.TTwentyRankingFragment
+import com.ihsan.cricplanet.ui.fragment.ranking.RankingFragment
 
 class TabRankingAdapter(
     manager: FragmentManager,
@@ -17,9 +17,9 @@ class TabRankingAdapter(
 ) : FragmentStateAdapter(manager, lifecycle) {
     companion object {
         val rankingListTab = listOf(
-            Tab(TTwentyRankingFragment(), "T20"),
-            Tab(TTwentyRankingFragment(), "ODI"),
-            Tab(TTwentyRankingFragment(), "TEST")
+            Tab(RankingFragment(), "T20"),
+            Tab(RankingFragment(), "ODI"),
+            Tab(RankingFragment(), "TEST")
         )
     }
 
@@ -57,3 +57,4 @@ class TabRankingAdapter(
         }
     }
 }
+

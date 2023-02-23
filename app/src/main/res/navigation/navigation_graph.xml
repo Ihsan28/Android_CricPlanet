@@ -139,11 +139,6 @@
         android:label="fragment_series"
         tools:layout="@layout/fragment_series" />
     <fragment
-        android:id="@+id/teamRankingsFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.TeamRankingsFragment"
-        android:label="fragment_team_rankings"
-        tools:layout="@layout/fragment_team_rankings" />
-    <fragment
         android:id="@+id/rankingTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.RankingTabLayoutFragment"
         android:label="fragment_ranking_tab_layout"
@@ -154,9 +149,9 @@
     </fragment>
     <fragment
         android:id="@+id/TTwentyRankingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.ranking.TTwentyRankingFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.ranking.RankingFragment"
         android:label="fragment_t_twenty_ranking"
-        tools:layout="@layout/fragment_t_twenty_ranking" >
+        tools:layout="@layout/fragment_ranking" >
         <argument
             android:name="rankingList"
             app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"

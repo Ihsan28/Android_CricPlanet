@@ -33,6 +33,7 @@ class MatchScorecardFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerViewBatting.setHasFixedSize(true)
 
+
         args?.let {
             //get match
             match = it.match

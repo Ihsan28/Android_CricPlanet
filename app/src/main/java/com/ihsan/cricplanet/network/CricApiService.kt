@@ -20,10 +20,10 @@ val client = OkHttpClient.Builder()
     .writeTimeout(30, TimeUnit.SECONDS) // set write timeout to 30 seconds
     .build()
 private val retrofit = Retrofit
-        .Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
-        .client(client)
-        .build()
+    .Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
+    .client(client)
+    .build()
 
 interface CricApiService {
     @GET(Constant.rankings)
@@ -65,8 +65,10 @@ interface CricApiService {
         @Query(Constant.fieldsPlayer) fields: String,
         @Query(Constant.api_token) api_token: String
     ): ResponsePlayerCard
+
     @GET(Constant.league)
     suspend fun getLeaguesResponse(
+        @Query(Constant.include) include: String,
         @Query(Constant.api_token) api_token: String
     ): ResponseLeagues
 }

@@ -1,7 +1,7 @@
 package com.ihsan.cricplanet.model.responseapi
 
-import com.ihsan.cricplanet.model.League
+import com.ihsan.cricplanet.model.LeagueIncludeSeasons
 
 data class ResponseLeagues(
-    val `data`: List<League>
+    val `data`: List<LeagueIncludeSeasons>
 )

@@ -32,9 +32,9 @@ data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) 
             .inflate(R.layout.match_squad_grid_item, parent, false)
         val player=items[position]
         val playerName = view.findViewById<TextView>(R.id.left_player)
-        val playerAge = view.findViewById<TextView>(R.id.player_age)
+        val playerAge = view.findViewById<TextView>(R.id.league_type)
         val playerPosition = view.findViewById<TextView>(R.id.player_position)
-        val playerImage=view.findViewById<ImageView>(R.id.player_image)
+        val playerImage=view.findViewById<ImageView>(R.id.league_image)
 
         playerName.text = player.fullname
         playerPosition.text= player.position?.name

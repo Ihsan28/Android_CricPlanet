@@ -41,6 +41,5 @@ class RankingTabLayoutFragment : Fragment() {
                 tab.text = TabRankingAdapter.rankingListTab[position].category
             }.attach()
         }
-
     }
 }

@@ -147,16 +147,10 @@
         android:id="@+id/rankingTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.RankingTabLayoutFragment"
         android:label="fragment_ranking_tab_layout"
-        tools:layout="@layout/fragment_ranking_tab_layout" />
-    <fragment
-        android:id="@+id/ODIRankingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.ranking.ODIRankingFragment"
-        android:label="fragment_o_d_i_ranking"
-        tools:layout="@layout/fragment_o_d_i_ranking" >
-        <argument
-            android:name="rankingList"
-            app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"
-            app:nullable="true" />
+        tools:layout="@layout/fragment_ranking_tab_layout" >
+        <action
+            android:id="@+id/action_rankingTabLayoutFragment_to_TTwentyRankingFragment"
+            app:destination="@id/TTwentyRankingFragment" />
     </fragment>
     <fragment
         android:id="@+id/TTwentyRankingFragment"
@@ -167,15 +161,10 @@
             android:name="rankingList"
             app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"
             app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/testRankingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.ranking.TestRankingFragment"
-        android:label="fragment_test_ranking"
-        tools:layout="@layout/fragment_test_ranking" >
         <argument
-            android:name="rankingList"
-            app:argType="com.ihsan.cricplanet.model.team.GlobalTeamRankingList"
-            app:nullable="true" />
+            android:name="category"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
     </fragment>
 </navigation>

@@ -16,9 +16,9 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
     RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
     class PlayerViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
-        val playerName: TextView = itemView.findViewById(R.id.player_name)
-        val playerAge: TextView = itemView.findViewById(R.id.player_age)
-        val playerImage: ImageView = itemView.findViewById(R.id.player_image)
+        val playerName: TextView = itemView.findViewById(R.id.league_name)
+        val playerAge: TextView = itemView.findViewById(R.id.league_type)
+        val playerImage: ImageView = itemView.findViewById(R.id.league_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {

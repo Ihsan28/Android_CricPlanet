@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ihsan.cricplanet.model.League
+import com.ihsan.cricplanet.model.LeagueIncludeSeasons
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
@@ -44,10 +45,12 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //Player LiveData Holder
     private val _player = MutableLiveData<List<PlayerCard>>()
     val player: LiveData<List<PlayerCard>> = _player
+    //team LiveData Holder
     private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
     val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
-    private val _league = MutableLiveData<List<League>>()
-    val league: LiveData<List<League>> = _league
+    //league LiveData Holder
+    private val _league = MutableLiveData<List<LeagueIncludeSeasons>>()
+    val league: LiveData<List<LeagueIncludeSeasons>> = _league
 
     init {
         //Getting dao instance

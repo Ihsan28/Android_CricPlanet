@@ -31,14 +31,13 @@ class SeriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.recyclerviewLeague
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
 
         viewModel.getLeagueApi()
         viewModel.league.observe(viewLifecycleOwner) {
             Log.d("cricleague", "onViewCreated league: $it")
-            recyclerView.adapter = LeagueAdapter(it)
+            recyclerView.adapter = LeagueAdapter(it,requireActivity())
         }
     }
 }

@@ -8,9 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.model.team.GlobalTeamRankingList
-import com.ihsan.cricplanet.ui.fragment.ranking.ODIRankingFragment
 import com.ihsan.cricplanet.ui.fragment.ranking.TTwentyRankingFragment
-import com.ihsan.cricplanet.ui.fragment.ranking.TestRankingFragment
 
 class TabRankingAdapter(
     manager: FragmentManager,
@@ -20,8 +18,8 @@ class TabRankingAdapter(
     companion object {
         val rankingListTab = listOf(
             Tab(TTwentyRankingFragment(), "T20"),
-            Tab(ODIRankingFragment(), "ODI"),
-            Tab(TestRankingFragment(), "TEST")
+            Tab(TTwentyRankingFragment(), "ODI"),
+            Tab(TTwentyRankingFragment(), "TEST")
         )
     }
 
@@ -31,6 +29,8 @@ class TabRankingAdapter(
 
     private fun addBundle(
         fragment: Fragment,
+        keyCategory: String,
+        categoryValue: String,
         key: String,
         value: List<GlobalTeamRanking>
     ): Fragment {
@@ -44,15 +44,16 @@ class TabRankingAdapter(
         ))
         val bundle = Bundle()
         bundle.putParcelable(key, valueList)
+        bundle.putString(keyCategory, categoryValue)
         fragment.arguments = bundle
         return fragment
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> addBundle(rankingListTab[position].fragment, "rankingList", ranking)
-            1 -> addBundle(rankingListTab[position].fragment, "rankingList", ranking)
-            else -> addBundle(rankingListTab[position].fragment, "rankingList", ranking)
+            0 -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
+            1 -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
+            else -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
         }
     }
 }

@@ -5,6 +5,3 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GlobalTeamRankingList(val ranking:List<GlobalTeamRanking>?):Parcelable
-{
-    constructor():this(null)
-}

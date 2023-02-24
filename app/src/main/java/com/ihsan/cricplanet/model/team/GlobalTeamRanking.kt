@@ -14,15 +14,3 @@ data class GlobalTeamRanking(
     val type: String?,
     val updated_at: String?
 ):Parcelable
-{
-    constructor():this(
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-    )
-}

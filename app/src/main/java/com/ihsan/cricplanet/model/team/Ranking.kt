@@ -10,11 +10,3 @@ data class Ranking(
     val position: Int?,
     val rating: Int?
 ):Parcelable
-{
-    constructor():this(
-        null,
-        null,
-        null,
-        null,
-    )
-}

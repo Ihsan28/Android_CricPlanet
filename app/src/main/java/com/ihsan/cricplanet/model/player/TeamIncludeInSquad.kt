@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Team(
+data class TeamIncludeInSquad(
     val code: String?,
     val country_id: Int?,
     val id: Int,
@@ -15,16 +15,3 @@ data class Team(
     val resource: String?,
     val updated_at: String?
 ): Parcelable
-{
-    constructor():this(
-        null,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-    )
-}

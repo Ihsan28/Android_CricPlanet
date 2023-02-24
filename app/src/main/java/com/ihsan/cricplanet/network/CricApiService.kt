@@ -19,6 +19,7 @@ val client = OkHttpClient.Builder()
     .readTimeout(30, TimeUnit.SECONDS) // set read timeout to 30 seconds
     .writeTimeout(30, TimeUnit.SECONDS) // set write timeout to 30 seconds
     .build()
+
 private val retrofit = Retrofit
     .Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(BASE_URL)
@@ -66,7 +67,7 @@ interface CricApiService {
         @Query(Constant.api_token) api_token: String
     ): ResponsePlayerCard
 
-    @GET("players/{id}")
+    @GET("${Constant.players}/{id}")
     suspend fun getPlayerByIdResponse(
         @Path("id") id: Int,
         @Query(Constant.include) include: String,
@@ -78,6 +79,19 @@ interface CricApiService {
         @Query(Constant.include) include: String,
         @Query(Constant.api_token) api_token: String
     ): ResponseLeagues
+
+    @GET("${Constant.league}/{id}")
+    suspend fun getLeagueByIdResponse(
+        @Path("id") id: Int,
+        @Query(Constant.include) include: String,
+        @Query(Constant.api_token) apiToken: String
+    ): ResponseLeagueById
+    @GET("${Constant.league}/{id}")
+    suspend fun getSeasonByIdResponse(
+        @Path("id") id: Int,
+        @Query(Constant.include) include: String,
+        @Query(Constant.api_token) apiToken: String
+    ): ResponseSeasonById
 }
 
 object CricApi {

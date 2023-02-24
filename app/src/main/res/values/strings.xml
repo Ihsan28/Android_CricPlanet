@@ -24,4 +24,6 @@
     <string name="ranking">Ranking</string>
     <string name="type">type</string>
     <string name="country">country</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
 </resources>

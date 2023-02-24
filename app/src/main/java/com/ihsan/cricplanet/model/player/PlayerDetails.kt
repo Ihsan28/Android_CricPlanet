@@ -11,7 +11,7 @@ data class PlayerDetails(
     val career: List<Career>?,
     val country: Country?,
     val country_id: Int?,
-    val currentteams: List<Team>?,
+    val currentteams: List<TeamIncludeInSquad>?,
     val dateofbirth: String?,
     val firstname: String?,
     val fullname: String?,
@@ -21,7 +21,7 @@ data class PlayerDetails(
     val lastname: String?,
     val position: Position?,
     val resource: String?,
-    val teams: List<Team>?,
+    val teams: List<TeamIncludeInSquad>?,
     val updated_at: String?
 ):Parcelable
 {

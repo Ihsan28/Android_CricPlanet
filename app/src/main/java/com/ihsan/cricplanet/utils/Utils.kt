@@ -136,7 +136,7 @@ class Utils {
         val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
         val date = apiFormat.parse(dateString)
-        return "${targetFormat.format(date)} (${getPlayerAge(dateString)})"
+        return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
     }
 
     fun timeAgoConverter(timestamp: String): String {

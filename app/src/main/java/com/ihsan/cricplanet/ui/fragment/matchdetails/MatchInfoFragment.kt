@@ -49,7 +49,6 @@ class MatchInfoFragment() : Fragment() {
                 keyValueList.add(GridItem("Location", match?.venue?.city ?:" Not Found"))
                 //working
                 gridView.adapter= MatchInfoGridAdapter(requireContext(),keyValueList)
-                Toast.makeText(requireContext(), match.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }

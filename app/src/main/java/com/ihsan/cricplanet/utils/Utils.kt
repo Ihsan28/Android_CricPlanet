@@ -132,6 +132,13 @@ class Utils {
         return arrayDateTime
     }
 
+    fun getPlayerBorn(dateString: String): String {
+        val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+        val date = apiFormat.parse(dateString)
+        return "${targetFormat.format(date)} (${getPlayerAge(dateString)})"
+    }
+
     fun timeAgoConverter(timestamp: String): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
         val date = dateFormat.parse(timestamp)

@@ -27,12 +27,8 @@ class MatchInfoGridAdapter (val context: Context, val items: List<GridItem>) : B
         val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.match_info_grid_item, parent, false)
         val player=items[position]
 
-        val keyTextView = view.findViewById<TextView>(R.id.row_index_key)
-        keyTextView.text = player.key
-
-        val valueTextView = view.findViewById<TextView>(R.id.row_index_value)
-        valueTextView.text = player.value
-
+        view.findViewById<TextView>(R.id.row_index_key).text = player.key
+        view.findViewById<TextView>(R.id.row_index_value).text = player.value
         return view
     }
 }

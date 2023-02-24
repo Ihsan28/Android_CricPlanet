@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top|center_horizontal"
+    android:orientation="vertical"
     tools:context=".ui.fragment.playerdetails.PlayerBattingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/match_information"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:ignore="RtlHardcoded" />
 
-</FrameLayout>
+    <GridView
+        android:id="@+id/player_batting_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="1"
+        android:padding="10dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
+
+</LinearLayout>

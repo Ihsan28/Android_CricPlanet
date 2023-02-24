@@ -33,8 +33,6 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
         arguments.let {
             if (it != null) {
                 playerId = it.getInt("playerId")
-
-                Toast.makeText(requireActivity(), playerId.toString(), Toast.LENGTH_SHORT).show()
             }
             viewmodel.getPlayersByIdApi(playerId)
             viewmodel.playerDetails.observe(viewLifecycleOwner) { player ->
@@ -54,10 +52,8 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = TabPlayerAdapter.listPlayerDetailTab[position].category
                 }.attach()
-
             }
 
         }
-
     }
 }

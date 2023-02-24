@@ -36,6 +36,10 @@ class PlayerInfoFragment : Fragment() {
             if (player!=null){
                 Log.d("cricPlayerInfo", "onViewCreated: ${player.id}")
                 keyValueList.add(GridItem("Born", "${player.dateofbirth?.let { it1 -> utils.getPlayerBorn(it1) }}"))
+                keyValueList.add(GridItem("Role", player.position?.name.toString()))
+                keyValueList.add(GridItem("Batting Style", player.battingstyle.toString()))
+                keyValueList.add(GridItem("Bowling Style", player.bowlingstyle.toString()))
+                keyValueList.add(GridItem("Bowling Style", player.bowlingstyle.toString()))
 
             }
 

@@ -1,27 +1,30 @@
 package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
-import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import android.content.Context
+
 
 class Utils {
 
@@ -35,19 +38,37 @@ class Utils {
     }
 
     fun showStyledSnackbar(view: View, text: String?) {
-        var showText=""
-        if (text!=null){
-            showText=text
+        var showText = ""
+        if (text != null) {
+            showText = text
         }
         val snackbar = Snackbar.make(view, showText, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
         snackbarView.setBackgroundColor(Color.parseColor("#3F51B5"))
-        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val textView =
+            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(Color.WHITE)
         textView.textSize = 20f
         textView.setTypeface(null, Typeface.BOLD)
         snackbar.show()
     }
+
+    fun progressAnimation(context:Context): Dialog {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.progress_bar)
+        dialog.setCancelable(false)
+
+        val progressBar = dialog.findViewById<ProgressBar>(R.id.progress_bar)
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window?.attributes)
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        progressBar.layoutParams=lp
+        return dialog
+    }
+
     fun upcomingYearDuration(): String {
 
         // Get the current date and time
@@ -263,10 +284,10 @@ class Utils {
         localTeamImage: ImageView,
         localTeamRun: TextView,
         localTeamOver: TextView,
-        visitorTeamName:TextView,
-        visitorTeamImage:ImageView,
-        visitorTeamRun:TextView,
-        visitorTeamOver:TextView
+        visitorTeamName: TextView,
+        visitorTeamImage: ImageView,
+        visitorTeamRun: TextView,
+        visitorTeamOver: TextView
     ) {
         if (runs?.size != 0 && runs != null) {
             localTeamName.text = runs[0].team?.name

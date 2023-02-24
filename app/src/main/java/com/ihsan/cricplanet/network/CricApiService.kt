@@ -66,6 +66,13 @@ interface CricApiService {
         @Query(Constant.api_token) api_token: String
     ): ResponsePlayerCard
 
+    @GET("players/{id}")
+    suspend fun getPlayerByIdResponse(
+        @Path("id") id: Int,
+        @Query(Constant.include) include: String,
+        @Query(Constant.api_token) apiToken: String
+    ): ResponsePlayerCardDetails
+
     @GET(Constant.league)
     suspend fun getLeaguesResponse(
         @Query(Constant.include) include: String,

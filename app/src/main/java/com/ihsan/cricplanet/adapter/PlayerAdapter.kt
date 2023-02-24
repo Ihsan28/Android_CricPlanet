@@ -1,12 +1,14 @@
 package com.ihsan.cricplanet.adapter
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.player.PlayerCard
@@ -44,10 +46,10 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
 
         holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${player.id}")
-            //crash issue
-            /* Navigation.findNavController(holder.itemView)
-                 .navigate(R.id.action_matchTabLayoutFragment_to_matchDetailTabLayoutFragment,
-                     Bundle().apply { putInt("matchId", player.id) })*/
+            //Navigating adapter to player details
+             Navigation.findNavController(holder.itemView)
+                 .navigate(R.id.action_playerFragment_to_playerDetailsTabLayoutFragment,
+                     Bundle().apply { putInt("playerId", player.id) })
         }
     }
 }

@@ -25,13 +25,9 @@ class TabMatchDetailAdapter(
             Tab(MatchScorecardFragment(), "SCORECARD")
         )
     }
-    init {
-        Log.d("cricTabMatchDetailAdapter", "createFragment: ${match.id}")
-
-    }
 
     override fun getItemCount(): Int {
-        return 3
+        return listMatchDetailTab.size
     }
 
     private fun addBundle(fragment: Fragment, key:String, value: FixtureByIdWithDetails): Fragment {

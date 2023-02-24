@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager
 import com.ihsan.cricplanet.adapter.LiveMatchSliderAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.databinding.FragmentHomeBinding
+import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import me.relex.circleindicator.CircleIndicator
 
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //Live Card Slider
         val viewPager = binding.viewpager
         //Live Api Call
@@ -81,6 +83,7 @@ class HomeFragment : Fragment() {
         viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
             Log.d("cricTeam", "onViewCreated MatchFixture: $it")
             recyclerViewRecent.adapter = MatchAdapterHome(it)
+
         }
     }
 

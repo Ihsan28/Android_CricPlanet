@@ -13,6 +13,7 @@ import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.player.PlayerCard
+import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
@@ -45,6 +46,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //Player LiveData Holder
     private val _player = MutableLiveData<List<PlayerCard>>()
     val player: LiveData<List<PlayerCard>> = _player
+    private val _playerDetails = MutableLiveData<PlayerDetails>()
+    val playerDetails: LiveData<PlayerDetails> = _playerDetails
     //team LiveData Holder
     private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
     val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
@@ -179,6 +182,19 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
                 } catch (e: Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
+                }
+            }
+        }
+    }
+
+    fun getPlayersByIdApi(Id: Int) {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    _playerDetails.value = repository.getPlayersByIdApi(Id)
+                    Log.d("cricViewModel", "viewModel Api getPlayersById: ${fixtureByIdWithDetails.value?.id}")
+                } catch (e: java.lang.Exception) {
+                    Log.d("cricViewModelCatch", "viewModel Api getPlayersById: $e")
                 }
             }
         }

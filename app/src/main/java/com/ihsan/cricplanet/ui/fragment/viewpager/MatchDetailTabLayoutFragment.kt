@@ -35,7 +35,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
-        val viewPage = binding.viewPager2MatchDetails
+        val viewPager = binding.viewPager2MatchDetails
         val fixtureName = view.findViewById<TextView>(R.id.fixture_name)
         val fixtureStatus = view.findViewById<TextView>(R.id.fixture_status)
         val localTeamName = view.findViewById<TextView>(R.id.local_team_name)
@@ -57,11 +57,12 @@ class MatchDetailTabLayoutFragment : Fragment() {
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { it1 ->
                 val tabMatchDetailAdapter =
                     TabMatchDetailAdapter(childFragmentManager, lifecycle, it1)
-                viewPage.adapter = tabMatchDetailAdapter
-                TabLayoutMediator(tabLayout, viewPage) { tab, position ->
+                viewPager.adapter = tabMatchDetailAdapter
+                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
 
+                //Assigning value of all view fields of top
                 fixtureName.text = it1.league?.name
                 Utils().also { it2 ->
                     it2.setStatus(it1.status, fixtureStatus)

@@ -22,4 +22,6 @@
     <string name="series">Series</string>
     <string name="players">Players</string>
     <string name="ranking">Ranking</string>
+    <string name="type">type</string>
+    <string name="country">country</string>
 </resources>

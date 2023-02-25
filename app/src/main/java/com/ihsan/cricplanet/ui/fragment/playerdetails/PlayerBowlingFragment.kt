@@ -15,6 +15,7 @@ import com.ihsan.cricplanet.model.PlayerGridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.utils.Utils
 
+@Suppress("DEPRECATION")
 class PlayerBowlingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBowlingBinding
     private var keyValueList = mutableListOf<PlayerGridItem>()
@@ -30,25 +31,26 @@ class PlayerBowlingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val player: PlayerDetails
+        val player: PlayerDetails?
         val gridView = binding.playerBowlingGridView
-        args.let {
-            player=it.player!!
-            if (player!=null){
-                Log.d("cricPlayerInfo", "onViewCreated: ${player.id}")
-                val test= player.career?.get(0)?.bowling
-                val t20= player.career?.get(1)?.bowling
-                val odi= player.career?.get(2)?.bowling
-                val league= player.career?.get(3)?.bowling
+        arguments.let {
+            if (it != null) {
+                player=it.getParcelable("player")
+                Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
+                val test= player?.career?.get(0)?.bowling
+                val t20= player?.career?.get(1)?.bowling
+                val odi= player?.career?.get(2)?.bowling
+                val league= player?.career?.get(3)?.bowling
+                val ut=Utils()
                 keyValueList.add(PlayerGridItem("Matches", (test?.matches ?:0).toString(),(t20?.matches ?:0).toString(),(odi?.matches ?:0).toString(),(league?.matches ?:0).toString() ))
                 keyValueList.add(PlayerGridItem("Innings", (test?.innings ?:0).toString(),(t20?.innings ?:0).toString(),(odi?.innings ?:0).toString(),(league?.innings ?:0).toString()))
                 keyValueList.add(PlayerGridItem("Runs", (test?.runs ?:0).toString(),(t20?.runs ?:0).toString(),(odi?.runs ?:0).toString(),(league?.runs ?:0).toString()))
                 keyValueList.add(PlayerGridItem("Overs", (test?.overs ?:0).toString(),(t20?.overs ?:0).toString(),(odi?.overs ?:0).toString(),(league?.overs ?:0).toString()))
-                keyValueList.add(PlayerGridItem("Eco", (test?.econ_rate ?:0).toString(),(t20?.econ_rate ?:0).toString(),(odi?.econ_rate ?:0).toString(),(league?.econ_rate ?:0).toString()))
-                keyValueList.add(PlayerGridItem("SR", (test?.strike_rate ?:0).toString(),(t20?.strike_rate ?:0).toString(),(odi?.strike_rate ?:0).toString(),(league?.strike_rate ?:0).toString()))
-                keyValueList.add(PlayerGridItem("Rate", (test?.rate ?:0).toString(),(t20?.rate ?:0).toString(),(odi?.rate ?:0).toString(),(league?.rate ?:0).toString()))
+                keyValueList.add(PlayerGridItem("Eco", ut.twoDecimal(test?.econ_rate),ut.twoDecimal(t20?.econ_rate),ut.twoDecimal(odi?.econ_rate),ut.twoDecimal(league?.econ_rate)))
+                keyValueList.add(PlayerGridItem("SR", ut.twoDecimal(test?.strike_rate),ut.twoDecimal(t20?.strike_rate),ut.twoDecimal(odi?.strike_rate),ut.twoDecimal(league?.strike_rate)))
+                keyValueList.add(PlayerGridItem("Rate", ut.twoDecimal(test?.rate),ut.twoDecimal(t20?.rate),ut.twoDecimal(odi?.rate),ut.twoDecimal(league?.rate)))
                 keyValueList.add(PlayerGridItem("Maidens", (test?.medians ?:0).toString(),(t20?.medians ?:0).toString(),(odi?.medians ?:0).toString(),(league?.medians ?:0).toString()))
-                keyValueList.add(PlayerGridItem("Average", (test?.average ?:0).toString(),(t20?.average ?:0).toString(),(odi?.average ?:0).toString(),(league?.average ?:0).toString()))
+                keyValueList.add(PlayerGridItem("Average", ut.twoDecimal(test?.average),ut.twoDecimal(t20?.average),ut.twoDecimal(odi?.average),ut.twoDecimal(league?.average)))
                 keyValueList.add(PlayerGridItem("Wickets", (test?.wickets ?:0).toString(),(t20?.wickets ?:0).toString(),(odi?.wickets ?:0).toString(),(league?.wickets ?:0).toString()))
                 keyValueList.add(PlayerGridItem("Wide", (test?.wide ?:0).toString(),(t20?.wide ?:0).toString(),(odi?.wide ?:0).toString(),(league?.wide ?:0).toString()))
                 keyValueList.add(PlayerGridItem("No Ball", (test?.noball ?:0).toString(),(t20?.noball ?:0).toString(),(odi?.noball ?:0).toString(),(league?.noball ?:0).toString()))

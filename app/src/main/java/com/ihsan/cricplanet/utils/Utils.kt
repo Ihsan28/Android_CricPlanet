@@ -28,30 +28,6 @@ import android.content.Context
 
 class Utils {
 
-    fun snackBar(parentLayout: View) {
-        val snackbar = Snackbar.make(parentLayout, "Not available right now", Snackbar.LENGTH_LONG)
-        snackbar.setTextColor(ContextCompat.getColor(MyApplication.instance, R.color.white))
-        snackbar.setBackgroundTint(ContextCompat.getColor(MyApplication.instance, R.color.teal_700))
-        snackbar.setActionTextColor(ContextCompat.getColor(MyApplication.instance, R.color.white))
-        snackbar.setAction("Dismiss") { snackbar.dismiss() }
-        snackbar.show()
-    }
-
-    fun showStyledSnackbar(view: View, text: String?) {
-        var showText = ""
-        if (text != null) {
-            showText = text
-        }
-        val snackbar = Snackbar.make(view, showText, Snackbar.LENGTH_LONG)
-        val snackbarView = snackbar.view
-        snackbarView.setBackgroundColor(Color.parseColor("#3F51B5"))
-        val textView =
-            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.setTextColor(Color.WHITE)
-        textView.textSize = 20f
-        textView.setTypeface(null, Typeface.BOLD)
-        snackbar.show()
-    }
 
     fun progressAnimation(context:Context): Dialog {
         val dialog = Dialog(context)
@@ -67,6 +43,10 @@ class Utils {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         progressBar.layoutParams=lp
         return dialog
+    }
+
+    fun twoDecimal(number:Double?):String{
+        return String.format("%.2f", number)
     }
 
     fun upcomingYearDuration(): String {

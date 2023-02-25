@@ -47,7 +47,8 @@ class MatchInfoFragment() : Fragment() {
                 keyValueList.add(GridItem("Venue",match?.venue?.name ?:"Not Found"))
                 keyValueList.add(GridItem("Capacity",match?.venue?.capacity.toString()))
                 keyValueList.add(GridItem("Location", match?.venue?.city ?:" Not Found"))
-                //working
+
+                //Grid adapter call for table
                 gridView.adapter= MatchInfoGridAdapter(requireContext(),keyValueList)
             }
         }

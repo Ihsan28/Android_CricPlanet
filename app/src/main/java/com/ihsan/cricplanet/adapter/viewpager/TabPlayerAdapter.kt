@@ -1,6 +1,7 @@
 package com.ihsan.cricplanet.adapter.viewpager
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -28,7 +29,8 @@ class TabPlayerAdapter(
 
     private fun addBundle(fragment: Fragment, key: String, value: PlayerDetails): Fragment {
         val bundle = Bundle()
-        bundle.putParcelable(key, value)
+        Log.d("cricTabPlayerAdapter", "cricTabPlayerAdapterAddBundle: ${player.fullname}")
+        bundle.putParcelable("player", player)
         fragment.arguments = bundle
         return fragment
     }
@@ -38,9 +40,11 @@ class TabPlayerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
+        Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: ${position}")
         return when (position) {
             0 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
             1 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
+            2 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
             else -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
         }
     }

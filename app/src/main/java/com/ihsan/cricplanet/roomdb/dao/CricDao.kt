@@ -5,13 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.ihsan.cricplanet.model.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.Team
 
 @Dao
 interface CricDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun storeTeams(team: List<Team>)
+    suspend fun storeSeason(team: List<SeasonByIdIncludeLeagueTable>)
 
-    @Query("SELECT * FROM team")
-    fun readTeams(): LiveData<List<Team>>
+    @Query("SELECT * FROM season")
+    fun readSeason(): LiveData<List<SeasonByIdIncludeLeagueTable>>
+    @Query("SELECT * FROM season WHERE id = :id")
+    fun readSeasonById(id:Int): LiveData<SeasonByIdIncludeLeagueTable>
 }

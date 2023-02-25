@@ -36,6 +36,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
+
         val fixtureName = view.findViewById<TextView>(R.id.fixture_name)
         val fixtureStatus = view.findViewById<TextView>(R.id.fixture_status)
         val localTeamName = view.findViewById<TextView>(R.id.local_team_name)

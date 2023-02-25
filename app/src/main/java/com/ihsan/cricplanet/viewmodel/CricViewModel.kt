@@ -6,9 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.LeagueIncludeSeasons
 import com.ihsan.cricplanet.model.SeasonByIdIncludeLeague
+import com.ihsan.cricplanet.model.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
@@ -18,6 +18,7 @@ import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
+import com.ihsan.cricplanet.roomdb.data.DataConverter
 import com.ihsan.cricplanet.roomdb.db.CricPlanetDatabase
 import kotlinx.coroutines.*
 import retrofit2.HttpException
@@ -30,7 +31,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //Dao Initialize
     private var CricDao: CricDao
 
-    val getTeamsDB: LiveData<List<Team>>
+    val getSeasonDB: LiveData<List<SeasonByIdIncludeLeagueTable>>
+
     //Fixtures LiveData Holder
     private val _upcomingMatchFixture = MutableLiveData<List<FixtureIncludeForCard>>()
     val upcomingMatchFixture: LiveData<List<FixtureIncludeForCard>> = _upcomingMatchFixture
@@ -66,19 +68,39 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         CricDao = CricPlanetDatabase.getDatabase(application).CricDao()
         //Assigning dao object to repository instance
         repository = CricRepository(CricDao)
-        getTeamsDB = repository.readTeams()
+        getSeasonDB = repository.readSeason()
+        getUpdateSeasonApi()
     }
 
-    suspend fun storeLocal(apiTeamList: List<Team>?) {
-        if (apiTeamList == null) {
-            Log.d("teamApi", "TeamApi Size null return: null")
+    //RoomDB Call
+    suspend fun storeSeasonLocal(listSeason: List<SeasonByIdIncludeLeague>?) {
+        if (listSeason == null) {
+            Log.d("cricStoreLocalApi", "SeasonApi Size null return: null")
             return
         }
-        Log.d("teamApi", "Team Size: ${apiTeamList.size}")
-        repository.storeTeamsLocal(apiTeamList)
+        Log.d("teamApi", "Team Size: ${listSeason.size}")
+        repository.storeSeasonLocal(DataConverter().getSeasonTable(listSeason))
     }
 
-    //there was dispacther.IO
+
+
+    fun getSeasonByIdLocal(id:Int): LiveData<SeasonByIdIncludeLeagueTable> {
+        return repository.readSeasonById(id)
+    }
+
+
+    //Api Call
+    private fun getUpdateSeasonApi() {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    storeSeasonLocal(repository.getSeasonApi())
+                } catch (e: java.lang.Exception) {
+                    Log.d("cricViewModel", "getUpdateSeasonApi: $e")
+                }
+            }
+        }
+    }
     fun getTeamRanking() {
         GlobalScope.launch {
             viewModelScope.launch{
@@ -180,10 +202,6 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _player.value = repository.getPlayersApi()
-                    Log.d(
-                        "cricViewModel",
-                        "viewModel Api getPlayerCard: ${recentMatchFixture.value?.size}"
-                    )
                 } catch (e: HttpException) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayerCard: $e")
                 } catch (e: Exception) {
@@ -231,18 +249,6 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                     Log.d("cricViewModel", "viewModel Api getLeagueById: ${leagueById.value?.id}")
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getLeagueById: $e")
-                }
-            }
-        }
-    }
-    fun getSeasonByIdApi(Id: Int) {
-        GlobalScope.launch {
-            viewModelScope.launch {
-                try {
-                    _seasonById.value = repository.getSeasonByIdApi(Id)
-                    Log.d("cricViewModel", "viewModel Api getSeasonById: ${seasonById.value?.id}")
-                } catch (e: java.lang.Exception) {
-                    Log.d("cricViewModelCatch", "viewModel Api getSeasonById: $e")
                 }
             }
         }

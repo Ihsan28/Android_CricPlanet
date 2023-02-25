@@ -13,10 +13,10 @@ import com.ihsan.cricplanet.model.GridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.utils.Utils
 
+@Suppress("DEPRECATION")
 class PlayerInfoFragment : Fragment() {
     private lateinit var binding: FragmentPlayerInfoBinding
     var keyValueList = mutableListOf<GridItem>()
-    private val args: PlayerInfoFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,23 +28,23 @@ class PlayerInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val player:PlayerDetails
+        val player:PlayerDetails?
+        val utils=Utils()
         val gridView = binding.playerInfoGridView
-        args.let {
-            val utils=Utils()
-            player=it.player!!
-            if (player!=null){
-                Log.d("cricPlayerInfo", "onViewCreated: ${player.id}")
-                keyValueList.add(GridItem("Born", "${player.dateofbirth?.let { it1 -> utils.getPlayerBorn(it1) }}"))
-                keyValueList.add(GridItem("Role", player.position?.name.toString()))
-                keyValueList.add(GridItem("Batting Style", player.battingstyle.toString()))
-                keyValueList.add(GridItem("Bowling Style", player.bowlingstyle.toString()))
-                keyValueList.add(GridItem("Bowling Style", player.bowlingstyle.toString()))
+        arguments.let {
+            if (it != null) {
+                player=it.getParcelable("player")
+                Log.d("cricPlayerInfo", "onViewCreated: ${player?.fullname}")
+                keyValueList.add(GridItem("Born", "${player?.dateofbirth?.let { it1 -> utils.getPlayerBorn(it1) }}"))
+                keyValueList.add(GridItem("Role", player?.position?.name.toString()))
+                keyValueList.add(GridItem("Name", player?.fullname.toString()))
+                keyValueList.add(GridItem("Batting Style", player?.battingstyle.toString()))
+                keyValueList.add(GridItem("Bowling Style", player?.bowlingstyle.toString()))
+                keyValueList.add(GridItem("Bowling Style", player?.bowlingstyle.toString()))
 
+                //Grid adapter call for table
+                gridView.adapter = MatchInfoGridAdapter(requireContext(), keyValueList)
             }
-
-            //working
-            gridView.adapter = MatchInfoGridAdapter(requireContext(), keyValueList)
         }
     }
 

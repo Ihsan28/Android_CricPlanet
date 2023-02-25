@@ -16,6 +16,11 @@ class Constant {
         const val players = "players"
         const val liveScores = "livescores"
         const val rankings = "team-rankings"
+        const val countries = "countries"
+        const val continents = "continents"
+        const val teams = "teams"
+        const val league = "leagues"
+        const val season = "seasons"
 
         //Query Parameters
         const val include = "include"
@@ -35,10 +40,7 @@ class Constant {
         const val filterByVenue = "filter[venue_id]"
         const val filterDate = "filter[starts_between]"
 
-        const val countries = "countries"
-        const val continents = "continents"
-        const val teams = "teams"
-        const val league = "leagues"
+
         const val teamWithSquad = "teams/:TEAM_ID/squad/:SEASON_ID?include=career"
 
         //Fixture Include

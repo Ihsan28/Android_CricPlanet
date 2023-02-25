@@ -21,3 +21,22 @@ data class Bowling(
     val wickets: Int?,
     val wide: Int?
 ): Parcelable
+{
+    constructor():this(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    )
+}

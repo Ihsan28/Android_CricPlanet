@@ -2,9 +2,7 @@ package com.ihsan.cricplanet.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.ihsan.cricplanet.model.LeagueIncludeSeasons
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeague
-import com.ihsan.cricplanet.model.Team
+import com.ihsan.cricplanet.model.*
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
@@ -17,12 +15,16 @@ import com.ihsan.cricplanet.utils.Constant
 import com.ihsan.cricplanet.utils.Utils
 
 class CricRepository(private val cricDao: CricDao) {
-    fun readTeams(): LiveData<List<Team>> {
-        return cricDao.readTeams()
+
+    fun readSeason(): LiveData<List<SeasonByIdIncludeLeagueTable>> {
+        return cricDao.readSeason()
+    }
+    fun readSeasonById(id:Int): LiveData<SeasonByIdIncludeLeagueTable> {
+        return cricDao.readSeasonById(id)
     }
 
-    suspend fun storeTeamsLocal(team: List<Team>) {
-        return cricDao.storeTeams(team)
+    suspend fun storeSeasonLocal(season: List<SeasonByIdIncludeLeagueTable>) {
+        return cricDao.storeSeason(season)
     }
 
     suspend fun getTeamRankingApi(): List<GlobalTeamRanking> {
@@ -107,9 +109,8 @@ class CricRepository(private val cricDao: CricDao) {
             Constant.API_KEY
         ).data
     }
-    suspend fun getSeasonByIdApi(Id: Int):SeasonByIdIncludeLeague {
+    suspend fun getSeasonApi():List<SeasonByIdIncludeLeague> {
         return CricApi.retrofitService.getSeasonByIdResponse(
-            Id,
             "league",
             Constant.API_KEY
         ).data

@@ -8,4 +8,14 @@ data class SeasonByIdIncludeLeague(
     val name: String?,
     val resource: String?,
     val updated_at: String?
-)
+) {
+    constructor() : this(
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+    )
+}

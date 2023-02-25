@@ -26,15 +26,15 @@ class TabMatchDetailAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return listMatchDetailTab.size
-    }
-
     private fun addBundle(fragment: Fragment, key:String, value: FixtureByIdWithDetails): Fragment {
         val bundle = Bundle()
         bundle.putParcelable(key, value)
         fragment.arguments = bundle
         return fragment
+    }
+
+    override fun getItemCount(): Int {
+        return listMatchDetailTab.size
     }
 
     override fun createFragment(position: Int): Fragment {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.viewpager.TabPlayerAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerDetailsTabLayoutBinding
@@ -16,7 +17,8 @@ import com.ihsan.cricplanet.viewmodel.CricViewModel
 class PlayerDetailsTabLayoutFragment : Fragment() {
     private lateinit var binding: FragmentPlayerDetailsTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
-    private var playerId = 0
+    private val args:PlayerDetailsTabLayoutFragmentArgs by navArgs()
+    private var playerId:Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,13 +32,18 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val tabLayout = binding.tabLayoutPlayerDetails
         val viewPager = binding.viewPager2PlayerDetails
-        arguments.let {
-            if (it != null) {
-                playerId = it.getInt("playerId")
-            }
+        args.let {
+
+            playerId = it.playerId
+
             viewmodel.getPlayersByIdApi(playerId)
             viewmodel.playerDetails.observe(viewLifecycleOwner) { player ->
-                Toast.makeText(requireActivity(), player.toString(), Toast.LENGTH_SHORT).show()
+                val tabDetailPlayerAdapter = TabPlayerAdapter(childFragmentManager, lifecycle, player)
+                viewPager.adapter = tabDetailPlayerAdapter
+                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                    tab.text = TabPlayerAdapter.listPlayerDetailTab[position].category
+                }.attach()
+
                 binding.playerName.text = player.fullname
                 binding.playerCountry.text = player.country?.name ?: ""
                 Utils().also { utils ->
@@ -45,13 +52,6 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                         binding.playerImage
                     )
                 }
-
-                val tabDetailPlayerAdapter =
-                    TabPlayerAdapter(childFragmentManager, lifecycle, player)
-                viewPager.adapter = tabDetailPlayerAdapter
-                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = TabPlayerAdapter.listPlayerDetailTab[position].category
-                }.attach()
             }
 
         }

@@ -43,7 +43,7 @@ data class FixtureByIdWithDetails(
     val referee_id: Int?,
     val resource: String?,
     val round: String?,
-    val rpc_overs: Float?,
+    val rpc_overs: Double?,
     val rpc_target: Int?,
     val runs: List<RunWithTeam>?,
     val scoreboards: List<Scoreboard>?,

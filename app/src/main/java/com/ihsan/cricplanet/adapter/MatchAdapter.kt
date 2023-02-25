@@ -23,7 +23,11 @@ class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)
         val localTeamName: TextView = binding.findViewById(R.id.local_team_name)
+        val localTeamRun: TextView = binding.findViewById(R.id.local_team_run)
+        val localTeamOver: TextView = binding.findViewById(R.id.local_team_over)
         val visitorTeamName: TextView = binding.findViewById(R.id.visitor_team_name)
+        val visitorTeamRun: TextView = binding.findViewById(R.id.visitor_team_run)
+        val visitorTeamOver: TextView = binding.findViewById(R.id.visitor_team_over)
         val localTeamImage: ImageView = itemView.findViewById(R.id.local_team_image)
         val visitorTeamImage: ImageView = itemView.findViewById(R.id.visitor_team_image)
         val status: TextView = itemView.findViewById(R.id.fixture_status)
@@ -65,6 +69,14 @@ class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
             it.setStatus(match.status, holder.status)
             //set Venue or Note of the match
             it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
+            it.setRun(
+                match.runs,
+                match.localteam,
+                holder.localTeamRun,
+                holder.localTeamOver,
+                holder.visitorTeamRun,
+                holder.visitorTeamOver
+            )
         }
 
         holder.itemView.setOnClickListener {

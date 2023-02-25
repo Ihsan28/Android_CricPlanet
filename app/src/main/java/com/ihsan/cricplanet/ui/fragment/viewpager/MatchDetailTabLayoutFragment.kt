@@ -1,12 +1,15 @@
 package com.ihsan.cricplanet.ui.fragment.viewpager
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,11 +19,14 @@ import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
+@Suppress("DEPRECATION")
 class MatchDetailTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentMatchDetailTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
     private var matchId: Int = 0
+    private val liveHandler = Handler(Looper.getMainLooper())
+    private var runnable:Runnable?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,22 +61,34 @@ class MatchDetailTabLayoutFragment : Fragment() {
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
 
             //Assigning match Adapter
-            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { it1 ->
-                val tabMatchDetailAdapter =
-                    TabMatchDetailAdapter(childFragmentManager, lifecycle, it1)
+            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
+                val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
                 viewPager.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
 
                 //Assigning value of all view fields of top
-                fixtureName.text = it1.league?.name
-                Utils().also { it2 ->
-                    it2.setStatus(it1.status, fixtureStatus)
-                    it2.setRunsWithTeamName(
-                        it1.runs,
-                        it1.localteam,
-                        it1.visitorteam,
+                fixtureName.text = match.league?.name
+                Utils().also { utils ->
+                    //Automatic refresh page function call
+                    if (utils.isLive(match.status.toString())){
+                        /*stopPeriodicRefresh()
+                        runnable = object : Runnable {
+                            override fun run() {
+                                refreshPage()
+                                // 1 minute interval
+                                liveHandler.postDelayed(this, 60000)
+                            }
+                        }
+                        startPeriodicRefresh()*/
+                    }
+                    //setting status and runs
+                    utils.setStatus(match.status, fixtureStatus)
+                    utils.setRunsWithTeamName(
+                        match.runs,
+                        match.localteam,
+                        match.visitorteam,
                         localTeamName,
                         localTeamImage,
                         localTeamRun,
@@ -81,7 +99,6 @@ class MatchDetailTabLayoutFragment : Fragment() {
                         visitorTeamOver
                     )
                 }
-
             }
         }
 
@@ -89,7 +106,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
         var mBottomViewVisible = true
         val scrollView = binding.detailsMatchScrollView
         val mBottomView = binding.topInfo
-        scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             if (scrollY > oldScrollY && mBottomViewVisible) {
                 mBottomView?.animate()?.translationY(mBottomView?.height?.toFloat() ?: 0f)?.start()
                 mBottomViewVisible = true
@@ -98,5 +115,27 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 mBottomViewVisible = false
             }
         }
+    }
+    private fun refreshPage() {
+        Toast.makeText(requireActivity(), "refresh", Toast.LENGTH_SHORT).show()
+        viewmodel.getFixturesByIdApi(matchId)
+    }
+
+    fun startPeriodicRefresh() {
+        // 1 minute interval
+        runnable?.let { liveHandler.postDelayed(it, 6000) }
+    }
+
+    fun stopPeriodicRefresh() {
+        runnable?.let { liveHandler.removeCallbacks(it) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //startPeriodicRefresh()
+    }
+    override fun onPause() {
+        super.onPause()
+        //stopPeriodicRefresh()
     }
 }

@@ -4,6 +4,7 @@ import com.ihsan.cricplanet.model.League
 import com.ihsan.cricplanet.model.Season
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
+import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 
 data class FixtureIncludeForCard(
     val draw_noresult: Any?,
@@ -26,6 +27,7 @@ data class FixtureIncludeForCard(
     val round: String?,
     val rpc_overs: Any?,
     val rpc_target: Any?,
+    val runs: List<RunWithTeam>?,
     val season: Season?,
     val season_id: Int?,
     val second_umpire_id: Any?,
@@ -51,6 +53,7 @@ data class FixtureIncludeForCard(
         null,
         null,
         0,
+        null,
         null,
         null,
         null,

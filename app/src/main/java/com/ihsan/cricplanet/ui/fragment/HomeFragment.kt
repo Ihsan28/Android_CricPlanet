@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import androidx.viewpager.widget.ViewPager
 import com.ihsan.cricplanet.adapter.LiveMatchSliderAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.databinding.FragmentHomeBinding
-import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import me.relex.circleindicator.CircleIndicator
 
@@ -24,12 +22,13 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: CricViewModel by viewModels()
     private lateinit var recyclerViewToday: RecyclerView
+
+    //Auto Slide Properties
     lateinit var viewPagerAdapter: LiveMatchSliderAdapter
     lateinit var indicator: CircleIndicator
-    private val DELAY_MS: Long = 2000
     private val PERIOD_MS: Long = 4000
-    private val handler = Handler()
-    private var update: Runnable? = null
+    private val sliderHandler = Handler()
+    private var updateSlider: Runnable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,17 +48,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Live Card Slider
+        //Live Card Slider view pager
         val viewPager = binding.viewpager
+        val liveLayout = binding.liveSlider
+
         //Live Api Call
-        viewModel.getUpcomingFixturesApi()
+        viewModel.getLiveFixturesApi()
+
         //Live Observer
-        viewModel.upcomingMatchFixture.observe(viewLifecycleOwner) {
+        viewModel.liveFixture.observe(viewLifecycleOwner) {
             Log.d("cricHome", "onViewCreatedHomeSlider: $it")
             stopAutoSlide()
-            viewPagerAdapter = LiveMatchSliderAdapter(requireContext(), it.take(10) as ArrayList)
+            viewPagerAdapter = LiveMatchSliderAdapter(requireContext(), it)
             viewPager.adapter = viewPagerAdapter
-            autoSlide(viewPager)
+            if (it.size > 1) {
+                autoSlide(viewPager)
+            }
         }
 
         //Recycler view for Today
@@ -67,23 +71,27 @@ class HomeFragment : Fragment() {
         recyclerViewToday.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         recyclerViewToday.setHasFixedSize(true)
-        //Get Data From API
+
+
+        //Get Data From API for Today Fixture
         viewModel.getTodayFixturesApi()
         viewModel.todayFixture.observe(viewLifecycleOwner) {
+            //stopAutoSmoothSlide()
             Log.d("cricTeam", "onViewCreated MatchFixture: $it")
             recyclerViewToday.adapter = MatchAdapterHome(it)
         }
+
         //Recycler view for Recent
         val recyclerViewRecent = binding.recyclerviewRecent
         recyclerViewRecent.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         recyclerViewRecent.setHasFixedSize(true)
+
         //Get Data From API
         viewModel.getRecentFixturesApi()
         viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
             Log.d("cricTeam", "onViewCreated MatchFixture: $it")
             recyclerViewRecent.adapter = MatchAdapterHome(it)
-
         }
     }
 
@@ -95,7 +103,7 @@ class HomeFragment : Fragment() {
     private fun autoSlide(viewPager: ViewPager) {
         indicator = binding.indicator
         indicator.setViewPager(viewPager)
-        update = Runnable {
+        updateSlider = Runnable {
             var currentPage = viewPager.currentItem
             val totalPages = viewPager.adapter?.count ?: 0
             currentPage = (currentPage + 1) % totalPages
@@ -106,14 +114,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun startAutoSlide() {
-        if (update != null) {
-            handler.postDelayed(update!!, PERIOD_MS)
+        if (updateSlider != null) {
+            sliderHandler.postDelayed(updateSlider!!, PERIOD_MS)
         }
     }
 
     private fun stopAutoSlide() {
-        if (update != null) {
-            handler.removeCallbacks(update!!)
+        if (updateSlider != null) {
+            sliderHandler.removeCallbacks(updateSlider!!)
         }
     }
 }

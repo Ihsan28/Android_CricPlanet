@@ -2,18 +2,14 @@ package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
@@ -24,6 +20,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import android.content.Context
+import android.os.CountDownTimer
 
 
 class Utils {
@@ -45,18 +42,53 @@ class Utils {
         return dialog
     }
 
+    /*
+    TimerUtils.startCountDownTimer(
+    10000, // 10 seconds in milliseconds
+    1000, // tick interval of 1 second
+    { millisUntilFinished ->
+        // update UI with the remaining time
+        val secondsRemaining = (millisUntilFinished / 1000).toInt()
+        textView.text = secondsRemaining.toString()
+    },
+    {
+        // timer finished, do something
+        textView.text = "Time's up!"
+    }
+)
+*/
+
+    object TimerUtils {
+        fun startCountDownTimer(
+            timeInMilliSeconds: Long,
+            countDownInterval: Long,
+            onTick: (millisUntilFinished: Long) -> Unit,
+            onFinish: () -> Unit
+        ): CountDownTimer {
+            return object : CountDownTimer(timeInMilliSeconds, countDownInterval) {
+                override fun onTick(millisUntilFinished: Long) {
+                    onTick(millisUntilFinished)
+                }
+
+                override fun onFinish() {
+                    onFinish()
+                }
+            }.start()
+        }
+    }
+
+
     fun twoDecimal(number:Double?):String{
+        if (number==0.00||number==null)
+        {return "0.0"}
         return String.format("%.2f", number)
     }
 
     fun upcomingYearDuration(): String {
-
         // Get the current date and time
         val currentDateTime = LocalDateTime.now()
-
         // Add 1 year to the current date and time
         val nextYearDateTime = currentDateTime.plusYears(1)
-
         // Format the new date and time as a string
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val nextMinuteDateTimeString = currentDateTime.format(formatter)
@@ -108,8 +140,7 @@ class Utils {
         val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'000Z'")
         val targetFormat = DateTimeFormatter.ofPattern("dd-MM-yy/hh:mm a")
         val date = apiFormat.parse(dateString)
-        val arrayDateTime = targetFormat.format(date).split("/")
-        return arrayDateTime
+        return targetFormat.format(date).split("/")
     }
 
     fun getPlayerBorn(dateString: String): String {
@@ -123,7 +154,7 @@ class Utils {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
         val date = dateFormat.parse(timestamp)
         val currentTime = Calendar.getInstance().timeInMillis
-        var hoursAgo = (currentTime - date.time) / (60 * 60 * 1000)
+        var hoursAgo = (currentTime - date!!.time) / (60 * 60 * 1000)
         var yMDHAgo = ""
         if (hoursAgo.equals(0)) {
             return "1h> ago"
@@ -148,15 +179,42 @@ class Utils {
 
     fun getPlayerAge(date: String): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = dateFormat.parse(date)
+        val formattedDate = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
 
-        var days = (currentTime - date.time) / (60 * 60 * 24 * 1000)
+        var days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000)
 
         if (days >= 365) {
-            return "${(days / 365).toInt()}"
+            return "${(days / 365).toInt()}y"
         } else {
             return ""
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun setRun(
+        runs:List<RunWithTeam>?,
+        localTeam: Team,
+        localTeamRun: TextView,
+        localTeamOver: TextView,
+        visitorTeamRun: TextView,
+        visitorTeamOver: TextView
+    ){
+        if (runs!=null && runs.size==2){
+            if (localTeam.id==runs[0].team_id){
+                localTeamRun.text="${runs[0].score}-${runs[0].wickets}"
+                localTeamOver.text="${runs[0].overs} ov"
+
+                visitorTeamRun.text="${runs[1].score}-${runs[1].wickets}"
+                visitorTeamOver.text="${runs[1].overs} ov"
+
+            }else{
+                localTeamRun.text="${runs[1].score}-${runs[1].wickets}"
+                localTeamOver.text="${runs[1].overs} ov"
+
+                visitorTeamRun.text="${runs[0].score}-${runs[0].wickets}"
+                visitorTeamOver.text="${runs[0].overs} ov"
+            }
         }
     }
 
@@ -181,17 +239,6 @@ class Utils {
                     )
                 )
             } else {
-                val liveStatus = listOf(
-                    "1st Innings",
-                    "2nd Innings",
-                    "3rd Innings",
-                    "4th Innings",
-                    "Stump Day 1",
-                    "Stump Day 2",
-                    "Stump Day 3",
-                    "Stump Day 4",
-                    "Innings Break"
-                )
 
                 if (status == "Postp.") {
                     statusTextView.text = "POSTPONED"
@@ -228,7 +275,7 @@ class Utils {
                             MyApplication.instance, R.color.md_red_200
                         )
                     )
-                } else if (liveStatus.contains(status)) {
+                } else if (status?.let { isLive(it) } == true) {
                     statusTextView.text = "• LIVE"
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
@@ -238,6 +285,24 @@ class Utils {
                 }
             }
         }
+    }
+
+    fun isLive(status:String):Boolean{
+        val liveStatus = listOf(
+            "1st Innings",
+            "2nd Innings",
+            "3rd Innings",
+            "4th Innings",
+            "Stump Day 1",
+            "Stump Day 2",
+            "Stump Day 3",
+            "Stump Day 4",
+            "Innings Break"
+        )
+        if (liveStatus.contains(status)) {
+            return true
+        }
+        return false
     }
 
     @SuppressLint("SetTextI18n")

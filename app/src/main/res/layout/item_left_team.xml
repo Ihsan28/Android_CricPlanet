@@ -33,7 +33,7 @@
 
             <ImageView
                 android:id="@+id/local_team_image"
-                android:layout_width="90dp"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
@@ -68,11 +68,14 @@
 
     <TextView
         android:id="@+id/local_team_name"
-        android:layout_width="95dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        android:layout_marginStart="3dp"
         android:gravity="center"
+        android:maxLines="2"
         android:hint="@string/team_name"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlHardcoded" />
 </LinearLayout>

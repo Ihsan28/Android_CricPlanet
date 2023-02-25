@@ -35,7 +35,7 @@ class CricRepository(private val cricDao: CricDao) {
         return CricApi.retrofitService.getFixturesResponse(
             "2022-01-15,2024-02-13",
             "",
-            "localteam,visitorteam,venue.country,season,league",
+            "localteam,visitorteam,venue.country,season,league,runs.team",
             "starting_at",
             Constant.API_KEY
         ).data
@@ -57,7 +57,7 @@ class CricRepository(private val cricDao: CricDao) {
     suspend fun getTodayFixturesApi(): List<FixtureIncludeForCard> {
         return CricApi.retrofitService.getTodayFixturesResponse(
             Utils().getCurrentDate(),
-            "localteam,visitorteam,venue.country,season,league",
+            "localteam,visitorteam,venue.country,season,league,runs.team",
             "starting_at",
             Constant.API_KEY
         ).data
@@ -67,7 +67,7 @@ class CricRepository(private val cricDao: CricDao) {
         return CricApi.retrofitService.getFixturesResponse(
             Utils().upcomingYearDuration(),
             "NS",
-            "localteam,visitorteam,venue,season,league",
+            "localteam,visitorteam,venue,season,league,runs.team",
             "starting_at",
             Constant.API_KEY
         ).data
@@ -77,7 +77,7 @@ class CricRepository(private val cricDao: CricDao) {
         return CricApi.retrofitService.getFixturesResponse(
             Utils().recentMonthDuration(),
             "Finished",
-            "localteam,visitorteam,venue,season,league",
+            "localteam,visitorteam,venue,season,league,runs.team",
             "starting_at",
             Constant.API_KEY
         ).data

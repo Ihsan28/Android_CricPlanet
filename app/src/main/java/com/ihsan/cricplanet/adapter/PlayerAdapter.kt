@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.utils.Utils
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PlayerAdapter(private val playerList: List<PlayerCard>) :
     RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
-
+    private var playerFilterList=playerList
     class PlayerViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val playerName: TextView = itemView.findViewById(R.id.league_name)
         val playerAge: TextView = itemView.findViewById(R.id.league_type)
@@ -26,17 +28,17 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val root =
             LayoutInflater.from(parent.context).inflate(R.layout.player_card_item, parent, false)
-        Log.d("teamAdapter", "onCreateViewHolder: ${playerList.size}")
+        Log.d("teamAdapter", "onCreateViewHolder: ${playerFilterList.size}")
         return PlayerViewHolder(root)
     }
 
     override fun getItemCount(): Int {
-        return playerList.size
+        return playerFilterList.size
     }
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged", "ResourceAsColor")
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        val player = playerList[position]
+        val player = playerFilterList[position]
 
         holder.playerName.text = player.fullname
         Utils().also {
@@ -51,5 +53,22 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
                  .navigate(R.id.action_playerFragment_to_playerDetailsTabLayoutFragment,
                      Bundle().apply { putInt("playerId", player.id) })
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(list: List<PlayerCard>) {
+        playerFilterList = list
+        notifyDataSetChanged()
+    }
+
+    fun filter(text: String) {
+        val filteredList = ArrayList<PlayerCard>()
+        playerList.map {
+            if (it.fullname.lowercase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true
+            ) {
+                filteredList.add(it)
+            }
+        }
+        updateList(filteredList)
     }
 }

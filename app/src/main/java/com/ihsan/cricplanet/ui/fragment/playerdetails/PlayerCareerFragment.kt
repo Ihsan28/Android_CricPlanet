@@ -14,6 +14,7 @@ import com.ihsan.cricplanet.databinding.FragmentPlayerCareerBinding
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
+@Suppress("DEPRECATION")
 class PlayerCareerFragment : Fragment() {
     private val args: PlayerCareerFragmentArgs by navArgs()
     private lateinit var binding: FragmentPlayerCareerBinding
@@ -38,9 +39,9 @@ class PlayerCareerFragment : Fragment() {
             if (it != null) {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerCareer", "onViewCreated: ${player}")
-                recyclerViewCareer.adapter = player?.teams?.let {
+                recyclerViewCareer.adapter = player?.teams?.let {listTeam->
                     PlayerCareerTeamAdapter(
-                        it, viewmodel, viewLifecycleOwner
+                        listTeam, viewmodel, viewLifecycleOwner
                     )
                 }
             }

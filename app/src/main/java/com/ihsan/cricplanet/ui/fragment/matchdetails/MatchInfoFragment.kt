@@ -31,25 +31,27 @@ class MatchInfoFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var match: FixtureByIdWithDetails?
         val gridView=binding.gridView
-        args?.let {
-            match = it.match
-            Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
-            if (match!=null){
+        arguments.let {
+            if (it != null) {
+                match = it.getParcelable("match")
                 Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
-                keyValueList.add(GridItem("Series", "${match?.league?.name ?: "Not Found"}, ${match?.season?.name ?:""}"))
-                keyValueList.add(GridItem("Match",match?.round ?:"Not Found"))
-                keyValueList.add(GridItem("Time",Utils().dateFormat(match?.starting_at.toString()).toString()))
-                keyValueList.add(GridItem("Toss","${match?.tosswon?.name ?:" Not Found"} won the toss and elected ${match?.elected}"))
-                keyValueList.add(GridItem("Umpire(1st)","${match?.firstumpire?.fullname ?:" Not Found"} (getage)"))
-                keyValueList.add(GridItem("Umpire(2nd)","${match?.secondumpire?.fullname ?:" Not Found"} (getage)"))
-                keyValueList.add(GridItem("Umpire(tv)","${match?.tvumpire?.fullname ?:" Not Found"} (getage)"))
-                keyValueList.add(GridItem("Referee","${match?.referee?.fullname ?:" Not Found"} (getage)"))
-                keyValueList.add(GridItem("Venue",match?.venue?.name ?:"Not Found"))
-                keyValueList.add(GridItem("Capacity",match?.venue?.capacity.toString()))
-                keyValueList.add(GridItem("Location", match?.venue?.city ?:" Not Found"))
+                if (match!=null){
+                    Log.d("cricMatchInfo", "onViewCreated: ${match?.id}")
+                    keyValueList.add(GridItem("Series", "${match?.league?.name ?: "Not Found"}, ${match?.season?.name ?:""}"))
+                    keyValueList.add(GridItem("Match",match?.round ?:"Not Found"))
+                    keyValueList.add(GridItem("Time",Utils().dateFormat(match?.starting_at.toString()).toString()))
+                    keyValueList.add(GridItem("Toss","${match?.tosswon?.name ?:" Not Found"} won the toss and elected ${match?.elected}"))
+                    keyValueList.add(GridItem("Umpire(1st)","${match?.firstumpire?.fullname ?:" Not Found"} (getage)"))
+                    keyValueList.add(GridItem("Umpire(2nd)","${match?.secondumpire?.fullname ?:" Not Found"} (getage)"))
+                    keyValueList.add(GridItem("Umpire(tv)","${match?.tvumpire?.fullname ?:" Not Found"} (getage)"))
+                    keyValueList.add(GridItem("Referee","${match?.referee?.fullname ?:" Not Found"} (getage)"))
+                    keyValueList.add(GridItem("Venue",match?.venue?.name ?:"Not Found"))
+                    keyValueList.add(GridItem("Capacity",match?.venue?.capacity.toString()))
+                    keyValueList.add(GridItem("Location", match?.venue?.city ?:" Not Found"))
 
-                //Grid adapter call for table
-                gridView.adapter= MatchInfoGridAdapter(requireContext(),keyValueList)
+                    //Grid adapter call for table
+                    gridView.adapter= MatchInfoGridAdapter(requireContext(),keyValueList)
+                }
             }
         }
     }

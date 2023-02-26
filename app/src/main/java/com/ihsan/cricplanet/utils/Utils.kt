@@ -21,11 +21,14 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import android.content.Context
 import android.os.CountDownTimer
+import android.widget.Toast
 
 
 class Utils {
 
-
+    fun refreshMessage() {
+        Toast.makeText(MyApplication.instance, "Refreshing", Toast.LENGTH_SHORT).show()
+    }
     fun progressAnimation(context:Context): Dialog {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

@@ -26,23 +26,28 @@ class RankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         var rankingList: List<TeamIncludeRanking>?
 
+        //binding toggle button
         val menRankingButton = binding.menButton
         val womenRankingButton = binding.womenButton
         val menWomenToggleButton = binding.genderToggleGroup
-        val recyclerViewBatting = binding.recyclerviewTeamRanking
 
+        //Assigning Recycler view
+        val recyclerViewBatting = binding.recyclerviewTeamRanking
         recyclerViewBatting.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerViewBatting.setHasFixedSize(true)
 
+        //getting navigation argument
         args.let { rankingArgs ->
             //get match
             rankingList = getList(rankingArgs)
             recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
 
-            menWomenToggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            //toggle button click listener
+            menWomenToggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 rankingList = when (isChecked) {
                     true -> when (checkedId) {
                         menRankingButton.id -> getListForMen(rankingArgs)
@@ -51,6 +56,7 @@ class RankingFragment : Fragment() {
                     }
                     else -> getList(rankingArgs)
                 }
+
                 //showing for null
                 if ((rankingList?.size ?: 0) == 0) {
                     Toast.makeText(requireActivity(), "Not Available", Toast.LENGTH_SHORT).show()

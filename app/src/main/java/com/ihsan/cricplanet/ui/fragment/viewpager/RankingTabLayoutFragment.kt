@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.TeamRankingAdapter
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchAdapter
 import com.ihsan.cricplanet.adapter.viewpager.TabRankingAdapter
 import com.ihsan.cricplanet.databinding.FragmentRankingTabLayoutBinding
+import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import kotlinx.coroutines.launch
 
 class RankingTabLayoutFragment : Fragment() {
     private lateinit var binding:FragmentRankingTabLayoutBinding
@@ -21,6 +24,7 @@ class RankingTabLayoutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         binding=FragmentRankingTabLayoutBinding.inflate(inflater,container,false)
         return binding.root
@@ -28,6 +32,10 @@ class RankingTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Refresh Layout
+        val refreshLayout = binding.swipeLayout
+
         //Tab layout
         val tabLayout = binding.tabLayoutRanking
         val viewPage = binding.viewPager2Ranking
@@ -40,6 +48,16 @@ class RankingTabLayoutFragment : Fragment() {
             TabLayoutMediator(tabLayout, viewPage) { tab, position ->
                 tab.text = TabRankingAdapter.rankingListTab[position].category
             }.attach()
+        }
+
+        //Refreshing The Home Page
+        refreshLayout.setOnRefreshListener {
+            viewModel.viewModelScope.launch {
+                //getting data for league from Api
+                viewModel.getTeamRanking()
+                Utils().refreshMessage()
+            }
+            refreshLayout.isRefreshing = false
         }
     }
 }

@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.adapter.MatchAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
+import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import kotlinx.coroutines.launch
 
 class MatchesFragment : Fragment() {
     private lateinit var binding: FragmentMatchesBinding
@@ -30,12 +33,16 @@ class MatchesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val refreshLayout = binding.swipeLayout
+
+        // Initializing recycler view
         recyclerView = binding.recyclerviewMatches
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.setHasFixedSize(true)
 
-        args.let {
-            when (it.category) {
+        // getting the argument from navigation argument
+        args.let { argument ->
+            when (argument.category) {
                 "UPCOMING" -> {
                     viewModel.getUpcomingFixturesApi()
                     viewModel.upcomingMatchFixture.observe(viewLifecycleOwner) {
@@ -84,7 +91,24 @@ class MatchesFragment : Fragment() {
                     }
                 }
             }
-        }
 
+
+            //Refreshing The Match Page
+            refreshLayout.setOnRefreshListener {
+                viewModel.viewModelScope.launch {
+                    when (argument.category) {
+                        "UPCOMING" -> viewModel.getUpcomingFixturesApi()
+                        "RECENT" -> viewModel.getRecentFixturesApi()
+                        "T20" -> viewModel.getFixturesApi()
+                        "ODI" -> viewModel.getFixturesApi()
+                        "TEST" -> viewModel.getFixturesApi()
+                        "ALL" -> viewModel.getFixturesApi()
+                        else -> viewModel.getFixturesApi()
+                    }
+                    Utils().refreshMessage()
+                }
+                refreshLayout.isRefreshing = false
+            }
+        }
     }
 }

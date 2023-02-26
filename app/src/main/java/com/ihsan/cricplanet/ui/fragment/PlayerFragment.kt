@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.adapter.PlayerAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBinding
 import com.ihsan.cricplanet.model.player.PlayerCard
+import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import kotlinx.coroutines.launch
 
 class PlayerFragment : Fragment() {
     private lateinit var binding:FragmentPlayerBinding
@@ -30,8 +33,12 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = binding.recyclerviewPlayer
         var player:List<PlayerCard>?=null
+        //Refresh Layout
+        val refreshLayout = binding.swipeLayout
+
+        //recycler view
+        val recyclerView = binding.recyclerviewPlayer
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
@@ -59,5 +66,15 @@ class PlayerFragment : Fragment() {
                 return true
             }
         })
+
+        //Refreshing The Home Page
+        refreshLayout.setOnRefreshListener {
+            viewModel.viewModelScope.launch {
+                //getting data for player from Api
+                viewModel.getPlayersApi()
+                Utils().refreshMessage()
+            }
+            refreshLayout.isRefreshing = false
+        }
     }
 }

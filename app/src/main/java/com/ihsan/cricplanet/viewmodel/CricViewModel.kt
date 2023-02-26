@@ -158,9 +158,9 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _todayFixture.value = repository.getTodayFixturesApi()
-                    Log.d("cricViewModel", "viewModel Api getFixture: ${todayFixture.value?.size}")
+                    Log.d("cricViewModel", "viewModel Api getTodayFixture: ${todayFixture.value?.size}")
                 } catch (e: java.lang.Exception) {
-                    Log.d("cricViewModelCatch", "viewModel Api getFixture: $e")
+                    Log.d("cricViewModelCatch", "viewModel Api getTodayFixture: $e")
                 }
             }
         }

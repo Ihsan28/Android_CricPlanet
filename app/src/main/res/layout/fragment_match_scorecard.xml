@@ -1,23 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.fragment.matchdetails.MatchScorecardFragment">
-
-    <TextView
+    android:paddingBottom="60dp"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Batting Scorecard"
-        android:textColor="@color/white"
-        android:padding="4dp"
-        android:gravity="center"
-        android:background="@drawable/background_title_home"
-        android:textSize="20sp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_batting_score"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:orientation="vertical"
+        tools:context=".ui.fragment.matchdetails.MatchScorecardFragment">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scorecard"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            android:gravity="center"
+            android:background="@drawable/background_title_home"
+            android:textSize="20sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/batting_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/batting_run"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Run"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/batting_ball"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Ball"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/batting_4s"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="4s"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/batting_6s"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="6s"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/batting_sr"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="SR"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_batting_score"
+            android:layout_width="match_parent"
+            android:layout_height="350dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/background_card_home"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_title_home"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/match_history"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_balls"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

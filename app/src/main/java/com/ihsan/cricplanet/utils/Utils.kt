@@ -31,22 +31,6 @@ class Utils {
         Toast.makeText(MyApplication.instance, "Refreshing", Toast.LENGTH_SHORT).show()
     }
 
-    fun showStyledSnackbar(view: View, text: String?) {
-        var showText = ""
-        if (text != null) {
-            showText = text
-        }
-        val snackbar = Snackbar.make(view, showText, Snackbar.LENGTH_LONG)
-        val snackbarView = snackbar.view
-        snackbarView.setBackgroundColor(Color.parseColor("#3F51B5"))
-        val textView =
-            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.setTextColor(Color.WHITE)
-        textView.textSize = 20f
-        textView.setTypeface(null, Typeface.BOLD)
-        snackbar.show()
-    }
-
     fun progressAnimationStart(context: Context, title: String): LottieProgressDialog {
         val progressbar = LottieProgressDialog(
             context,
@@ -66,42 +50,6 @@ class Utils {
     fun progressAnimationStop(progressbar: LottieProgressDialog) {
         progressbar.dismiss()
     }
-
-    /*
-    TimerUtils.startCountDownTimer(
-    10000, // 10 seconds in milliseconds
-    1000, // tick interval of 1 second
-    { millisUntilFinished ->
-        // update UI with the remaining time
-        val secondsRemaining = (millisUntilFinished / 1000).toInt()
-        textView.text = secondsRemaining.toString()
-    },
-    {
-        // timer finished, do something
-        textView.text = "Time's up!"
-    }
-)
-*/
-
-    object TimerUtils {
-        fun startCountDownTimer(
-            timeInMilliSeconds: Long,
-            countDownInterval: Long,
-            onTick: (millisUntilFinished: Long) -> Unit,
-            onFinish: () -> Unit
-        ): CountDownTimer {
-            return object : CountDownTimer(timeInMilliSeconds, countDownInterval) {
-                override fun onTick(millisUntilFinished: Long) {
-                    onTick(millisUntilFinished)
-                }
-
-                override fun onFinish() {
-                    onFinish()
-                }
-            }.start()
-        }
-    }
-
 
     fun twoDecimal(number: Double?): String {
         if (number == 0.00 || number == null) {
@@ -174,33 +122,6 @@ class Utils {
         val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
         val date = apiFormat.parse(dateString)
         return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
-    }
-
-    fun timeAgoConverter(timestamp: String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
-        val date = dateFormat.parse(timestamp)
-        val currentTime = Calendar.getInstance().timeInMillis
-        var hoursAgo = (currentTime - date!!.time) / (60 * 60 * 1000)
-        var yMDHAgo = ""
-        if (hoursAgo.equals(0)) {
-            return "1h> ago"
-        }
-        if (hoursAgo >= 365 * 24) {
-            yMDHAgo += " ${hoursAgo / 365 * 24}y"
-            hoursAgo %= 365 * 24
-        }
-        if (hoursAgo >= 30 * 24) {
-            yMDHAgo += " ${hoursAgo / 30 * 24}m"
-            hoursAgo %= 30 * 24
-        }
-        if (hoursAgo >= 24) {
-            yMDHAgo += " ${hoursAgo / 24}d"
-            hoursAgo %= 24
-        }
-        if (hoursAgo > 0) {
-            yMDHAgo += " ${hoursAgo}h"
-        }
-        return "$yMDHAgo ago"
     }
 
     fun getPlayerAge(date: String): String {
@@ -306,6 +227,13 @@ class Utils {
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(
                             MyApplication.instance, R.color.md_red_400
+                        )
+                    )
+                }else{
+                    statusTextView.text = status
+                    statusTextView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            MyApplication.instance, R.color.md_green_400
                         )
                     )
                 }

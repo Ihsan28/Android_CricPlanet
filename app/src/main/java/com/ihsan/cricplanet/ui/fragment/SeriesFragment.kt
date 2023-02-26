@@ -29,6 +29,7 @@ class SeriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Series")
         //Refresh Layout
         val refreshLayout = binding.swipeLayout
 
@@ -43,6 +44,7 @@ class SeriesFragment : Fragment() {
         viewModel.league.observe(viewLifecycleOwner) {
             Log.d("cricleague", "onViewCreated league: $it")
             recyclerView.adapter = LeagueAdapter(it, requireActivity())
+            Utils().progressAnimationStop(progressBar)
         }
 
         //Refreshing The Home Page

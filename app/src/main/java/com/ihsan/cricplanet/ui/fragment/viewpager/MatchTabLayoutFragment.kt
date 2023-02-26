@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchTabLayoutBinding
+import com.ihsan.cricplanet.utils.Utils
 
 class MatchTabLayoutFragment : Fragment() {
     private lateinit var binding: FragmentMatchTabLayoutBinding
@@ -22,6 +23,7 @@ class MatchTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //Tab layout
         val tabLayout = binding.tabLayoutMatch
         val viewPage = binding.viewPager2Match

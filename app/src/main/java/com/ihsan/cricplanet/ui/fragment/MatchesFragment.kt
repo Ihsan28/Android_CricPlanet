@@ -35,6 +35,7 @@ class MatchesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Matches")
         val refreshLayout = binding.swipeLayout
 
         // Initializing recycler view
@@ -50,6 +51,7 @@ class MatchesFragment : Fragment() {
                     viewModel.upcomingMatchFixture.observe(viewLifecycleOwner) {
                         Log.d("cricTeam", "onViewCreated MatchFixture: $it")
                         recyclerView.adapter = MatchAdapter(it)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 "RECENT" -> {
@@ -57,6 +59,7 @@ class MatchesFragment : Fragment() {
                     viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
                         Log.d("cricTeam", "onViewCreated MatchFixture: $it")
                         recyclerView.adapter = MatchAdapter(it)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 "T20" -> {
@@ -66,6 +69,7 @@ class MatchesFragment : Fragment() {
                             it.filter { it1 -> it1.type == "T20" || it1.type == "T20I" }
                         Log.d("cricTeam", "onViewCreated T20 MatchFixture: ${tTwentyFiltered.size}")
                         recyclerView.adapter = MatchAdapter(tTwentyFiltered)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 "ODI" -> {
@@ -74,6 +78,7 @@ class MatchesFragment : Fragment() {
                         val ODIFilter = it.filter { it1 -> it1.type == "ODI" }
                         Log.d("cricTeam", "onViewCreated ODI MatchFixture: ${ODIFilter.size}")
                         recyclerView.adapter = MatchAdapter(ODIFilter)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 "TEST" -> {
@@ -83,6 +88,7 @@ class MatchesFragment : Fragment() {
                             it.filter { it1 -> it1.type == "Test/5day" || it1.type == "4day" }
                         Log.d("cricTeam", "onViewCreated Test MatchFixture: ${testFilter.size}")
                         recyclerView.adapter = MatchAdapter(testFilter)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 "ALL" -> {
@@ -90,6 +96,7 @@ class MatchesFragment : Fragment() {
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
                         Log.d("cricTeam", "onViewCreated MatchFixture: $it")
                         recyclerView.adapter = MatchAdapter(it)
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
                 else->{
@@ -97,9 +104,12 @@ class MatchesFragment : Fragment() {
                     viewModel.seasonById.observe(viewLifecycleOwner) {season->
                         Log.d("cricTeam", "onViewCreated MatchFixture: $season")
                         recyclerView.adapter = season.fixtures?.let { it1 -> MatchAdapterSeries(it1,season.league?.name ?:"") }
+                        Utils().progressAnimationStop(progressBar)
                     }
                 }
             }
+
+
 
 
             //Refreshing The Match Page

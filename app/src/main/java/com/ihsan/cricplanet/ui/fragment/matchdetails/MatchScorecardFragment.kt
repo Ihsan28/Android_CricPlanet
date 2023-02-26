@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.BattingScorecardAdapter
+import com.ihsan.cricplanet.adapter.MatchAdapterHome
+import com.ihsan.cricplanet.adapter.MatchBallsAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchScorecardBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 
@@ -37,6 +39,13 @@ class MatchScorecardFragment : Fragment() {
                 match = it.getParcelable("match")
                 recyclerViewBatting.adapter =
                     match?.batting?.let { it1 -> BattingScorecardAdapter(it1) }
+
+                //Recycler view for Balls or Match History
+                val recyclerViewUpcoming = binding.recyclerviewBalls
+                recyclerViewUpcoming.layoutManager =
+                    LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+                recyclerViewUpcoming.setHasFixedSize(true)
+                recyclerViewUpcoming.adapter = match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
             }
         }
     }

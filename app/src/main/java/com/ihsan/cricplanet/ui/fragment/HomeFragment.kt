@@ -72,12 +72,25 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         recyclerViewToday.setHasFixedSize(true)
 
-
         //Get Data From API for Today Fixture
         viewModel.getTodayFixturesApi()
         viewModel.todayFixture.observe(viewLifecycleOwner) {
             Log.d("cricHome", "onViewCreated MatchFixtureToday: $it")
             recyclerViewToday.adapter = MatchAdapterHome(it)
+            Utils().progressAnimationStop(progressBar)
+        }
+
+        //Recycler view for Upcoming
+        val recyclerViewUpcoming = binding.recyclerviewUpcoming
+        recyclerViewUpcoming.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewUpcoming.setHasFixedSize(true)
+
+        //Get Data From API for Upcoming Fixture
+        viewModel.getUpcomingFixturesApi()
+        viewModel.upcomingMatchFixture.observe(viewLifecycleOwner) {
+            Log.d("cricHome", "onViewCreated MatchFixtureToday: $it")
+            recyclerViewUpcoming.adapter = MatchAdapterHome(it)
             Utils().progressAnimationStop(progressBar)
         }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.TeamRankingAdapter
 import com.ihsan.cricplanet.databinding.FragmentRankingBinding
 import com.ihsan.cricplanet.model.team.TeamIncludeRanking
+import com.ihsan.cricplanet.utils.Utils
 
 class RankingFragment : Fragment() {
     private val args: RankingFragmentArgs by navArgs()
@@ -26,7 +27,7 @@ class RankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val progressBar= Utils().progressAnimationStart(requireContext(),"Loading Teams")
         var rankingList: List<TeamIncludeRanking>?
 
         //binding toggle button
@@ -45,7 +46,7 @@ class RankingFragment : Fragment() {
             //get match
             rankingList = getList(rankingArgs)
             recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
-
+            Utils().progressAnimationStop(progressBar)
             //toggle button click listener
             menWomenToggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 rankingList = when (isChecked) {
@@ -64,6 +65,7 @@ class RankingFragment : Fragment() {
 
                 //assigning adapter
                 recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
+
             }
 
         }

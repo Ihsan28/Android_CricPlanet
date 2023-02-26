@@ -27,7 +27,7 @@ class TabPlayerAdapter(
         )
     }
 
-    private fun addBundle(fragment: Fragment, key: String, value: PlayerDetails): Fragment {
+    private fun addBundle(fragment: Fragment): Fragment {
         val bundle = Bundle()
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdapterAddBundle: ${player.fullname}")
         bundle.putParcelable("player", player)
@@ -40,12 +40,12 @@ class TabPlayerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: ${position}")
+        Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: $position")
         return when (position) {
-            0 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
-            1 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
-            2 -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
-            else -> addBundle(listPlayerDetailTab[position].fragment, "player", player)
+            0 -> addBundle(listPlayerDetailTab[position].fragment)
+            1 -> addBundle(listPlayerDetailTab[position].fragment)
+            2 -> addBundle(listPlayerDetailTab[position].fragment)
+            else -> addBundle(listPlayerDetailTab[position].fragment)
         }
     }
 }

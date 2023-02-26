@@ -38,7 +38,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Details")
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
@@ -99,6 +99,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
                         visitorTeamOver
                     )
                 }
+                Utils().progressAnimationStop(progressBar)
             }
         }
 

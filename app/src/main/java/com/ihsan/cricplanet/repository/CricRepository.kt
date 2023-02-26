@@ -87,7 +87,6 @@ class CricRepository(private val cricDao: CricDao) {
         ).data
     }
 
-    //visitorteam.results,scoreboards.team
     suspend fun getFixturesByIdApi(Id: Int): FixtureByIdWithDetails {
         return CricApi.retrofitService.getFixtureByIdResponse(
             Id,

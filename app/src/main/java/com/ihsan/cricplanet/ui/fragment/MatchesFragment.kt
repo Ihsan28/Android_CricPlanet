@@ -12,10 +12,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.adapter.MatchAdapter
+import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
+import kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf.Type.Argument
 
 class MatchesFragment : Fragment() {
     private lateinit var binding: FragmentMatchesBinding
@@ -83,11 +85,18 @@ class MatchesFragment : Fragment() {
                         recyclerView.adapter = MatchAdapter(testFilter)
                     }
                 }
-                else -> {
+                "ALL" -> {
                     viewModel.getFixturesApi()
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
                         Log.d("cricTeam", "onViewCreated MatchFixture: $it")
                         recyclerView.adapter = MatchAdapter(it)
+                    }
+                }
+                else->{
+                    argument.category?.let { viewModel.getSeasonByIdApi(it.toInt()) }
+                    viewModel.seasonById.observe(viewLifecycleOwner) {season->
+                        Log.d("cricTeam", "onViewCreated MatchFixture: $season")
+                        recyclerView.adapter = season.fixtures?.let { it1 -> MatchAdapterSeries(it1,season.league?.name ?:"") }
                     }
                 }
             }

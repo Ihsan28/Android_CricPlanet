@@ -22,6 +22,7 @@ import java.util.*
 import android.content.Context
 import android.os.CountDownTimer
 import android.widget.Toast
+import com.devhoony.lottieproegressdialog.LottieProgressDialog
 
 
 class Utils {
@@ -29,20 +30,24 @@ class Utils {
     fun refreshMessage() {
         Toast.makeText(MyApplication.instance, "Refreshing", Toast.LENGTH_SHORT).show()
     }
-    fun progressAnimation(context:Context): Dialog {
-        val dialog = Dialog(context)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.progress_bar)
-        dialog.setCancelable(false)
+    fun progressAnimationStart(context:Context,title:String): LottieProgressDialog{
+        val progressbar=LottieProgressDialog(
+            context,
+            false,
+            null,
+            null,
+            null,
+            null,
+            LottieProgressDialog.SAMPLE_1,
+            title,
+            null
+        )
+        progressbar.show()
+        return progressbar
+    }
 
-        val progressBar = dialog.findViewById<ProgressBar>(R.id.progress_bar)
-
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog.window?.attributes)
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        progressBar.layoutParams=lp
-        return dialog
+    fun progressAnimationStop(progressbar: LottieProgressDialog){
+        progressbar.dismiss()
     }
 
     /*

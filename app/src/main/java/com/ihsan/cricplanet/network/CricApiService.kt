@@ -97,7 +97,7 @@ interface CricApiService {
         @Path("id") id: Int,
         @Query(Constant.include) include: String,
         @Query(Constant.api_token) apiToken: String
-    ): ResponseLeagueById
+    ): ResponseSeasonForCard
 }
 
 object CricApi {

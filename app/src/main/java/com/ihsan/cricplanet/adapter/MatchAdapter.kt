@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso
 
 class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
     RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
-    //private val viewModel: CricViewModel = CricViewModel(application = Application())
+
     class MatchViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)

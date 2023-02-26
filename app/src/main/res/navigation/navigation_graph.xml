@@ -28,6 +28,9 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_matchesFragment_to_matchDetailTabLayoutFragment"
+            app:destination="@id/matchDetailTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchTabLayoutFragment"
@@ -55,14 +58,8 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_matchDetailTabLayoutFragment_to_matchSquadsFragment"
-            app:destination="@id/matchSquadsFragment" />
-        <action
-            android:id="@+id/action_matchDetailTabLayoutFragment_to_matchScorecardFragment"
-            app:destination="@id/matchScorecardFragment" />
-        <action
-            android:id="@+id/action_matchDetailTabLayoutFragment_to_matchInfoFragment"
-            app:destination="@id/matchInfoFragment" />
+            android:id="@+id/action_matchDetailTabLayoutFragment_to_playerDetailsTabLayoutFragment"
+            app:destination="@id/playerDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchInfoFragment"
@@ -107,7 +104,11 @@
         android:id="@+id/seriesFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.SeriesFragment"
         android:label="fragment_series"
-        tools:layout="@layout/fragment_series" />
+        tools:layout="@layout/fragment_series" >
+        <action
+            android:id="@+id/action_seriesFragment_to_matchesFragment"
+            app:destination="@id/matchesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/rankingTabLayoutFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.RankingTabLayoutFragment"
@@ -136,18 +137,6 @@
         android:name="com.ihsan.cricplanet.ui.fragment.viewpager.PlayerDetailsTabLayoutFragment"
         android:label="fragment_player_details_tab_layout"
         tools:layout="@layout/fragment_player_details_tab_layout" >
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBowlingFragment"
-            app:destination="@id/playerBowlingFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBattingFragment"
-            app:destination="@id/playerBattingFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerInfoFragment"
-            app:destination="@id/playerInfoFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerCareerFragment"
-            app:destination="@id/playerCareerFragment" />
         <argument android:name="playerId"
             app:argType="integer"
             android:defaultValue="0" />

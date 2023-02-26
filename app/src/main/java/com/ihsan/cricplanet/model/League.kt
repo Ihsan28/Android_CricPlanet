@@ -15,3 +15,16 @@ data class League(
     val type: String?,
     val updated_at: String?
 ):Parcelable
+{
+    constructor():this(
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    )
+}

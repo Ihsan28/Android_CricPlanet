@@ -44,10 +44,12 @@ class PlayerFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
         viewModel.getPlayersApi()
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Player")
         viewModel.player.observe(viewLifecycleOwner) {
             Log.d("cricPlayer", "onViewCreated PLAYER: $it")
             recyclerView.adapter = PlayerAdapter(it)
             player=it
+            Utils().progressAnimationStop(progressBar)
         }
 
         val searchView = binding.playerSearchView

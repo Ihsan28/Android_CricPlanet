@@ -13,25 +13,22 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
+import com.ihsan.cricplanet.model.season.FixtureForSeason
+import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.utils.Utils
 import com.squareup.picasso.Picasso
 
-class MatchAdapterSeries(private val matchList: List<FixtureIncludeForCard>) :
+class MatchAdapterSeries(private val matchList: List<FixtureForSeason>,private val leagueName:String) :
     RecyclerView.Adapter<MatchAdapterSeries.MatchViewHolder>() {
-    //private val viewModel: CricViewModel = CricViewModel(application = Application())
+
     class MatchViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val matchName: TextView = itemView.findViewById(R.id.fixture_name)
         val matchRound: TextView = itemView.findViewById(R.id.match_round)
         val localTeamName: TextView = binding.findViewById(R.id.local_team_name)
-        val localTeamRun: TextView = binding.findViewById(R.id.local_team_run)
-        val localTeamOver: TextView = binding.findViewById(R.id.local_team_over)
         val visitorTeamName: TextView = binding.findViewById(R.id.visitor_team_name)
-        val visitorTeamRun: TextView = binding.findViewById(R.id.visitor_team_run)
-        val visitorTeamOver: TextView = binding.findViewById(R.id.visitor_team_over)
         val localTeamImage: ImageView = itemView.findViewById(R.id.local_team_image)
         val visitorTeamImage: ImageView = itemView.findViewById(R.id.visitor_team_image)
         val status: TextView = itemView.findViewById(R.id.fixture_status)
-        val noteOrVenue: TextView = itemView.findViewById(R.id.fixture_note_venue)
         val upcomingDate: TextView = itemView.findViewById(R.id.fixture_date)
         val upcomingTime: TextView = itemView.findViewById(R.id.fixture_time)
     }
@@ -52,7 +49,7 @@ class MatchAdapterSeries(private val matchList: List<FixtureIncludeForCard>) :
         val match = matchList[position]
         val dateTimeList = Utils().dateFormat(match.starting_at!!)
         Log.d("teamAdapter", "BindViewHolder: ${matchList.size}")
-        holder.matchName.text = "${match.league?.name} • ${match.type}"
+        holder.matchName.text = "$leagueName • ${match.type}"
         holder.matchRound.text = match.round
         holder.localTeamName.text = match.localteam!!.name
         holder.visitorTeamName.text = match.visitorteam!!.name
@@ -67,23 +64,12 @@ class MatchAdapterSeries(private val matchList: List<FixtureIncludeForCard>) :
             it.loadImageWithPicasso(match.visitorteam.image_path, holder.visitorTeamImage)
             //set status and background color
             it.setStatus(match.status, holder.status)
-            //set Venue or Note of the match
-            it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
-            it.setRun(
-                match.runs,
-                match.localteam,
-                holder.localTeamRun,
-                holder.localTeamOver,
-                holder.visitorTeamRun,
-                holder.visitorTeamOver
-            )
         }
 
         holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${match.id}")
-            //crash issue
             Navigation.findNavController(holder.itemView)
-                .navigate(R.id.action_matchTabLayoutFragment_to_matchDetailTabLayoutFragment,
+                .navigate(R.id.action_matchesFragment_to_matchDetailTabLayoutFragment,
                     Bundle().apply { putInt("matchId", match.id) })
         }
     }

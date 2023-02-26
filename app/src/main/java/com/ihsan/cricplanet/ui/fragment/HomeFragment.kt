@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import com.ihsan.cricplanet.adapter.LiveMatchSliderAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.databinding.FragmentHomeBinding
+import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import me.relex.circleindicator.CircleIndicator
 
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
 
         //Live Api Call
         viewModel.getLiveFixturesApi()
-
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Home")
         //Live Observer
         viewModel.liveFixture.observe(viewLifecycleOwner) {
             Log.d("cricHome", "onViewCreatedHomeSlider: $it")
@@ -75,8 +76,9 @@ class HomeFragment : Fragment() {
         //Get Data From API for Today Fixture
         viewModel.getTodayFixturesApi()
         viewModel.todayFixture.observe(viewLifecycleOwner) {
-            Log.d("cricTeam", "onViewCreated MatchFixture: $it")
+            Log.d("cricHome", "onViewCreated MatchFixtureToday: $it")
             recyclerViewToday.adapter = MatchAdapterHome(it)
+            Utils().progressAnimationStop(progressBar)
         }
 
         //Recycler view for Recent
@@ -88,8 +90,9 @@ class HomeFragment : Fragment() {
         //Get Data From API
         viewModel.getRecentFixturesApi()
         viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
-            Log.d("cricTeam", "onViewCreated MatchFixture: $it")
+            Log.d("cricHome", "onViewCreated MatchFixtureRecent: $it")
             recyclerViewRecent.adapter = MatchAdapterHome(it)
+            Utils().progressAnimationStop(progressBar)
         }
     }
 

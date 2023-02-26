@@ -14,6 +14,7 @@ import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
+import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
@@ -59,8 +60,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     private val _leagueById = MutableLiveData<LeagueIncludeSeasons>()
     val leagueById: LiveData<LeagueIncludeSeasons> = _leagueById
     //season LiveData Holder
-    private val _seasonById = MutableLiveData<SeasonByIdIncludeLeague>()
-    val seasonById: LiveData<SeasonByIdIncludeLeague> = _seasonById
+    private val _seasonById = MutableLiveData<SeasonForCard>()
+    val seasonById: LiveData<SeasonForCard> = _seasonById
 
     init {
         //Getting dao instance
@@ -81,12 +82,9 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         repository.storeSeasonLocal(DataConverter().getSeasonTable(listSeason))
     }
 
-
-
     fun getSeasonByIdLocal(id:Int): LiveData<SeasonByIdIncludeLeagueTable> {
         return repository.readSeasonById(id)
     }
-
 
     //Api Call
     private fun getUpdateSeasonApi() {
@@ -100,6 +98,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
     fun getTeamRanking() {
         GlobalScope.launch {
             viewModelScope.launch{
@@ -240,14 +239,14 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getLeagueByIdApi(Id: Int) {
+    fun getSeasonByIdApi(Id: Int) {
         GlobalScope.launch {
             viewModelScope.launch {
                 try {
-                    _leagueById.value = repository.getLeaguesByIdApi(Id)
-                    Log.d("cricViewModel", "viewModel Api getLeagueById: ${leagueById.value?.id}")
+                    _seasonById.value = repository.getSeasonByIdApi(Id)
+                    Log.d("cricViewModel", "viewModel Api getSeasonById: ${seasonById.value?.id}")
                 } catch (e: java.lang.Exception) {
-                    Log.d("cricViewModelCatch", "viewModel Api getLeagueById: $e")
+                    Log.d("cricViewModelCatch", "viewModel Api getSeasonById: $e")
                 }
             }
         }

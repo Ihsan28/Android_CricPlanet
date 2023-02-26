@@ -1,6 +1,7 @@
 package com.ihsan.cricplanet.adapter.grid
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 import com.ihsan.cricplanet.utils.Utils

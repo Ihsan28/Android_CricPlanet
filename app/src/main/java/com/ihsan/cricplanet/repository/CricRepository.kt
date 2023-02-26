@@ -8,7 +8,6 @@ import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
-import com.ihsan.cricplanet.model.responseapi.SeasonForCardResponse
 import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
 import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.season.SeasonForCard
@@ -131,11 +130,11 @@ class CricRepository(private val cricDao: CricDao) {
         ).data
     }
 
-    /*suspend fun getSeasonByIdApi(Id: Int): SeasonForCard {
-        return CricApi.retrofitService.getLeagueByIdResponse(
+    suspend fun getSeasonByIdApi(Id: Int): SeasonForCard {
+        return CricApi.retrofitService.getSeasonByIdResponse(
             Id,
             "fixtures.localteam, fixtures.visitorteam,league",
             Constant.API_KEY
         ).data
-    }*/
+    }
 }

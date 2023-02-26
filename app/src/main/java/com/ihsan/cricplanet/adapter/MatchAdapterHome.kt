@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
+import com.ihsan.cricplanet.model.season.FixtureForSeason
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 import com.squareup.picasso.Picasso
@@ -39,7 +40,7 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         val root = LayoutInflater.from(parent.context).inflate(R.layout.home_match_card_item, parent, false)
-        Log.d("teamAdapter", "onCreateViewHolder: ${matchList.size}")
+        Log.d("cricTeamAdapter", "onCreateViewHolder: ${matchList.size}")
         return MatchViewHolder(root)
     }
 

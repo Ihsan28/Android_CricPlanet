@@ -45,8 +45,12 @@ class LeagueAdapter(
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged", "ResourceAsColor")
     override fun onBindViewHolder(holder: LeagueViewHolder, position: Int) {
         val league = leagueList[position]
+
         Log.d("cricLeagueAdapter", "onBindViewHolder: $league")
+
+        //Season adapter builder function called
         buildSeasonAdapter(holder.leagueRecyclerView, league)
+
         holder.leagueName.text = league.name
         holder.leagueType.text = league.type
         Utils().also {
@@ -58,7 +62,6 @@ class LeagueAdapter(
         holder.leagueCard.setOnClickListener {
             val currentHeight = recyclerView.layoutParams.height
 
-            // check current height
             if (currentHeight == resources.getDimensionPixelSize(R.dimen.league_card_minimize_height)) {
                 // If the current height match, set the height to wrap_content
                 recyclerView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -67,17 +70,8 @@ class LeagueAdapter(
                 recyclerView.layoutParams.height =
                     resources.getDimensionPixelSize(R.dimen.league_card_minimize_height)
             }
-
-            // Apply the updated to the RecyclerView
+            // updated to the RecyclerView
             recyclerView.layoutParams = recyclerView.layoutParams
-        }
-
-        holder.itemView.setOnClickListener {
-            Log.d("cricMatchAdapter", "onBindViewHolder: ${league.id}")
-            //crash issue
-            /* Navigation.findNavController(holder.itemView)
-                 .navigate(R.id.action_matchTabLayoutFragment_to_matchDetailTabLayoutFragment,
-                     Bundle().apply { putInt("matchId", player.id) })*/
         }
     }
 

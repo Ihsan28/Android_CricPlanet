@@ -11,13 +11,13 @@
     <item
         android:id="@+id/seriesFragment"
         android:title="@string/series"
-        android:icon="@drawable/ic_groups" />
+        android:icon="@drawable/ic_series" />
     <item
         android:id="@id/playerFragment"
         android:title="@string/players"
-        android:icon="@drawable/ic_groups" />
+        android:icon="@drawable/ic_player" />
     <item
         android:id="@id/rankingTabLayoutFragment"
         android:title="@string/ranking"
-        android:icon="@drawable/ic_groups" />
+        android:icon="@drawable/ic_rankin" />
 </menu>

@@ -67,7 +67,7 @@ class RankingFragment : Fragment() {
                 recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
 
             }
-
+            Utils().progressAnimationStop(progressBar)
         }
     }
 

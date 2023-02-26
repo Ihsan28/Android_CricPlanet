@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Name"
+                android:text="@string/name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"
@@ -42,7 +42,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Run"
+                android:text="@string/run"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -51,7 +51,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Ball"
+                android:text="@string/ball"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -60,7 +60,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="4s"
+                android:text="@string/_4s"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -69,7 +69,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="6s"
+                android:text="@string/_6s"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"/>
@@ -78,7 +78,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="SR"
+                android:text="@string/sr"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"
                 android:textStyle="bold"/>

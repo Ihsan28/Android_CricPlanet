@@ -37,4 +37,8 @@
     <string name="match_history">Match History</string>
     <string name="name">Name</string>
     <string name="run">Run</string>
+    <string name="ball">Ball</string>
+    <string name="_4s">4s</string>
+    <string name="_6s">6s</string>
+    <string name="sr">SR</string>
 </resources>

@@ -16,6 +16,7 @@ import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
+import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.repository.CricRepository
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.roomdb.data.DataConverter
@@ -54,6 +55,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //team LiveData Holder
     private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
     val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
+    private val _teamById = MutableLiveData<TeamDetails>()
+    val teamById: LiveData<TeamDetails> = _teamById
     //league LiveData Holder
     private val _league = MutableLiveData<List<LeagueIncludeSeasons>>()
     val league: LiveData<List<LeagueIncludeSeasons>> = _league
@@ -245,6 +248,19 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     _seasonById.value = repository.getSeasonByIdApi(Id)
                     Log.d("cricViewModel", "viewModel Api getSeasonById: ${seasonById.value?.id}")
+                } catch (e: java.lang.Exception) {
+                    Log.d("cricViewModelCatch", "viewModel Api getSeasonById: $e")
+                }
+            }
+        }
+    }
+
+    fun getTeamByIdApi(Id: Int) {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    _teamById.value = repository.getTeamByIdApi(Id)
+                    Log.d("cricViewModel", "viewModel Api getSeasonById: ${teamById.value?.id}")
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getSeasonById: $e")
                 }

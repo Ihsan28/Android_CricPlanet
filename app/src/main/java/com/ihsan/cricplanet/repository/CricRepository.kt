@@ -12,6 +12,7 @@ import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
 import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
+import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.network.CricApi
 import com.ihsan.cricplanet.roomdb.dao.CricDao
 import com.ihsan.cricplanet.utils.Constant
@@ -134,6 +135,14 @@ class CricRepository(private val cricDao: CricDao) {
         return CricApi.retrofitService.getSeasonByIdResponse(
             Id,
             "fixtures.localteam, fixtures.visitorteam,league",
+            Constant.API_KEY
+        ).data
+    }
+
+    suspend fun getTeamByIdApi(Id: Int): TeamDetails {
+        return CricApi.retrofitService.getTeamByIdResponse(
+            Id,
+            "country,fixtures,results,squad.position",
             Constant.API_KEY
         ).data
     }

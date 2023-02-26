@@ -57,9 +57,6 @@
             android:name="matchId"
             app:argType="integer"
             android:defaultValue="0" />
-        <action
-            android:id="@+id/action_matchDetailTabLayoutFragment_to_playerDetailsTabLayoutFragment"
-            app:destination="@id/playerDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchInfoFragment"
@@ -117,6 +114,9 @@
         <action
             android:id="@+id/action_rankingTabLayoutFragment_to_rankingFragment2"
             app:destination="@id/rankingFragment2" />
+        <action
+            android:id="@+id/action_rankingTabLayoutFragment_to_teamDetailsTabLayoutFragment"
+            app:destination="@id/teamDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/rankingFragment2"
@@ -180,5 +180,34 @@
             android:name="player"
             app:argType="com.ihsan.cricplanet.model.player.PlayerDetails"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFixturesFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment"
+        android:label="fragment_team_fixtures"
+        tools:layout="@layout/fragment_team_fixtures" >
+        <argument
+            android:name="team"
+            app:argType="com.ihsan.cricplanet.model.team.TeamDetails"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamSqaudFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment"
+        android:label="fragment_team_sqaud"
+        tools:layout="@layout/fragment_team_squad" >
+        <argument
+            android:name="team"
+            app:argType="com.ihsan.cricplanet.model.team.TeamDetails"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.TeamDetailsTabLayoutFragment"
+        android:label="fragment_team_details_tab_layout"
+        tools:layout="@layout/fragment_team_details_tab_layout" >
+        <argument android:name="teamId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

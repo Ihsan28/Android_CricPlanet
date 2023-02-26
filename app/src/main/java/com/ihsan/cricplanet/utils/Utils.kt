@@ -1,15 +1,19 @@
 package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
-import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.os.CountDownTimer
 import android.text.TextUtils
 import android.util.Log
-import android.view.Window
-import android.view.WindowManager
+import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.devhoony.lottieproegressdialog.LottieProgressDialog
+import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
@@ -19,10 +23,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import android.content.Context
-import android.os.CountDownTimer
-import android.widget.Toast
-import com.devhoony.lottieproegressdialog.LottieProgressDialog
 
 
 class Utils {
@@ -30,8 +30,25 @@ class Utils {
     fun refreshMessage() {
         Toast.makeText(MyApplication.instance, "Refreshing", Toast.LENGTH_SHORT).show()
     }
-    fun progressAnimationStart(context:Context,title:String): LottieProgressDialog{
-        val progressbar=LottieProgressDialog(
+
+    fun showStyledSnackbar(view: View, text: String?) {
+        var showText = ""
+        if (text != null) {
+            showText = text
+        }
+        val snackbar = Snackbar.make(view, showText, Snackbar.LENGTH_LONG)
+        val snackbarView = snackbar.view
+        snackbarView.setBackgroundColor(Color.parseColor("#3F51B5"))
+        val textView =
+            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.setTextColor(Color.WHITE)
+        textView.textSize = 20f
+        textView.setTypeface(null, Typeface.BOLD)
+        snackbar.show()
+    }
+
+    fun progressAnimationStart(context: Context, title: String): LottieProgressDialog {
+        val progressbar = LottieProgressDialog(
             context,
             false,
             null,
@@ -46,7 +63,7 @@ class Utils {
         return progressbar
     }
 
-    fun progressAnimationStop(progressbar: LottieProgressDialog){
+    fun progressAnimationStop(progressbar: LottieProgressDialog) {
         progressbar.dismiss()
     }
 
@@ -86,9 +103,10 @@ class Utils {
     }
 
 
-    fun twoDecimal(number:Double?):String{
-        if (number==0.00||number==null)
-        {return "0.0"}
+    fun twoDecimal(number: Double?): String {
+        if (number == 0.00 || number == null) {
+            return "0.0"
+        }
         return String.format("%.2f", number)
     }
 
@@ -190,38 +208,38 @@ class Utils {
         val formattedDate = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
 
-        var days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000)
+        val days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000)
 
-        if (days >= 365) {
-            return "${(days / 365).toInt()}y"
+        return if (days >= 365) {
+            "${(days / 365).toInt()}y"
         } else {
-            return ""
+            ""
         }
     }
 
     @SuppressLint("SetTextI18n")
     fun setRun(
-        runs:List<RunWithTeam>?,
+        runs: List<RunWithTeam>?,
         localTeam: Team,
         localTeamRun: TextView,
         localTeamOver: TextView,
         visitorTeamRun: TextView,
         visitorTeamOver: TextView
-    ){
-        if (runs!=null && runs.size==2){
-            if (localTeam.id==runs[0].team_id){
-                localTeamRun.text="${runs[0].score}-${runs[0].wickets}"
-                localTeamOver.text="${runs[0].overs} ov"
+    ) {
+        if (runs != null && runs.size == 2) {
+            if (localTeam.id == runs[0].team_id) {
+                localTeamRun.text = "${runs[0].score}-${runs[0].wickets}"
+                localTeamOver.text = "${runs[0].overs} ov"
 
-                visitorTeamRun.text="${runs[1].score}-${runs[1].wickets}"
-                visitorTeamOver.text="${runs[1].overs} ov"
+                visitorTeamRun.text = "${runs[1].score}-${runs[1].wickets}"
+                visitorTeamOver.text = "${runs[1].overs} ov"
 
-            }else{
-                localTeamRun.text="${runs[1].score}-${runs[1].wickets}"
-                localTeamOver.text="${runs[1].overs} ov"
+            } else {
+                localTeamRun.text = "${runs[1].score}-${runs[1].wickets}"
+                localTeamOver.text = "${runs[1].overs} ov"
 
-                visitorTeamRun.text="${runs[0].score}-${runs[0].wickets}"
-                visitorTeamOver.text="${runs[0].overs} ov"
+                visitorTeamRun.text = "${runs[0].score}-${runs[0].wickets}"
+                visitorTeamOver.text = "${runs[0].overs} ov"
             }
         }
     }
@@ -295,7 +313,7 @@ class Utils {
         }
     }
 
-    fun isLive(status:String):Boolean{
+    fun isLive(status: String): Boolean {
         val liveStatus = listOf(
             "1st Innings",
             "2nd Innings",

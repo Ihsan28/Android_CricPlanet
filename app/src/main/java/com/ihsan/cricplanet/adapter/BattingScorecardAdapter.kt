@@ -42,12 +42,5 @@ class BattingScorecardAdapter(private val battingScorecardList: List<BattingIncl
         holder.player4s.text=scorecard.four_x.toString()
         holder.player6s.text=scorecard.six_x.toString()
         holder.playerSR.text=scorecard.rate.toString()
-
-        holder.itemView.setOnClickListener{
-            //crash issue
-            /*Navigation.findNavController(holder.itemView).navigate(
-                R.id.action_homeFragment_to_matchDetailTabLayoutFragment,
-                Bundle().apply { putInt("matchId", match.id)})*/
-        }
     }
 }

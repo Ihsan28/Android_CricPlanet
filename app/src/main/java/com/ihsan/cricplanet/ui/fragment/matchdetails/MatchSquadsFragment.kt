@@ -18,8 +18,8 @@ class MatchSquadsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMatchSquadsBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
+        binding = FragmentMatchSquadsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

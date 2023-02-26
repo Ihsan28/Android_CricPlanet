@@ -9,3 +9,4 @@
     android:indeterminate="true"
     android:indeterminateDrawable="@drawable/progress_animation"
     android:padding="16dp" />
+

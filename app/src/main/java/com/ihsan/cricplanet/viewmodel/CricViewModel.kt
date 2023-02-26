@@ -7,9 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ihsan.cricplanet.model.LeagueIncludeSeasons
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeague
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeagueTable
-import com.ihsan.cricplanet.model.Team
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard

@@ -9,8 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.LeagueIncludeSeasons
-import com.ihsan.cricplanet.model.Season
+import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.utils.Utils
 
 class SeasonAdapter(private val seasonList: List<Season>, private val leagueImage:String?, private val leagueCode:String?) :

@@ -5,8 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeagueTable
-import com.ihsan.cricplanet.model.Team
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 
 @Dao
 interface CricDao {

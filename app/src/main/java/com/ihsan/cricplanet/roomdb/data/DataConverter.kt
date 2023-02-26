@@ -1,7 +1,7 @@
 package com.ihsan.cricplanet.roomdb.data
 
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeague
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeagueTable
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 
 class DataConverter {
 

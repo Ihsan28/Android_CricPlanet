@@ -3,7 +3,7 @@ package com.ihsan.cricplanet.model.fixture
 import android.os.Parcel
 import android.os.Parcelable
 import com.ihsan.cricplanet.model.League
-import com.ihsan.cricplanet.model.Season
+import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.Venue
 import com.ihsan.cricplanet.model.fixture.referee.RefereeX
@@ -14,7 +14,6 @@ import com.ihsan.cricplanet.model.fixture.result.teamwontoss.TossWon
 import com.ihsan.cricplanet.model.fixture.result.winnerteam.WinnerTeamX
 import com.ihsan.cricplanet.model.fixture.scoreboard.Scoreboard
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
-import com.ihsan.cricplanet.model.fixture.scoreboard.run.Run
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import kotlinx.android.parcel.Parcelize
 

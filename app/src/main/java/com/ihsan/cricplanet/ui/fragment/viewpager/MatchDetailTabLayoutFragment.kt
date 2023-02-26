@@ -73,7 +73,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 Utils().also { utils ->
                     //Automatic refresh page function call
                     if (utils.isLive(match.status.toString())){
-                        /*stopPeriodicRefresh()
+                        stopPeriodicRefresh()
                         runnable = object : Runnable {
                             override fun run() {
                                 refreshPage()
@@ -81,7 +81,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
                                 liveHandler.postDelayed(this, 60000)
                             }
                         }
-                        startPeriodicRefresh()*/
+                        startPeriodicRefresh()
                     }
                     //setting status and runs
                     utils.setStatus(match.status, fixtureStatus)
@@ -121,21 +121,17 @@ class MatchDetailTabLayoutFragment : Fragment() {
         viewmodel.getFixturesByIdApi(matchId)
     }
 
-    fun startPeriodicRefresh() {
+    private fun startPeriodicRefresh() {
         // 1 minute interval
-        runnable?.let { liveHandler.postDelayed(it, 6000) }
+        runnable?.let { liveHandler.postDelayed(it, 30000) }
     }
 
-    fun stopPeriodicRefresh() {
+    private fun stopPeriodicRefresh() {
         runnable?.let { liveHandler.removeCallbacks(it) }
     }
 
-    override fun onResume() {
-        super.onResume()
-        //startPeriodicRefresh()
-    }
     override fun onPause() {
         super.onPause()
-        //stopPeriodicRefresh()
+        stopPeriodicRefresh()
     }
 }

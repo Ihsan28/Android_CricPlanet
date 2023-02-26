@@ -1,6 +1,7 @@
 package com.ihsan.cricplanet.model
 
 import android.os.Parcelable
+import com.ihsan.cricplanet.model.season.Season
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

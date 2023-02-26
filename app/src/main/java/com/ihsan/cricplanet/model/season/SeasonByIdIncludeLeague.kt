@@ -1,24 +1,23 @@
-package com.ihsan.cricplanet.model
+package com.ihsan.cricplanet.model.season
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.ihsan.cricplanet.model.League
 
-@Parcelize
-data class Season(
+data class SeasonByIdIncludeLeague(
     val code: String?,
     val id: Int,
+    val league: League?,
     val league_id: Int?,
     val name: String?,
     val resource: String?,
     val updated_at: String?
-): Parcelable
-{
-    constructor():this(
+) {
+    constructor() : this(
         null,
         0,
         null,
         null,
         null,
-        null
+        null,
+        null,
     )
 }

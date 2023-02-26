@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.SeasonByIdIncludeLeague
 import com.ihsan.cricplanet.model.player.TeamIncludeInSquad
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel

@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.model
+package com.ihsan.cricplanet.model.season
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

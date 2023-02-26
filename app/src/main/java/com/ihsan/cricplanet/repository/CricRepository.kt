@@ -8,6 +8,10 @@ import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
+import com.ihsan.cricplanet.model.responseapi.SeasonForCardResponse
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
+import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.network.CricApi
 import com.ihsan.cricplanet.roomdb.dao.CricDao
@@ -83,6 +87,17 @@ class CricRepository(private val cricDao: CricDao) {
         ).data
     }
 
+    //visitorteam.results,scoreboards.team
+    suspend fun getFixturesByIdApi(Id: Int): FixtureByIdWithDetails {
+        return CricApi.retrofitService.getFixtureByIdResponse(
+            Id,
+            "scoreboards.team,runs.team,tosswon,manofmatch,manofseries,venue.country," +
+                    "lineup,winnerteam,season,league,referee,firstumpire,secondumpire,tvumpire," +
+                    "localteam.country, visitorteam.country,visitorteam.results,balls.bowler,batting.batsman",
+            Constant.API_KEY
+        ).data
+    }
+
     suspend fun getPlayersApi(): List<PlayerCard> {
         return CricApi.retrofitService.getPlayersResponse(
             "id,fullname,image_path,dateofbirth",
@@ -110,20 +125,17 @@ class CricRepository(private val cricDao: CricDao) {
         ).data
     }
     suspend fun getSeasonApi():List<SeasonByIdIncludeLeague> {
-        return CricApi.retrofitService.getSeasonByIdResponse(
+        return CricApi.retrofitService.getSeasonResponse(
             "league",
             Constant.API_KEY
         ).data
     }
 
-    //visitorteam.results,scoreboards.team
-    suspend fun getFixturesByIdApi(Id: Int): FixtureByIdWithDetails {
-        return CricApi.retrofitService.getFixtureByIdResponse(
+    /*suspend fun getSeasonByIdApi(Id: Int): SeasonForCard {
+        return CricApi.retrofitService.getLeagueByIdResponse(
             Id,
-            "scoreboards.team,runs.team,tosswon,manofmatch,manofseries,venue.country," +
-                    "lineup,winnerteam,season,league,referee,firstumpire,secondumpire,tvumpire," +
-                    "localteam.country, visitorteam.country,visitorteam.results,balls.bowler,batting.batsman",
+            "fixtures.localteam, fixtures.visitorteam,league",
             Constant.API_KEY
         ).data
-    }
+    }*/
 }

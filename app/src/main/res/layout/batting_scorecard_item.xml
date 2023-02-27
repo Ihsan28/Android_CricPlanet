@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/batting_run"
         android:layout_width="40dp"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/batting_ball"
         android:layout_width="40dp"

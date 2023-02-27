@@ -76,7 +76,7 @@
     <GridView
         android:id="@+id/player_bowling_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="550dp"
         android:horizontalSpacing="10dp"
         android:numColumns="1"
         android:padding="10dp"

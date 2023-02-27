@@ -67,7 +67,7 @@ class MatchAdapterSeries(private val matchList: List<FixtureForSeason>,private v
         }
 
         holder.itemView.setOnClickListener {
-            Log.d("cricMatchAdapter", "onBindViewHolder: ${match.id}")
+            Log.d("cricMatchAdapterSeries", "onBindViewHolder: ${match.id}")
             Navigation.findNavController(holder.itemView)
                 .navigate(R.id.action_matchesFragment_to_matchDetailTabLayoutFragment,
                     Bundle().apply { putInt("matchId", match.id) })

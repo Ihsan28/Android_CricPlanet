@@ -17,7 +17,7 @@ data class BattingIncludeBatsman(
     val fow_score: Int?,
     val id: Int,
     val player_id: Int?,
-    val rate: Int?,
+    val rate: Double?,
     val resource: String?,
     val runout_by_id: Int?,
     val score: Int?,

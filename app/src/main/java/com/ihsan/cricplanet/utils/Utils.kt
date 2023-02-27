@@ -104,7 +104,7 @@ class Utils {
         // Format the new date as a string
         val formatter = DateTimeFormatter.ofPattern("yy-MM-dd")
         Log.d(
-            "cricUtils",
+            TAG,
             "currentDateTime: ${currentDateTime.format(formatter)},${
                 tomorrowDateTime.format(formatter)
             }"

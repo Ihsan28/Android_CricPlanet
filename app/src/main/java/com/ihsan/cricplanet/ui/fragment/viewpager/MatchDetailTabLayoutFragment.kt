@@ -27,6 +27,8 @@ class MatchDetailTabLayoutFragment : Fragment() {
     private var matchId: Int = 0
     private val liveHandler = Handler(Looper.getMainLooper())
     private var runnable:Runnable?=null
+    private val DELAY_MS:Long=60000 //refresh delay in millis
+    private val refreshMessage="refreshing.." //refresh delay in millis
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +69,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
-
+                Utils().progressAnimationStop(progressBar)
                 //Assigning value of all view fields of top
                 fixtureName.text = match.league?.name
                 Utils().also { utils ->
@@ -78,7 +80,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
                             override fun run() {
                                 refreshPage()
                                 // 1 minute interval
-                                liveHandler.postDelayed(this, 60000)
+                                liveHandler.postDelayed(this, DELAY_MS)
                             }
                         }
                         startPeriodicRefresh()
@@ -99,32 +101,17 @@ class MatchDetailTabLayoutFragment : Fragment() {
                         visitorTeamOver
                     )
                 }
-                Utils().progressAnimationStop(progressBar)
-            }
-        }
-
-        //Auto Hide Top view
-        var mBottomViewVisible = true
-        val scrollView = binding.detailsMatchScrollView
-        val mBottomView = binding.topInfo
-        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY > oldScrollY && mBottomViewVisible) {
-                mBottomView?.animate()?.translationY(mBottomView?.height?.toFloat() ?: 0f)?.start()
-                mBottomViewVisible = true
-            } else if (scrollY < oldScrollY && !mBottomViewVisible) {
-                mBottomView?.animate()?.translationY(0f)?.start()
-                mBottomViewVisible = false
             }
         }
     }
     private fun refreshPage() {
-        Toast.makeText(requireActivity(), "refresh", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireActivity(), refreshMessage, Toast.LENGTH_SHORT).show()
         viewmodel.getFixturesByIdApi(matchId)
     }
 
     private fun startPeriodicRefresh() {
         // 1 minute interval
-        runnable?.let { liveHandler.postDelayed(it, 30000) }
+        runnable?.let { liveHandler.postDelayed(it, DELAY_MS) }
     }
 
     private fun stopPeriodicRefresh() {

@@ -59,9 +59,9 @@ class LiveMatchSliderAdapter(
             visitorTeamName.text = liveMatch.visitorteam!!.name
             localTeamImage.setImageResource(R.drawable.ic_image)
             visitorTeamImage.setImageResource(R.drawable.ic_image)
+
             upcomingDate.text = liveMatch.note
             upcomingTime.text = "Started at ${dateTimeList[1]}"
-
             upcomingDate.setTextColor(
                 ContextCompat.getColor(
                     MyApplication.instance, R.color.md_red_400
@@ -83,7 +83,6 @@ class LiveMatchSliderAdapter(
             }
 
             Log.d("cricSlider", "instantiateItem: $liveMatch")
-
             if (liveMatch.live == true || liveMatch.status?.let { it1 -> Utils().isLive(it1) } == true) {
                 Log.d("cricMatchAdapter", "onBindViewHolderLive: $liveMatch")
                 status.text = "• LIVE"
@@ -100,6 +99,7 @@ class LiveMatchSliderAdapter(
                 noteOrVenue.text = "${liveMatch.venue.name} • ${liveMatch.venue.city}"
             }
 
+            //Navigating to match details adapter
             itemView.setOnClickListener{
                 Navigation.findNavController(itemView).navigate(
                     R.id.action_homeFragment_to_matchDetailTabLayoutFragment,

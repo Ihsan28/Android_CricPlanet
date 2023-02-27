@@ -116,13 +116,6 @@ class CricRepository(private val cricDao: CricDao) {
             Constant.API_KEY
         ).data
     }
-    suspend fun getLeaguesByIdApi(Id: Int):LeagueIncludeSeasons {
-        return CricApi.retrofitService.getLeagueByIdResponse(
-            Id,
-            "season,seasons",
-            Constant.API_KEY
-        ).data
-    }
     suspend fun getSeasonApi():List<SeasonByIdIncludeLeague> {
         return CricApi.retrofitService.getSeasonResponse(
             "league",

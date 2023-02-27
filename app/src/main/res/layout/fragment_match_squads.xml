@@ -17,34 +17,40 @@
         android:textStyle="bold"
         tools:ignore="RtlHardcoded" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
-        <GridView
-            android:id="@+id/grid_view_squad_local"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:horizontalSpacing="10dp"
-            android:numColumns="1"
-            android:padding="10dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+            <GridView
+                android:id="@+id/grid_view_squad_local"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="1"
+                android:padding="10dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                android:layout_weight="1"/>
 
-        <GridView
-            android:id="@+id/grid_view_squad_visitor"
-            android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:horizontalSpacing="10dp"
-            android:numColumns="1"
-            android:padding="10dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            <GridView
+                android:id="@+id/grid_view_squad_visitor"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="1"
+                android:padding="10dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </LinearLayout>

@@ -38,7 +38,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Details")
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
@@ -56,14 +56,12 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
         arguments?.let {
 
-
             matchId = it.getInt("matchId")
             viewmodel.getFixturesByIdApi(matchId)
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
 
             //Assigning match Adapter
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
-                val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Details")
                 val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
                 viewPager.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->

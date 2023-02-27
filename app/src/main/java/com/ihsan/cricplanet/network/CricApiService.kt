@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit
 private const val BASE_URL = "https://cricket.sportmonks.com/api/v2.0/"
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 val client = OkHttpClient.Builder()
-    .connectTimeout(10, TimeUnit.SECONDS) // set connection timeout to 10 seconds
-    .readTimeout(30, TimeUnit.SECONDS) // set read timeout to 30 seconds
-    .writeTimeout(30, TimeUnit.SECONDS) // set write timeout to 30 seconds
+    .connectTimeout(10, TimeUnit.SECONDS) // connection timeout 10 seconds
+    .readTimeout(30, TimeUnit.SECONDS) // read timeout 30 seconds
+    .writeTimeout(30, TimeUnit.SECONDS) // write timeout 30 seconds
     .build()
 
 private val retrofit = Retrofit
@@ -28,7 +28,9 @@ private val retrofit = Retrofit
 
 interface CricApiService {
     @GET(Constant.rankings)
-    suspend fun getTeamRankingResponse(@Query(Constant.api_token) api_token: String): ResponseGlobalTeamRanking
+    suspend fun getTeamRankingResponse(
+        @Query(Constant.api_token) api_token: String
+    ): ResponseGlobalTeamRanking
 
     @GET(Constant.fixtures)
     suspend fun getFixturesResponse(

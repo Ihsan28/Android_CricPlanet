@@ -49,12 +49,16 @@ class CricRepository(private val cricDao: CricDao) {
         Log.d(
             "cricRepository", "getLiveFixturesApi: ${
                 CricApi.retrofitService.getLiveFixturesResponse(
-                    "localteam,visitorteam,venue,season,league", "starting_at", Constant.API_KEY
+                    "localteam,visitorteam,venue,season,league", 
+                    "starting_at", 
+                    Constant.API_KEY
                 ).data
             }"
         )
         return CricApi.retrofitService.getLiveFixturesResponse(
-            "localteam,visitorteam,venue,season,league", "starting_at", Constant.API_KEY
+            "localteam,visitorteam,venue,season,league",
+            "starting_at",
+            Constant.API_KEY
         ).data
     }
 

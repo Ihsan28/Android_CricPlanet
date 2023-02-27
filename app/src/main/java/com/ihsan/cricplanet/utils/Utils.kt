@@ -80,7 +80,7 @@ class Utils {
         // Get the current date and time
         val currentDateTime = LocalDateTime.now()
 
-        // Add 1 year to the current date and time
+        // Add 2 months to the current date and time
         val lastMonthsDateTime = currentDateTime.minusMonths(2)
 
         // Format the new date and time as a string

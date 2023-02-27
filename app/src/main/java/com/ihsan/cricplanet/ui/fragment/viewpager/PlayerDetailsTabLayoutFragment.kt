@@ -46,6 +46,7 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
 
                 binding.playerName.text = player.fullname
                 binding.playerCountry.text = player.country?.name ?: ""
+                binding.playerType.text=player.position?.name ?:""
                 Utils().also { utils ->
                     utils.loadImageWithPicasso(
                         player.image_path,

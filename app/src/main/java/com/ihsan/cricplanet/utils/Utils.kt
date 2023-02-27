@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.nfc.Tag
 import android.os.CountDownTimer
 import android.text.TextUtils
 import android.util.Log
@@ -22,9 +23,10 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.*
 
-
+private const val TAG = "cricUtils"
 class Utils {
 
     fun refreshMessage() {
@@ -70,7 +72,7 @@ class Utils {
 
         //Combine them in one string using comma as separator
         val upcomingYearString = "$nextMinuteDateTimeString,$nextYearDateTimeString"
-        Log.d("cricUtils", "upcomingYearDuration: $upcomingYearString")
+        Log.d(TAG, "upcomingYearDuration: $upcomingYearString")
 
         return upcomingYearString
     }
@@ -90,7 +92,7 @@ class Utils {
 
         //Combine them in one string using comma as separator
         val upcomingYearString = "$lastMonthsDateTimeString,$lastMinuteDateTimeString"
-        Log.d("cricUtils", "lastMonthDuration: $upcomingYearString")
+        Log.d(TAG, "lastMonthDuration: $upcomingYearString")
 
         return upcomingYearString
     }
@@ -111,17 +113,27 @@ class Utils {
     }
 
     fun dateFormat(dateString: String): List<String> {
-        val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'000Z'")
-        val targetFormat = DateTimeFormatter.ofPattern("dd-MM-yy/hh:mm a")
-        val date = apiFormat.parse(dateString)
-        return targetFormat.format(date).split("/")
+        try {
+            val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'000Z'")
+            val targetFormat = DateTimeFormatter.ofPattern("dd-MM-yy/hh:mm a")
+            val date = apiFormat.parse(dateString)
+            return targetFormat.format(date).split("/")
+        }catch (e: DateTimeParseException){
+            Log.d(TAG, "dateFormat: $e")
+            return listOf("","")
+        }
     }
 
     fun getPlayerBorn(dateString: String): String {
-        val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
-        val date = apiFormat.parse(dateString)
-        return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
+        try {
+            val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+            val date = apiFormat.parse(dateString)
+            return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
+        }catch (e: DateTimeParseException){
+            Log.d(TAG, "dateFormat: $e")
+            return ""
+        }
     }
 
     fun getPlayerAge(date: String): String {
@@ -129,7 +141,7 @@ class Utils {
         val formattedDate = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
 
-        val days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000)
+        val days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000) //Converting from mmSecond to days
 
         return if (days >= 365) {
             "${(days / 365).toInt()}y"

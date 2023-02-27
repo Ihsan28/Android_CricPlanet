@@ -52,7 +52,7 @@
             <ImageView
                 android:id="@+id/visitor_team_image"
                 android:layout_width="85dp"
-                android:layout_height="wrap_content"
+                android:layout_height="85dp"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/image_view"

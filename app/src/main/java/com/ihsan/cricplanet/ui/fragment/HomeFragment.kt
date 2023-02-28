@@ -51,7 +51,6 @@ class HomeFragment : Fragment() {
 
         //Live Card Slider view pager
         val viewPager = binding.viewpager
-
         //Live Api Call
         viewModel.getLiveFixturesApi()
         val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Home")

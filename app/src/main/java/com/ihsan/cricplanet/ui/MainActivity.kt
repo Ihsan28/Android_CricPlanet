@@ -1,12 +1,10 @@
 package com.ihsan.cricplanet.ui
 
-import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ihsan.cricplanet.R.id
@@ -22,8 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        checkNetwork=CheckNetwork()
+        checkNetwork = CheckNetwork()
 
         //Network check register and toast at start up
         registerReceiver(checkNetwork, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
@@ -32,16 +32,12 @@ class MainActivity : AppCompatActivity() {
         //Periodic work request call
         WorkRequest().setPeriodicWorkRequest()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         bottomNavigation = binding.bottomNav
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         bottomNavigation.setupWithNavController(navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

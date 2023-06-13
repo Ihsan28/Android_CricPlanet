@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.adapter.MatchAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
+import com.ihsan.cricplanet.utils.BottomSpaceItemDecoration
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
@@ -41,6 +42,7 @@ class MatchesFragment : Fragment() {
         // Initializing recycler view
         recyclerView = binding.recyclerviewMatches
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.addItemDecoration(BottomSpaceItemDecoration(200))
         recyclerView.setHasFixedSize(true)
 
         // getting the argument from navigation argument

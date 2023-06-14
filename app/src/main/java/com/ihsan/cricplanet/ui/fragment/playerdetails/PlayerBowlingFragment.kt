@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
-import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBinding
 import com.ihsan.cricplanet.databinding.FragmentPlayerBowlingBinding
 import com.ihsan.cricplanet.model.PlayerGridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
@@ -32,7 +30,7 @@ class PlayerBowlingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val player: PlayerDetails?
-        val gridView = binding.playerBowlingGridView
+        val listView = binding.playerBowlingListView
         arguments.let {
             if (it != null) {
                 player=it.getParcelable("player")
@@ -60,7 +58,7 @@ class PlayerBowlingFragment : Fragment() {
             }
 
             //Grid Adapter call
-            gridView.adapter = PlayerDetailsGridAdapter(requireContext(), keyValueList)
+            listView.adapter = PlayerDetailsGridAdapter(requireContext(), keyValueList)
         }
     }
 }

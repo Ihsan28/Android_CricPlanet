@@ -19,6 +19,7 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
+import com.ihsan.cricplanet.model.player.Career
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -148,6 +149,28 @@ class Utils {
         } else {
             ""
         }
+    }
+
+    fun getHighestScore(score: List<Career>): Int {
+        var highestScore = 0
+        score.map { career ->
+            if (career.batting. != null) {
+                val scoreString = career.batting_score.replace("*", "")
+                if (scoreString.toInt() > highestScore) {
+                    highestScore = scoreString.toInt()
+                }
+            }
+
+        }
+        for (i in score.indices) {
+            if (score[i].batting_score != null) {
+                val scoreString = score[i].batting_score.replace("*", "")
+                if (scoreString.toInt() > highestScore) {
+                    highestScore = scoreString.toInt()
+                }
+            }
+        }
+        return 0
     }
 
     @SuppressLint("SetTextI18n")

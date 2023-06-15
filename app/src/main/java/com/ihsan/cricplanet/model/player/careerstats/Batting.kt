@@ -13,10 +13,10 @@ data class Batting(
     val fow_score: Int?,
     val highest_inning_score: Int?,
     val hundreds: Int?,
-    val innings: Int?,
-    val matches: Int?,
-    val not_outs: Int?,
-    val runs_scored: Int?,
+    var innings: Int?,
+    var matches: Int?,
+    var not_outs: Int?,
+    var runs_scored: Int?,
     val six_x: Int?,
     val strike_rate: Double?
 ):Parcelable

@@ -48,15 +48,16 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                     player?.career?.get(3)?.batting == null
                 ) {
                     //removing batting tab
-                    tabPlayerAdapter.listPlayerDetailTab.remove(Tab(PlayerBattingFragment(), "Batting"))
+                    tabPlayerAdapter.listPlayerDetailTab.removeAt(1)
                 }
+
                 if (player.career?.get(0)?.bowling == null &&
                     player.career?.get(1)?.bowling == null &&
                     player.career?.get(2)?.bowling == null &&
                     player.career?.get(3)?.bowling == null
                 ) {
                     //removing bowling tab
-                    tabPlayerAdapter.listPlayerDetailTab.remove(Tab(PlayerBowlingFragment(), "Bowling"))
+                    tabPlayerAdapter.listPlayerDetailTab.removeAt(2)
                     Log.d(TAG, "onViewCreated: ${tabPlayerAdapter.listPlayerDetailTab}")
 
                 }
@@ -76,7 +77,6 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                     )
                 }
             }
-
         }
     }
 }

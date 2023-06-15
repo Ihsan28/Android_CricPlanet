@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBinding
 import com.ihsan.cricplanet.model.PlayerGridItem
+import com.ihsan.cricplanet.model.fixture.CareerType
 import com.ihsan.cricplanet.model.player.PlayerDetails
+import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.ihsan.cricplanet.utils.Utils
+import kotlin.coroutines.cancellation.CancellationException
 
 class PlayerBattingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBinding
@@ -32,6 +35,46 @@ class PlayerBattingFragment : Fragment() {
             if (it != null) {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
+                var battingTest= listOf<List<Batting>>()
+                var battingT20=mutableListOf<Batting>()
+                var battingOdi=mutableListOf<Batting>()
+                var battingLeague=mutableListOf<Batting>()
+                var countCareerType= CareerType(0,0,0,0,0)
+
+                player?.career?.map { career ->
+                    career.batting.let {batting->
+                        if (batting != null) {
+                            when (career.type) {
+                                "Test/5day" -> {
+                                    countCareerType.Test++
+                                    /*battingTest = batting
+                                    battingTest.matches = battingTest.matches!! + batting.matches!!
+                                    battingTest.innings = battingTest.innings!! + batting.innings!!
+                                    battingTest.runs_scored = battingTest.runs_scored!! + batting.runs_scored!!
+                                    battingTest.not_outs = battingTest.not_outs!! + batting.not_outs!!*/
+
+                                }
+                                "T20" -> {
+                                    countCareerType.T20++
+                                    //battingT20 = batting
+                                }
+                                "T20I" -> {
+                                    countCareerType.T20I++
+                                    //battingT20 = batting
+                                }
+                                "ODI" -> {
+                                    countCareerType.ODI++
+                                    //battingOdi = batting
+                                }
+                                "league" -> {
+                                    countCareerType.League++
+                                    //battingLeague = batting
+                                }
+                            }
+                        }
+
+                    }
+                }
                 val test = player?.career?.get(0)?.batting
                 val t20 = player?.career?.get(1)?.batting
                 val odi = player?.career?.get(2)?.batting

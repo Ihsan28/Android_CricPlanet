@@ -18,14 +18,14 @@ class TabPlayerAdapter(
     lifecycle: Lifecycle,
     private val player: PlayerDetails
 ) : FragmentStateAdapter(manager, lifecycle) {
-    companion object {
-        val listPlayerDetailTab = listOf(
-            Tab(PlayerInfoFragment(), "Info"),
-            Tab(PlayerBattingFragment(), "Batting"),
-            Tab(PlayerBowlingFragment(), "Bowling"),
-            Tab(PlayerCareerFragment(), "Career")
-        )
-    }
+
+    var listPlayerDetailTab = mutableListOf(
+        Tab(PlayerInfoFragment(), "Info"),
+        Tab(PlayerBattingFragment(), "Batting"),
+        Tab(PlayerBowlingFragment(), "Bowling"),
+        Tab(PlayerCareerFragment(), "Career")
+    )
+
 
     private fun addBundle(fragment: Fragment): Fragment {
         val bundle = Bundle()
@@ -41,11 +41,6 @@ class TabPlayerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: $position")
-        return when (position) {
-            0 -> addBundle(listPlayerDetailTab[position].fragment)
-            1 -> addBundle(listPlayerDetailTab[position].fragment)
-            2 -> addBundle(listPlayerDetailTab[position].fragment)
-            else -> addBundle(listPlayerDetailTab[position].fragment)
-        }
+        return addBundle(listPlayerDetailTab[position].fragment)
     }
 }

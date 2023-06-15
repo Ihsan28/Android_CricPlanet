@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.model.player
+package com.ihsan.cricplanet.model.player.careerstats
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -125,14 +125,14 @@ class Utils {
     }
 
     fun getPlayerBorn(dateString: String): String {
-        try {
+        return try {
             val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
             val date = apiFormat.parse(dateString)
-            return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
+            "${targetFormat.format(date)} (${getPlayerAge(dateString)})"
         }catch (e: DateTimeParseException){
             Log.d(TAG, "dateFormat: $e")
-            return ""
+            ""
         }
     }
 
@@ -286,7 +286,7 @@ class Utils {
             } else {
                 if (venue.country?.name != null) {
                     noteOrVenue.text =
-                        "${venue.name} • ${venue.city} • ${venue.country?.name}"
+                        "${venue.name} • ${venue.city} • ${venue.country.name}"
                 } else {
                     noteOrVenue.text = "${venue.name} • ${venue.city}"
                 }

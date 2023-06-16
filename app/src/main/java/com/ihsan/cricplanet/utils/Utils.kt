@@ -2,24 +2,18 @@ package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
-import android.nfc.Tag
-import android.os.CountDownTimer
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
-import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
-import com.ihsan.cricplanet.model.player.Career
+import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -151,26 +145,18 @@ class Utils {
         }
     }
 
-    fun getHighestScore(score: List<Career>): Int {
+    fun getHighestScore(battings: List<Batting>): Int {
         var highestScore = 0
-        score.map { career ->
-            if (career.batting. != null) {
-                val scoreString = career.batting_score.replace("*", "")
-                if (scoreString.toInt() > highestScore) {
-                    highestScore = scoreString.toInt()
-                }
-            }
-
-        }
-        for (i in score.indices) {
-            if (score[i].batting_score != null) {
-                val scoreString = score[i].batting_score.replace("*", "")
-                if (scoreString.toInt() > highestScore) {
-                    highestScore = scoreString.toInt()
+        battings.map { batting ->
+            batting.let { it->
+                if (it.highest_inning_score != null) {
+                    if (it.highest_inning_score!! > highestScore) {
+                        highestScore = it.highest_inning_score!!
+                    }
                 }
             }
         }
-        return 0
+        return highestScore
     }
 
     @SuppressLint("SetTextI18n")

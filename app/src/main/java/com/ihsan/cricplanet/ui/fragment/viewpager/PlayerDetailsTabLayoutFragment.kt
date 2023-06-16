@@ -42,15 +42,6 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
             viewmodel.playerDetails.observe(viewLifecycleOwner) { player ->
                 val tabPlayerAdapter = TabPlayerAdapter(childFragmentManager, lifecycle, player)
                 //Checking if player has no batting and bowling data
-                if (player?.career?.get(0)?.batting == null &&
-                    player?.career?.get(1)?.batting == null &&
-                    player?.career?.get(2)?.batting == null &&
-                    player?.career?.get(3)?.batting == null
-                ) {
-                    //removing batting tab
-                    tabPlayerAdapter.listPlayerDetailTab.removeAt(1)
-                }
-
                 if (player.career?.get(0)?.bowling == null &&
                     player.career?.get(1)?.bowling == null &&
                     player.career?.get(2)?.bowling == null &&
@@ -61,6 +52,15 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                     Log.d(TAG, "onViewCreated: ${tabPlayerAdapter.listPlayerDetailTab}")
 
                 }
+                if (player?.career?.get(0)?.batting == null &&
+                    player?.career?.get(1)?.batting == null &&
+                    player?.career?.get(2)?.batting == null &&
+                    player?.career?.get(3)?.batting == null
+                ) {
+                    //removing batting tab
+                    tabPlayerAdapter.listPlayerDetailTab.removeAt(1)
+                }
+
                 Log.d(TAG, "onViewCreated:Career ${player.career}")
 
                 viewPager.adapter = tabPlayerAdapter

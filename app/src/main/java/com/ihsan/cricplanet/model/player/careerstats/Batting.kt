@@ -5,20 +5,20 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Batting(
-    val average: Double?,
-    val balls_faced: Int?,
-    val fifties: Int?,
-    val four_x: Int?,
+    var average: Double?,
+    var balls_faced: Int?,
+    var fifties: Int?,
+    var four_x: Int?,
     val fow_balls: Double?,
     val fow_score: Int?,
-    val highest_inning_score: Int?,
-    val hundreds: Int?,
+    var highest_inning_score: Int?,
+    var hundreds: Int?,
     var innings: Int?,
     var matches: Int?,
     var not_outs: Int?,
     var runs_scored: Int?,
-    val six_x: Int?,
-    val strike_rate: Double?
+    var six_x: Int?,
+    var strike_rate: Double?
 ):Parcelable
 {
     constructor():this(

@@ -26,7 +26,6 @@ class TabPlayerAdapter(
         Tab(PlayerCareerFragment(), "Career")
     )
 
-
     private fun addBundle(fragment: Fragment): Fragment {
         val bundle = Bundle()
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdapterAddBundle: ${player.fullname}")

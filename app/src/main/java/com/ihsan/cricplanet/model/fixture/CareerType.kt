@@ -1,3 +1,11 @@
 package com.ihsan.cricplanet.model.fixture
 
- data class CareerType(var Test:Int, var ODI:Int, var T20:Int, var League:Int, var T20I:Int)
+import com.ihsan.cricplanet.model.player.careerstats.Batting
+
+data class CareerType(
+    var testMatches: MutableList<Batting>?,
+    var odiMatches: MutableList<Batting>?,
+    var t20Matches: MutableList<Batting>?,
+    var leagueMatches: MutableList<Batting>?,
+    var t20IMatches: MutableList<Batting>?
+)

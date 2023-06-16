@@ -35,44 +35,29 @@ class PlayerBattingFragment : Fragment() {
             if (it != null) {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
-                var battingTest= listOf<List<Batting>>()
-                var battingT20=mutableListOf<Batting>()
-                var battingOdi=mutableListOf<Batting>()
-                var battingLeague=mutableListOf<Batting>()
-                var countCareerType= CareerType(0,0,0,0,0)
+                val countCareerType= CareerType(null,null,null,null,null)
 
                 player?.career?.map { career ->
                     career.batting.let {batting->
                         if (batting != null) {
                             when (career.type) {
                                 "Test/5day" -> {
-                                    countCareerType.Test++
-                                    /*battingTest = batting
-                                    battingTest.matches = battingTest.matches!! + batting.matches!!
-                                    battingTest.innings = battingTest.innings!! + batting.innings!!
-                                    battingTest.runs_scored = battingTest.runs_scored!! + batting.runs_scored!!
-                                    battingTest.not_outs = battingTest.not_outs!! + batting.not_outs!!*/
-
+                                    countCareerType.testMatches?.add(batting)
                                 }
                                 "T20" -> {
-                                    countCareerType.T20++
-                                    //battingT20 = batting
+                                    countCareerType.t20Matches?.add(batting)
                                 }
                                 "T20I" -> {
-                                    countCareerType.T20I++
-                                    //battingT20 = batting
+                                    countCareerType.t20IMatches?.add(batting)
                                 }
                                 "ODI" -> {
-                                    countCareerType.ODI++
-                                    //battingOdi = batting
+                                    countCareerType.odiMatches?.add(batting)
                                 }
                                 "league" -> {
-                                    countCareerType.League++
-                                    //battingLeague = batting
+                                    countCareerType.leagueMatches?.add(batting)
                                 }
                             }
                         }
-
                     }
                 }
                 val test = player?.career?.get(0)?.batting
@@ -193,6 +178,24 @@ class PlayerBattingFragment : Fragment() {
 
             //Grid Adapter call
             listView.adapter = PlayerDetailsGridAdapter(requireContext(), keyValueList)
+        }
+    }
+
+    fun CareerType(matches: MutableList<Batting>) {
+        var matchesCareer=Batting()
+        matches.map { batting ->
+            batting.matches = batting.matches!! + batting.matches!!
+            matchesCareer.innings = matchesCareer.innings!! + batting.innings!!
+            matchesCareer.runs_scored = matchesCareer.runs_scored!! + batting.runs_scored!!
+            matchesCareer.not_outs = matchesCareer.not_outs!! + batting.not_outs!!
+            matchesCareer.highest_inning_score=Utils().getHighestScore(matches)
+            matchesCareer.strike_rate=batting.strike_rate.....
+            matchesCareer.average=batting.average.....
+            matchesCareer.balls_faced = matchesCareer.balls_faced!! + batting.balls_faced!!
+            matchesCareer.four_x = matchesCareer.four_x!! + batting.four_x!!
+            matchesCareer.six_x = matchesCareer.six_x!! + batting.six_x!!
+            matchesCareer.fifties = matchesCareer.fifties!! + batting.fifties!!
+            matchesCareer.hundreds = matchesCareer.hundreds!! + batting.hundreds!!
         }
     }
 }

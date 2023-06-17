@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.adapter.MatchAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
+import com.ihsan.cricplanet.utils.BottomSpaceItemDecoration
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
-import kotlin.reflect.jvm.internal.impl.metadata.ProtoBuf.Type.Argument
 
 class MatchesFragment : Fragment() {
     private lateinit var binding: FragmentMatchesBinding
@@ -27,7 +27,7 @@ class MatchesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMatchesBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,12 +35,13 @@ class MatchesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Matches")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Matches")
         val refreshLayout = binding.swipeLayout
 
         // Initializing recycler view
         recyclerView = binding.recyclerviewMatches
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.addItemDecoration(BottomSpaceItemDecoration(200))
         recyclerView.setHasFixedSize(true)
 
         // getting the argument from navigation argument
@@ -54,6 +55,7 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
+
                 "RECENT" -> {
                     viewModel.getRecentFixturesApi()
                     viewModel.recentMatchFixture.observe(viewLifecycleOwner) {
@@ -62,6 +64,7 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
+
                 "T20" -> {
                     viewModel.getFixturesApi()
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
@@ -72,6 +75,7 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
+
                 "ODI" -> {
                     viewModel.getFixturesApi()
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
@@ -81,6 +85,7 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
+
                 "TEST" -> {
                     viewModel.getFixturesApi()
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
@@ -91,6 +96,7 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
+
                 "ALL" -> {
                     viewModel.getFixturesApi()
                     viewModel.matchFixture.observe(viewLifecycleOwner) {
@@ -99,17 +105,21 @@ class MatchesFragment : Fragment() {
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
-                else->{
+
+                else -> {
                     argument.category?.let { viewModel.getSeasonByIdApi(it.toInt()) }
-                    viewModel.seasonById.observe(viewLifecycleOwner) {season->
+                    viewModel.seasonById.observe(viewLifecycleOwner) { season ->
                         Log.d("cricTeam", "onViewCreated MatchFixture: $season")
-                        recyclerView.adapter = season.fixtures?.let { it1 -> MatchAdapterSeries(it1,season.league?.name ?:"") }
+                        recyclerView.adapter = season.fixtures?.let { it1 ->
+                            MatchAdapterSeries(
+                                it1,
+                                season.league?.name ?: ""
+                            )
+                        }
                         Utils().progressAnimationStop(progressBar)
                     }
                 }
             }
-
-
 
 
             //Refreshing The Match Page

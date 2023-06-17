@@ -20,7 +20,7 @@ class PlayerInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPlayerInfoBinding.inflate(inflater, container, false)
         return binding.root
@@ -30,7 +30,7 @@ class PlayerInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val player:PlayerDetails?
         val utils=Utils()
-        val gridView = binding.playerInfoGridView
+        val gridView = binding.playerInfoListView
         arguments.let {
             if (it != null) {
                 player=it.getParcelable("player")

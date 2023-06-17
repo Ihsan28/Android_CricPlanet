@@ -2,23 +2,18 @@ package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
-import android.nfc.Tag
-import android.os.CountDownTimer
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
-import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
+import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -125,14 +120,14 @@ class Utils {
     }
 
     fun getPlayerBorn(dateString: String): String {
-        try {
+        return try {
             val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
             val date = apiFormat.parse(dateString)
-            return "${targetFormat.format(date)} (${getPlayerAge(dateString)}years)"
+            "${targetFormat.format(date)} (${getPlayerAge(dateString)})"
         }catch (e: DateTimeParseException){
             Log.d(TAG, "dateFormat: $e")
-            return ""
+            ""
         }
     }
 
@@ -148,6 +143,20 @@ class Utils {
         } else {
             ""
         }
+    }
+
+    fun getHighestScore(battings: List<Batting>): Int {
+        var highestScore = 0
+        battings.map { batting ->
+            batting.let { it->
+                if (it.highest_inning_score != null) {
+                    if (it.highest_inning_score!! > highestScore) {
+                        highestScore = it.highest_inning_score!!
+                    }
+                }
+            }
+        }
+        return highestScore
     }
 
     @SuppressLint("SetTextI18n")
@@ -286,7 +295,7 @@ class Utils {
             } else {
                 if (venue.country?.name != null) {
                     noteOrVenue.text =
-                        "${venue.name} • ${venue.city} • ${venue.country?.name}"
+                        "${venue.name} • ${venue.city} • ${venue.country.name}"
                 } else {
                     noteOrVenue.text = "${venue.name} • ${venue.city}"
                 }

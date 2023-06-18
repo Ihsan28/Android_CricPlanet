@@ -80,7 +80,7 @@
         <ListView
             android:id="@+id/player_batting_list_view"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="600dp"
             android:horizontalSpacing="10dp"
             android:paddingHorizontal="10dp"
             android:stretchMode="columnWidth"

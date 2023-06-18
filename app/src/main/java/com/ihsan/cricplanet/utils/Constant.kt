@@ -7,8 +7,7 @@ class Constant {
         const val smsRequestPermissionAccessCode = 1000
 
         const val API_KEY = "hvWxnG51iixBynbYh4KJv1jmsKk386y4xdABwhOYP2Ewwb7F2dGAJIGxXwgc"
-        //const val API_KEY = "m1tLK9vOc6ZSYB4MlTUata7LtOmRlTmWpMavc2xZGztMpkX1QIcLLFQDTFfD" /*utchash-tushar vai*/
-        //const val API_KEY = "KFAaNiXJsDvbDRtIo40z40GS9OAiBPGhiDdogpjFvERYgCoFCokcVAqE446G"/*my p*/
+
         const val api_token = "api_token"
         const val live = "live"
 

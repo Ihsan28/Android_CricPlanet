@@ -22,6 +22,7 @@ import java.time.format.DateTimeParseException
 import java.util.*
 
 private const val TAG = "cricUtils"
+
 class Utils {
 
     fun refreshMessage() {
@@ -31,7 +32,7 @@ class Utils {
     fun progressAnimationStart(context: Context, title: String): LottieProgressDialog {
         val progressbar = LottieProgressDialog(
             context,
-            false,
+            true,
             null,
             null,
             null,
@@ -113,9 +114,9 @@ class Utils {
             val targetFormat = DateTimeFormatter.ofPattern("dd-MM-yy/hh:mm a")
             val date = apiFormat.parse(dateString)
             return targetFormat.format(date).split("/")
-        }catch (e: DateTimeParseException){
+        } catch (e: DateTimeParseException) {
             Log.d(TAG, "dateFormat: $e")
-            return listOf("","")
+            return listOf("", "")
         }
     }
 
@@ -125,7 +126,7 @@ class Utils {
             val targetFormat = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
             val date = apiFormat.parse(dateString)
             "${targetFormat.format(date)} (${getPlayerAge(dateString)})"
-        }catch (e: DateTimeParseException){
+        } catch (e: DateTimeParseException) {
             Log.d(TAG, "dateFormat: $e")
             ""
         }
@@ -136,7 +137,8 @@ class Utils {
         val formattedDate = dateFormat.parse(date)
         val currentTime = Calendar.getInstance().timeInMillis
 
-        val days = (currentTime - (formattedDate?.time ?: 0)) / (60 * 60 * 24 * 1000) //Converting from mmSecond to days
+        val days = (currentTime - (formattedDate?.time
+            ?: 0)) / (60 * 60 * 24 * 1000) //Converting from mmSecond to days
 
         return if (days >= 365) {
             "${(days / 365).toInt()}y"
@@ -148,7 +150,7 @@ class Utils {
     fun getHighestScore(battings: List<Batting>): Int {
         var highestScore = 0
         battings.map { batting ->
-            batting.let { it->
+            batting.let { it ->
                 if (it.highest_inning_score != null) {
                     if (it.highest_inning_score!! > highestScore) {
                         highestScore = it.highest_inning_score!!
@@ -157,6 +159,29 @@ class Utils {
             }
         }
         return highestScore
+    }
+
+    fun getStrikeRate(battings: List<Batting>): Double {
+        var strikeRate = 0.0
+        battings.map { batting ->
+            batting.let {
+                if (it.strike_rate != null) {
+                    strikeRate += it.strike_rate!!
+                }
+            }
+        }
+        return strikeRate/battings.size
+    }
+    fun getAverageRate(battings: List<Batting>): Double {
+        var averageRate = 0.0
+        battings.map { batting ->
+            batting.let {
+                if (it.strike_rate != null) {
+                    averageRate += it.strike_rate!!
+                }
+            }
+        }
+        return averageRate/battings.size
     }
 
     @SuppressLint("SetTextI18n")
@@ -250,7 +275,7 @@ class Utils {
                             MyApplication.instance, R.color.md_red_400
                         )
                     )
-                }else{
+                } else {
                     statusTextView.text = status
                     statusTextView.setBackgroundColor(
                         ContextCompat.getColor(

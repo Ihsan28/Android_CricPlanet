@@ -9,19 +9,18 @@ import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBinding
 import com.ihsan.cricplanet.model.PlayerGridItem
-import com.ihsan.cricplanet.model.fixture.CareerType
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.ihsan.cricplanet.utils.Utils
-import kotlin.coroutines.cancellation.CancellationException
+
+private const val TAG = "PlayerBattingFragment"
 
 class PlayerBattingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBinding
     private var keyValueList = mutableListOf<PlayerGridItem>()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPlayerBattingBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,65 +34,104 @@ class PlayerBattingFragment : Fragment() {
             if (it != null) {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
-                val countCareerType= CareerType(null,null,null,null,null)
+                val countCareerType = mutableListOf<MutableList<Batting>>()
+                val test = mutableListOf<Batting>()
+                val test4day = mutableListOf<Batting>()
+                val t20 = mutableListOf<Batting>()
+                val t10 = mutableListOf<Batting>()
+                val t20I = mutableListOf<Batting>()
+                val odi = mutableListOf<Batting>()
+                val league = mutableListOf<Batting>()
+                val listA = mutableListOf<Batting>()
 
-                player?.career?.map { career ->
-                    career.batting.let {batting->
+
+                for (career in player?.career!!) {
+                    career.batting.let { batting ->
                         if (batting != null) {
+                            Log.d(TAG, "onViewCreated: career type ${career.type}")
                             when (career.type) {
                                 "Test/5day" -> {
-                                    countCareerType.testMatches?.add(batting)
+                                    test.add(batting)
                                 }
+
+                                "4day" -> {
+                                    test4day.add(batting)
+                                }
+
                                 "T20" -> {
-                                    countCareerType.t20Matches?.add(batting)
+                                    t20.add(batting)
                                 }
+
+                                "T10" -> {
+                                    t10.add(batting)
+                                }
+
                                 "T20I" -> {
-                                    countCareerType.t20IMatches?.add(batting)
+                                    t20I.add(batting)
                                 }
+
                                 "ODI" -> {
-                                    countCareerType.odiMatches?.add(batting)
+                                    odi.add(batting)
                                 }
-                                "league" -> {
-                                    countCareerType.leagueMatches?.add(batting)
+
+                                "League" -> {
+                                    league.add(batting)
+                                }
+
+                                "List A" -> {
+                                    listA.add(batting)
                                 }
                             }
                         }
                     }
                 }
-                val test = player?.career?.get(0)?.batting
+                Log.d(TAG, "onViewCreated: $countCareerType")/*val test = countCareerType.testMatches?.let { it1 -> careerType(it1) }
+                val t20 = countCareerType.t20Matches?.let { it1 -> careerType(it1) }
+                val odi = countCareerType.odiMatches?.let { it1 -> careerType(it1) }
+                val league = countCareerType.leagueMatches?.let { it1 -> careerType(it1) }*//*val test = player?.career?.get(0)?.batting
                 val t20 = player?.career?.get(1)?.batting
                 val odi = player?.career?.get(2)?.batting
-                val league = player?.career?.get(3)?.batting
-                val ut = Utils()
+                val league = player?.career?.get(3)?.batting*/
+                val scoreCardList = mutableListOf<Batting>()
+                scoreCardList.add(careerType(test))
+                scoreCardList.add(careerType(test4day))
+                scoreCardList.add(careerType(t10))
+                scoreCardList.add(careerType(t20))
+                scoreCardList.add(careerType(t20I))
+                scoreCardList.add(careerType(odi))
+                scoreCardList.add(careerType(league))
+                scoreCardList.add(careerType(listA))
+
+
+                if (test.size > 0) {
+
+                }
 
                 keyValueList.add(
                     PlayerGridItem(
                         "Matches",
-                        (test?.matches ?: 0).toString(),
-                        (t20?.matches ?: 0).toString(),
-                        (odi?.matches ?: 0).toString(),
-                        (league?.matches ?: 0).toString()
+                            scoreCardList.map {
+                                it.matches.toString()
+                            }
                     )
                 )
                 keyValueList.add(
                     PlayerGridItem(
                         "Innings",
-                        (test?.innings ?: 0).toString(),
-                        (t20?.innings ?: 0).toString(),
-                        (odi?.innings ?: 0).toString(),
-                        (league?.innings ?: 0).toString()
+                        scoreCardList.map {
+                                it.innings.toString()
+                            }
                     )
                 )
                 keyValueList.add(
                     PlayerGridItem(
                         "Runs",
-                        (test?.runs_scored ?: 0).toString(),
-                        (t20?.runs_scored ?: 0).toString(),
-                        (odi?.runs_scored ?: 0).toString(),
-                        (league?.runs_scored ?: 0).toString()
+                        scoreCardList.map {
+                                it.runs_scored.toString()
+                            }
                     )
                 )
-                keyValueList.add(
+            /*keyValueList.add(
                     PlayerGridItem(
                         "Not Out",
                         (test?.not_outs ?: 0).toString(),
@@ -173,7 +211,7 @@ class PlayerBattingFragment : Fragment() {
                         (odi?.hundreds ?: 0).toString(),
                         (league?.hundreds ?: 0).toString()
                     )
-                )
+                )*/
             }
 
             //Grid Adapter call
@@ -181,21 +219,34 @@ class PlayerBattingFragment : Fragment() {
         }
     }
 
-    fun CareerType(matches: MutableList<Batting>) {
-        var matchesCareer=Batting()
+    fun stringValidation(item: Int?): String {
+        return (item ?: 0).toString()
+    }
+
+    fun stringValidation(item: Double?): String {
+        return (item ?: 0).toString()
+    }
+
+    private fun careerType(matches: MutableList<Batting>): Batting {
+        val matchesCareer = Batting()
         matches.map { batting ->
-            batting.matches = batting.matches!! + batting.matches!!
-            matchesCareer.innings = matchesCareer.innings!! + batting.innings!!
-            matchesCareer.runs_scored = matchesCareer.runs_scored!! + batting.runs_scored!!
-            matchesCareer.not_outs = matchesCareer.not_outs!! + batting.not_outs!!
-            matchesCareer.highest_inning_score=Utils().getHighestScore(matches)
-            matchesCareer.strike_rate=batting.strike_rate.....
-            matchesCareer.average=batting.average.....
-            matchesCareer.balls_faced = matchesCareer.balls_faced!! + batting.balls_faced!!
-            matchesCareer.four_x = matchesCareer.four_x!! + batting.four_x!!
-            matchesCareer.six_x = matchesCareer.six_x!! + batting.six_x!!
-            matchesCareer.fifties = matchesCareer.fifties!! + batting.fifties!!
-            matchesCareer.hundreds = matchesCareer.hundreds!! + batting.hundreds!!
+            Utils().let { ut ->
+                matchesCareer.matches = (matchesCareer.matches ?: 0) + (batting.matches ?: 0)
+                matchesCareer.runs_scored =
+                    (matchesCareer.runs_scored ?: 0) + (batting.runs_scored ?: 0)
+                matchesCareer.innings = (matchesCareer.innings ?: 0) + (batting.innings ?: 0)
+                matchesCareer.not_outs = (matchesCareer.not_outs ?: 0) + (batting.not_outs ?: 0)
+                matchesCareer.highest_inning_score = ut.getHighestScore(matches)
+                matchesCareer.strike_rate = ut.getStrikeRate(matches)
+                matchesCareer.average = ut.getAverageRate(matches)
+                matchesCareer.balls_faced =
+                    (matchesCareer.balls_faced ?: 0) + (batting.balls_faced ?: 0)
+                matchesCareer.four_x = (matchesCareer.four_x ?: 0) + (batting.four_x ?: 0)
+                matchesCareer.six_x = (matchesCareer.six_x ?: 0) + (batting.six_x ?: 0)
+                matchesCareer.fifties = (matchesCareer.fifties ?: 0) + (batting.fifties ?: 0)
+                matchesCareer.hundreds = (matchesCareer.hundreds ?: 0) + (batting.hundreds ?: 0)
+            }
         }
+        return matchesCareer
     }
 }

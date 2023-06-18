@@ -40,7 +40,7 @@ class PlayerBowlingFragment : Fragment() {
                 val odi= player?.career?.get(2)?.bowling
                 val league= player?.career?.get(3)?.bowling
                 val ut=Utils()
-                keyValueList.add(PlayerGridItem("Matches", (test?.matches ?:0).toString(),(t20?.matches ?:0).toString(),(odi?.matches ?:0).toString(),(league?.matches ?:0).toString() ))
+                /*keyValueList.add(PlayerGridItem("Matches", (test?.matches ?:0).toString(),(t20?.matches ?:0).toString(),(odi?.matches ?:0).toString(),(league?.matches ?:0).toString() ))
                 keyValueList.add(PlayerGridItem("Innings", (test?.innings ?:0).toString(),(t20?.innings ?:0).toString(),(odi?.innings ?:0).toString(),(league?.innings ?:0).toString()))
                 keyValueList.add(PlayerGridItem("Runs", (test?.runs ?:0).toString(),(t20?.runs ?:0).toString(),(odi?.runs ?:0).toString(),(league?.runs ?:0).toString()))
                 keyValueList.add(PlayerGridItem("Overs", (test?.overs ?:0).toString(),(t20?.overs ?:0).toString(),(odi?.overs ?:0).toString(),(league?.overs ?:0).toString()))
@@ -54,7 +54,7 @@ class PlayerBowlingFragment : Fragment() {
                 keyValueList.add(PlayerGridItem("No Ball", (test?.noball ?:0).toString(),(t20?.noball ?:0).toString(),(odi?.noball ?:0).toString(),(league?.noball ?:0).toString()))
                 keyValueList.add(PlayerGridItem("4w", (test?.four_wickets ?:0).toString(),(t20?.four_wickets ?:0).toString(),(odi?.four_wickets ?:0).toString(),(league?.four_wickets ?:0).toString()))
                 keyValueList.add(PlayerGridItem("5w", (test?.five_wickets ?:0).toString(),(t20?.five_wickets ?:0).toString(),(odi?.five_wickets ?:0).toString(),(league?.five_wickets ?:0).toString()))
-                keyValueList.add(PlayerGridItem("10w", (test?.ten_wickets ?:0).toString(),(t20?.ten_wickets ?:0).toString(),(odi?.ten_wickets ?:0).toString(),(league?.ten_wickets ?:0).toString()))
+                keyValueList.add(PlayerGridItem("10w", (test?.ten_wickets ?:0).toString(),(t20?.ten_wickets ?:0).toString(),(odi?.ten_wickets ?:0).toString(),(league?.ten_wickets ?:0).toString()))*/
             }
 
             //Grid Adapter call

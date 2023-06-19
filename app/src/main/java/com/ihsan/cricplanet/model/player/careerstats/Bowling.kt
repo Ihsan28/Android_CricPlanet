@@ -5,21 +5,21 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Bowling(
-    val average: Double?,
-    val econ_rate: Double?,
-    val five_wickets: Int?,
-    val four_wickets: Int?,
-    val innings: Int?,
-    val matches: Int?,
-    val medians: Int?,
-    val noball: Int?,
-    val overs: Double?,
-    val rate: Double?,
-    val runs: Int?,
-    val strike_rate: Double?,
-    val ten_wickets: Int?,
-    val wickets: Int?,
-    val wide: Int?
+    var average: Double?,
+    var econ_rate: Double?,
+    var five_wickets: Int?,
+    var four_wickets: Int?,
+    var innings: Int?,
+    var matches: Int?,
+    var medians: Int?,
+    var noball: Int?,
+    var overs: Double?,
+    var rate: Double?,
+    var runs: Int?,
+    var strike_rate: Double?,
+    var ten_wickets: Int?,
+    var wickets: Int?,
+    var wide: Int?
 ): Parcelable
 {
     constructor():this(

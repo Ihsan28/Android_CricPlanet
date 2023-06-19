@@ -21,69 +21,24 @@
             android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
 
-        <TableRow
+        <LinearLayout
+            android:id="@+id/row_index_column_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/row_index_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3" />
+                android:layout_weight="2.7" />
 
-            <TextView
-                android:id="@+id/row_index_value_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center"
-                android:text="@string/test"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/row_index_value_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center"
-                android:text="@string/t20"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/row_index_value_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="center"
-                android:text="@string/odi"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/row_index_value_4"
-                android:layout_width="match_parent"
-                android:layout_height="19dp"
-                android:layout_weight="4"
-                android:gravity="center"
-                android:text="@string/league"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </TableRow>
+        </LinearLayout>
 
         <ListView
             android:id="@+id/player_batting_list_view"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:horizontalSpacing="10dp"
-            android:paddingHorizontal="10dp"
-            android:stretchMode="columnWidth"
+            android:layout_height="wrap_content"
             android:verticalSpacing="10dp" />
 
     </LinearLayout>

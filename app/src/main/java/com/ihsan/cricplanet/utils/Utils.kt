@@ -2,9 +2,17 @@ package com.ihsan.cricplanet.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RoundRectShape
 import android.text.TextUtils
 import android.util.Log
+import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -13,8 +21,9 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
-import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.squareup.picasso.Picasso
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -49,11 +58,14 @@ class Utils {
         progressbar.dismiss()
     }
 
-    fun twoDecimal(number: Double?): String {
+    fun oneDecimalPoint(number: Double?): Double {
         if (number == 0.00 || number == null) {
-            return "0.0"
+            return 0.0
         }
-        return String.format("%.2f", number)
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.HALF_DOWN
+        return df.format(number).toDouble()
+        //return String.format("%.1f", number)
     }
 
     fun upcomingYearDuration(): String {
@@ -145,43 +157,6 @@ class Utils {
         } else {
             ""
         }
-    }
-
-    fun getHighestScore(battings: List<Batting>): Int {
-        var highestScore = 0
-        battings.map { batting ->
-            batting.let { it ->
-                if (it.highest_inning_score != null) {
-                    if (it.highest_inning_score!! > highestScore) {
-                        highestScore = it.highest_inning_score!!
-                    }
-                }
-            }
-        }
-        return highestScore
-    }
-
-    fun getStrikeRate(battings: List<Batting>): Double {
-        var strikeRate = 0.0
-        battings.map { batting ->
-            batting.let {
-                if (it.strike_rate != null) {
-                    strikeRate += it.strike_rate!!
-                }
-            }
-        }
-        return strikeRate/battings.size
-    }
-    fun getAverageRate(battings: List<Batting>): Double {
-        var averageRate = 0.0
-        battings.map { batting ->
-            batting.let {
-                if (it.strike_rate != null) {
-                    averageRate += it.strike_rate!!
-                }
-            }
-        }
-        return averageRate/battings.size
     }
 
     @SuppressLint("SetTextI18n")
@@ -372,6 +347,55 @@ class Utils {
         } else {
             imageView.setImageResource(R.drawable.ic_image)
         }
+    }
+
+    fun setListViewHeightBasedOnItemsWithAdditionalHeight(listView: ListView) {
+        val listAdapter = listView.adapter ?: return
+
+        var totalHeight = 0
+        for (i in 0 until listAdapter.count) {
+            val listItem = listAdapter.getView(i, null, listView)
+            listItem.measure(0, 0)
+            totalHeight += listItem.measuredHeight
+        }
+
+        val params = listView.layoutParams
+        params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))+200
+        listView.layoutParams = params
+        listView.requestLayout()
+    }
+
+    fun createCurvedTextView(context: Context,title: String): TextView {
+        val textView = TextView(context)
+        textView.id = View.generateViewId()
+        textView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            gravity = Gravity.CENTER
+            weight = 3f
+        }
+        textView.text = title
+        textView.textSize = 22f
+        textView.setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
+        textView.typeface = null
+        textView.setTypeface(null, Typeface.BOLD)
+
+        // Create a shape drawable with curved background
+        val cornerRadius = 5f // Adjust the corner radius as desired
+        val backgroundDrawable = ShapeDrawable().apply {
+            shape = RoundRectShape(
+                floatArrayOf(
+                    cornerRadius, cornerRadius, cornerRadius, cornerRadius,
+                    cornerRadius, cornerRadius, cornerRadius, cornerRadius
+                ),
+                null,
+                null
+            )
+            paint.color=Color.DKGRAY // Set the desired background color
+        }
+        textView.background = backgroundDrawable
+
+        return textView
     }
 
 }

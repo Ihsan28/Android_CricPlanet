@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.GridView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -120,7 +121,10 @@ class Utils {
         return "${currentDateTime.format(formatter)},${tomorrowDateTime.format(formatter)}"
     }
 
-    fun dateFormat(dateString: String): List<String> {
+    fun dateFormat(dateString: String?): List<String> {
+        if (dateString == null) {
+            return listOf("N/A", "N/A")
+        }
         try {
             val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'000Z'")
             val targetFormat = DateTimeFormatter.ofPattern("dd-MM-yy/hh:mm a")
@@ -131,7 +135,6 @@ class Utils {
             return listOf("", "")
         }
     }
-
     fun getPlayerBorn(dateString: String): String {
         return try {
             val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -364,6 +367,28 @@ class Utils {
         listView.layoutParams = params
         listView.requestLayout()
     }
+
+    fun setGridViewHeightBasedOnItemsWithAdditionalHeight(gridView: GridView) {
+        val gridAdapter = gridView.adapter ?: return
+
+        var totalHeight = 0
+        val itemsPerRow = 3
+        val numRows = (gridAdapter.count + itemsPerRow - 1) / itemsPerRow
+
+        Log.d(TAG, "setGridViewHeightBasedOnItemsWithAdditionalHeight: col: ${gridView.numColumns} row: $numRows")
+
+        for (i in 0 until numRows) {
+            val listItem = gridAdapter.getView(i, null, gridView)
+            listItem.measure(0, 0)
+            totalHeight += listItem.measuredHeight
+        }
+
+        val params = gridView.layoutParams
+        params.height = totalHeight + (gridView.verticalSpacing * (numRows - 1)) + 200
+        gridView.layoutParams = params
+        gridView.requestLayout()
+    }
+
 
     fun createCurvedTextView(context: Context,title: String): TextView {
         val textView = TextView(context)

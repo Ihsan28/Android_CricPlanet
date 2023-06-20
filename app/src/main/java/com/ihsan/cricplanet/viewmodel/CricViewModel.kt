@@ -6,12 +6,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ihsan.cricplanet.model.LeagueIncludeSeasons
+import com.ihsan.cricplanet.model.league.LeagueIncludeSeasons
 import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
 import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
+import com.ihsan.cricplanet.model.league.LeagueByIdIncludeSeasonCountry
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.season.SeasonForCard
@@ -60,8 +61,8 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     //league LiveData Holder
     private val _league = MutableLiveData<List<LeagueIncludeSeasons>>()
     val league: LiveData<List<LeagueIncludeSeasons>> = _league
-    private val _leagueById = MutableLiveData<LeagueIncludeSeasons>()
-    val leagueById: LiveData<LeagueIncludeSeasons> = _leagueById
+    private val _leagueById = MutableLiveData<LeagueByIdIncludeSeasonCountry>()
+    val leagueById: LiveData<LeagueByIdIncludeSeasonCountry> = _leagueById
     //season LiveData Holder
     private val _seasonById = MutableLiveData<SeasonForCard>()
     val seasonById: LiveData<SeasonForCard> = _seasonById
@@ -229,6 +230,24 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _league.value = repository.getLeaguesApi()
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getLeague: ${recentMatchFixture.value?.size}"
+                    )
+                } catch (e: HttpException) {
+                    Log.d("cricViewModelCatch", "viewModel Api getLeague: $e")
+                } catch (e: Exception) {
+                    Log.d("cricViewModelCatch", "viewModel Api getLeague: $e")
+                }
+            }
+        }
+    }
+
+    fun getLeagueApiById() {
+        GlobalScope.launch {
+            viewModelScope.launch {
+                try {
+                    _leagueById.value = repository.getLeagueByIdApi()
                     Log.d(
                         "cricViewModel",
                         "viewModel Api getLeague: ${recentMatchFixture.value?.size}"

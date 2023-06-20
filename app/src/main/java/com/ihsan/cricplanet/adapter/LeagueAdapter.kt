@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.LeagueIncludeSeasons
+import com.ihsan.cricplanet.model.league.LeagueIncludeSeasons
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 

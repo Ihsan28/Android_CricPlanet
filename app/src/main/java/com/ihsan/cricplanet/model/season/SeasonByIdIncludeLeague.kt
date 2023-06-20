@@ -1,6 +1,6 @@
 package com.ihsan.cricplanet.model.season
 
-import com.ihsan.cricplanet.model.League
+import com.ihsan.cricplanet.model.league.League
 
 data class SeasonByIdIncludeLeague(
     val code: String?,

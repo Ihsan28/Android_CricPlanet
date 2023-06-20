@@ -7,11 +7,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
@@ -20,12 +21,14 @@ import com.ihsan.cricplanet.model.PlayerGridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Bowling
 import com.ihsan.cricplanet.utils.Utils
+import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerBowlingFragment"
 
 @Suppress("DEPRECATION")
 class PlayerBowlingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBowlingBinding
+    private val viewmodel: CricViewModel by viewModels()
     private var keyValueList = mutableListOf<PlayerGridItem>()
     private val args: PlayerBowlingFragmentArgs by navArgs()
     override fun onCreateView(
@@ -45,20 +48,21 @@ class PlayerBowlingFragment : Fragment() {
         arguments.let {
             if (it != null) {
                 player = it.getParcelable("player")
-                makeBowlingCareer(player, rowIndexColumnHeader, tableContainer)
+                makeBowlingCareer(player, rowIndexColumnHeader)
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
             }
 
-            //Grid Adapter call
+            //List Adapter call
             listView.adapter = PlayerDetailsGridAdapter(requireContext(), keyValueList)
+            Utils().setListViewHeightBasedOnItemsWithAdditionalHeight(listView)
         }
     }
 
     private fun makeBowlingCareer(
         player: PlayerDetails?,
-        rowIndexColumnHeader: LinearLayout,
-        tableContainer: LinearLayout
+        rowIndexColumnHeader: LinearLayout
     ) {
+        val careers = player?.career
         val test = mutableListOf<Bowling>()
         val test4day = mutableListOf<Bowling>()
         val t20 = mutableListOf<Bowling>()
@@ -69,7 +73,7 @@ class PlayerBowlingFragment : Fragment() {
         val listA = mutableListOf<Bowling>()
 
 
-        for (career in player?.career!!) {
+        for (career in careers!!) {
             career.bowling.let { bowling ->
                 if (bowling != null) {
                     Log.d(TAG, "onViewCreated: career type ${career.type}")
@@ -110,15 +114,28 @@ class PlayerBowlingFragment : Fragment() {
             }
         }
 
+        //show all bowling career (subscription required)
+        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Bowling>>()
+
+        careers.map { career ->
+            career.bowling.let {bowling ->
+                if (bowling != null) {
+                    val dateTimeList=Utils().dateFormat(career.updated_at)
+                    careersWithSeasonAndLeague.add(Pair("${career.type} | ${dateTimeList[0]} | ${dateTimeList[1]}", career.bowling as Bowling))
+                }
+            }
+        }
+
+        careersWithSeasonAndLeague.map { mapOfBowling ->
+            makeSeasonScoreTable(mapOfBowling.first, mapOfBowling.second)
+        }
+
         val scoreCardList = mutableListOf<Bowling>()
         val columnNames = mutableListOf<String>()
 
         if (test.isNotEmpty()) {
             columnNames.add("Test")
             scoreCardList.add(careerType(test))
-            test.map {
-                makeSeasonScoreTable("Test",it, tableContainer)
-            }
         }
         if (test4day.isNotEmpty()) {
             columnNames.add("4day")
@@ -206,7 +223,7 @@ class PlayerBowlingFragment : Fragment() {
         }))
     }
 
-    private fun makeSeasonScoreTable(nameOfSeason:String,bowlings: Bowling,parentContainer:LinearLayout){
+    private fun makeSeasonScoreTable(nameOfSeason: String, bowlings: Bowling) {
         val keyValueList = mutableListOf<PlayerGridItem>()
         keyValueList.add(PlayerGridItem("Matches", listOf(bowlings.matches.toString())))
         keyValueList.add(PlayerGridItem("Innings", listOf(bowlings.innings.toString())))
@@ -223,18 +240,19 @@ class PlayerBowlingFragment : Fragment() {
         keyValueList.map {
             Log.d(TAG, "makeSeasonScoreTable: ${it.key} ${it.value}")
         }
-        val titleTextView = Utils().createCurvedTextView(requireContext(),nameOfSeason)
-        val listView = ListView(context).apply {
+        val titleTextView = Utils().createCurvedTextView(requireContext(), nameOfSeason)
+        val listView = GridView(context).apply {
             id = View.generateViewId()
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
                 gravity = Gravity.CENTER
                 weight = 3f
+                numColumns = 3
             }
-            adapter= PlayerDetailsGridAdapter(context, keyValueList)
+            adapter = PlayerDetailsGridAdapter(context, keyValueList)
         }
-        Utils().setListViewHeightBasedOnItemsWithAdditionalHeight(listView)
+        Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(listView)
         binding.tableContainer.addView(titleTextView)
         binding.tableContainer.addView(listView)
     }

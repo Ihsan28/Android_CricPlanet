@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.model
+package com.ihsan.cricplanet.model.league
 
 import android.os.Parcelable
 import com.ihsan.cricplanet.model.season.Season

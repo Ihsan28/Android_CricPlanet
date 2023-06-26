@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -20,7 +21,6 @@ import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.ihsan.cricplanet.utils.Utils
 
 private const val TAG = "PlayerBattingFragment"
-
 class PlayerBattingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBinding
     private var keyValueList = mutableListOf<PlayerGridItem>()
@@ -35,7 +35,7 @@ class PlayerBattingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val player: PlayerDetails?
-        val battingScoreBoredListView = binding.playerBattingListView
+        val listView = binding.playerBattingListView
         val rowIndexColumnHeader = binding.rowIndexColumnHeader
 
         arguments.let {
@@ -45,14 +45,16 @@ class PlayerBattingFragment : Fragment() {
                 makeBattingCareer(player, rowIndexColumnHeader)
             }
 
-            //Grid Adapter call
-            battingScoreBoredListView.adapter =
+            //List Adapter call
+            listView.adapter =
                 PlayerDetailsGridAdapter(requireContext(), keyValueList)
-            Utils().setListViewHeightBasedOnItemsWithAdditionalHeight(battingScoreBoredListView)
+            Utils().setListViewHeightBasedOnItemsWithAdditionalHeight(listView)
         }
     }
 
     private fun makeBattingCareer(player: PlayerDetails?, rowIndexColumnHeader: LinearLayout) {
+        val careers=player?.career
+
         val test = mutableListOf<Batting>()
         val test4day = mutableListOf<Batting>()
         val t20 = mutableListOf<Batting>()
@@ -62,8 +64,7 @@ class PlayerBattingFragment : Fragment() {
         val league = mutableListOf<Batting>()
         val listA = mutableListOf<Batting>()
 
-
-        for (career in player?.career!!) {
+        for (career in careers!!) {
             career.batting.let { batting ->
                 if (batting != null) {
                     Log.d(TAG, "onViewCreated: career type ${career.type}")
@@ -103,6 +104,25 @@ class PlayerBattingFragment : Fragment() {
                 }
             }
         }
+
+        //show all bowling career (subscription required)
+        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Batting>>()
+
+        //make list of career with season and league
+        careers.map { career ->
+            career.batting.let {batting ->
+                if (batting != null) {
+                    val dateTimeList=Utils().dateFormat(career.updated_at)
+                    careersWithSeasonAndLeague.add(Pair("${career.type} | ${dateTimeList[0]} | ${dateTimeList[1]}", career.batting as Batting))
+                }
+            }
+        }
+
+        //make table for each career type
+        careersWithSeasonAndLeague.map { mapOfBatting ->
+            makeSeasonScoreTable(mapOfBatting.first, mapOfBatting.second)
+        }
+
         val scoreCardList = mutableListOf<Batting>()
         val columnNames = mutableListOf<String>()
         if (test.isNotEmpty()) {
@@ -163,8 +183,7 @@ class PlayerBattingFragment : Fragment() {
         keyValueList.add(
             PlayerGridItem("Matches", scoreCardList.map { batting ->
                 batting.matches.toString()
-            })
-        )
+            }))
         keyValueList.add(PlayerGridItem("Innings", scoreCardList.map { batting ->
             batting.innings.toString()
         }))
@@ -198,6 +217,40 @@ class PlayerBattingFragment : Fragment() {
         keyValueList.add(PlayerGridItem("100s", scoreCardList.map { batting ->
             batting.hundreds.toString()
         }))
+    }
+
+    private fun makeSeasonScoreTable(nameOfSeason: String, batting: Batting) {
+        val keyValueList = mutableListOf<PlayerGridItem>()
+        val keyValueList2 = mutableListOf<Pair<String,List<String>>>()
+        keyValueList.add(PlayerGridItem("Matches", listOf(batting.matches.toString())))
+        keyValueList.add(PlayerGridItem("Innings", listOf(batting.innings.toString())))
+        keyValueList.add(PlayerGridItem("Runs", listOf(batting.runs_scored.toString())))
+        keyValueList.add(PlayerGridItem("Not Out", listOf(batting.not_outs.toString())))
+        keyValueList.add(PlayerGridItem("Highest", listOf(batting.highest_inning_score.toString())))
+        keyValueList.add(PlayerGridItem("SR", listOf(batting.strike_rate.toString())))
+        keyValueList.add(PlayerGridItem("Balls", listOf(batting.balls_faced.toString())))
+        keyValueList.add(PlayerGridItem("Average", listOf(batting.average.toString())))
+        keyValueList.add(PlayerGridItem("Fours", listOf(batting.four_x.toString())))
+        keyValueList.add(PlayerGridItem("Sixes", listOf(batting.six_x.toString())))
+        keyValueList.add(PlayerGridItem("50s", listOf(batting.fifties.toString())))
+        keyValueList.add(PlayerGridItem("100s", listOf(batting.hundreds.toString())))
+
+        val titleTextView = Utils().createCurvedTextView(requireContext(), nameOfSeason)
+        val listView = GridView(context).apply {
+            id = View.generateViewId()
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.CENTER
+                weight = 3f
+                numColumns = 3
+            }
+            adapter = PlayerDetailsGridAdapter(context, keyValueList)
+        }
+
+        Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(listView)
+        binding.tableContainer.addView(titleTextView)
+        binding.tableContainer.addView(listView)
     }
 
     private fun careerType(matches: MutableList<Batting>): Batting {

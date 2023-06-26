@@ -24,13 +24,9 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerBowlingFragment"
-
-@Suppress("DEPRECATION")
 class PlayerBowlingFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBowlingBinding
-    private val viewmodel: CricViewModel by viewModels()
     private var keyValueList = mutableListOf<PlayerGridItem>()
-    private val args: PlayerBowlingFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -44,12 +40,11 @@ class PlayerBowlingFragment : Fragment() {
         val player: PlayerDetails?
         val listView = binding.playerBowlingListView
         val rowIndexColumnHeader = binding.rowIndexColumnHeader
-        val tableContainer = binding.tableContainer
         arguments.let {
             if (it != null) {
                 player = it.getParcelable("player")
-                makeBowlingCareer(player, rowIndexColumnHeader)
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
+                makeBowlingCareer(player, rowIndexColumnHeader)
             }
 
             //List Adapter call
@@ -63,6 +58,7 @@ class PlayerBowlingFragment : Fragment() {
         rowIndexColumnHeader: LinearLayout
     ) {
         val careers = player?.career
+
         val test = mutableListOf<Bowling>()
         val test4day = mutableListOf<Bowling>()
         val t20 = mutableListOf<Bowling>()
@@ -71,7 +67,6 @@ class PlayerBowlingFragment : Fragment() {
         val odi = mutableListOf<Bowling>()
         val league = mutableListOf<Bowling>()
         val listA = mutableListOf<Bowling>()
-
 
         for (career in careers!!) {
             career.bowling.let { bowling ->
@@ -117,6 +112,7 @@ class PlayerBowlingFragment : Fragment() {
         //show all bowling career (subscription required)
         val careersWithSeasonAndLeague = mutableListOf<Pair<String, Bowling>>()
 
+        //make list of pair of career type and bowling
         careers.map { career ->
             career.bowling.let {bowling ->
                 if (bowling != null) {
@@ -126,6 +122,7 @@ class PlayerBowlingFragment : Fragment() {
             }
         }
 
+        //make table for each career type
         careersWithSeasonAndLeague.map { mapOfBowling ->
             makeSeasonScoreTable(mapOfBowling.first, mapOfBowling.second)
         }
@@ -182,7 +179,6 @@ class PlayerBowlingFragment : Fragment() {
                 setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
                 setTypeface(null, Typeface.BOLD)
             }
-            Log.d(TAG, "onViewCreated: textView ${textView.text}")
 
             // Add the TextView to the parent layout
             rowIndexColumnHeader.addView(textView)
@@ -237,9 +233,6 @@ class PlayerBowlingFragment : Fragment() {
         keyValueList.add(PlayerGridItem("5w", listOf(bowlings.five_wickets.toString())))
         keyValueList.add(PlayerGridItem("10w", listOf(bowlings.ten_wickets.toString())))
 
-        keyValueList.map {
-            Log.d(TAG, "makeSeasonScoreTable: ${it.key} ${it.value}")
-        }
         val titleTextView = Utils().createCurvedTextView(requireContext(), nameOfSeason)
         val listView = GridView(context).apply {
             id = View.generateViewId()
@@ -252,6 +245,7 @@ class PlayerBowlingFragment : Fragment() {
             }
             adapter = PlayerDetailsGridAdapter(context, keyValueList)
         }
+
         Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(listView)
         binding.tableContainer.addView(titleTextView)
         binding.tableContainer.addView(listView)

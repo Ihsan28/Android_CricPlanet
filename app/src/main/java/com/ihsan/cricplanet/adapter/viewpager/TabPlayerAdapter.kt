@@ -9,8 +9,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingBowlingFragment
-import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingFragment
-import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBowlingFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerCareerFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerInfoFragment
 

@@ -46,9 +46,9 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.id}")
                 if (isBatting) {
-                    makeBowlingCareer(player, rowIndexColumnHeader)
-                } else {
                     makeBattingCareer(player, rowIndexColumnHeader)
+                } else {
+                    makeBowlingCareer(player, rowIndexColumnHeader)
                 }
 
                 //List Adapter call
@@ -62,51 +62,17 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
     private fun makeBattingCareer(player: PlayerDetails?, rowIndexColumnHeader: LinearLayout) {
         val careers = player?.career
 
-        val test = mutableListOf<Batting>()
-        val test4day = mutableListOf<Batting>()
-        val t20 = mutableListOf<Batting>()
-        val t10 = mutableListOf<Batting>()
-        val t20I = mutableListOf<Batting>()
-        val odi = mutableListOf<Batting>()
-        val league = mutableListOf<Batting>()
-        val listA = mutableListOf<Batting>()
+        var matchCareers=HashMap<String,MutableList<Batting>>()
 
         for (career in careers!!) {
             career.batting.let { batting ->
                 if (batting != null) {
                     Log.d(TAG, "onViewCreated: career type ${career.type}")
-                    when (career.type) {
-                        "Test/5day" -> {
-                            test.add(batting)
-                        }
-
-                        "4day" -> {
-                            test4day.add(batting)
-                        }
-
-                        "T20" -> {
-                            t20.add(batting)
-                        }
-
-                        "T10" -> {
-                            t10.add(batting)
-                        }
-
-                        "T20I" -> {
-                            t20I.add(batting)
-                        }
-
-                        "ODI" -> {
-                            odi.add(batting)
-                        }
-
-                        "League" -> {
-                            league.add(batting)
-                        }
-
-                        "List A" -> {
-                            listA.add(batting)
-                        }
+                    if (matchCareers.containsKey(career.type)) {
+                        matchCareers[career.type]?.add(batting)
+                    } else {
+                        //add key and value on hashmap
+                        matchCareers[career.type.toString()] = mutableListOf(batting)
                     }
                 }
             }
@@ -135,43 +101,9 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
             makeBattingSeasonScoreTable(mapOfBatting.first, mapOfBatting.second)
         }
 
-        val scoreCardList = mutableListOf<Batting>()
-        val columnNames = mutableListOf<String>()
-        if (test.isNotEmpty()) {
-            columnNames.add("Test")
-            scoreCardList.add(careerTypeBatting(test))
-        }
-        if (odi.isNotEmpty()) {
-            columnNames.add("ODI")
-            scoreCardList.add(careerTypeBatting(odi))
-        }
-        if (t20.isNotEmpty()) {
-            columnNames.add("T20")
-            scoreCardList.add(careerTypeBatting(t20))
-        }
-        if (t20I.isNotEmpty()) {
-            columnNames.add("T20I")
-            scoreCardList.add(careerTypeBatting(t20I))
-        }
-        if (test4day.isNotEmpty()) {
-            columnNames.add("4day")
-            scoreCardList.add(careerTypeBatting(test4day))
-        }
-        if (t10.isNotEmpty()) {
-            columnNames.add("T10")
-            scoreCardList.add(careerTypeBatting(t10))
-        }
-        if (league.isNotEmpty()) {
-            columnNames.add("League")
-            scoreCardList.add(careerTypeBatting(league))
-        }
-        if (listA.isNotEmpty()) {
-            columnNames.add("List A")
-            scoreCardList.add(careerTypeBatting(listA))
-        }
+        val calculatedScoreCardList = mutableListOf<Batting>()
 
-        // Add children views dynamically based on the number of items
-        for (i in 0 until columnNames.size) {
+        matchCareers.map { career ->
             // Create a new TextView instance
             val textView = TextView(context).apply {
                 id = View.generateViewId()
@@ -181,7 +113,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
                     gravity = Gravity.CENTER
                     weight = 3f
                 }
-                text = columnNames[i]
+                text = career.key
                 textSize = 12f
                 setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
                 setTypeface(null, Typeface.BOLD)
@@ -190,44 +122,46 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
 
             // Add the TextView to the parent layout
             rowIndexColumnHeader.addView(textView)
+
+            calculatedScoreCardList.add(calculatingCareerBatting(career.value))
         }
 
         keyValueList.add(
-            PlayerGridItem("Matches", scoreCardList.map { batting ->
+            PlayerGridItem("Matches", calculatedScoreCardList.map { batting ->
                 batting.matches.toString()
             })
         )
-        keyValueList.add(PlayerGridItem("Innings", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Innings", calculatedScoreCardList.map { batting ->
             batting.innings.toString()
         }))
-        keyValueList.add(PlayerGridItem("Runs", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Runs", calculatedScoreCardList.map { batting ->
             batting.runs_scored.toString()
         }))
-        keyValueList.add(PlayerGridItem("Not Out", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Not Out", calculatedScoreCardList.map { batting ->
             batting.not_outs.toString()
         }))
-        keyValueList.add(PlayerGridItem("Highest", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Highest", calculatedScoreCardList.map { batting ->
             batting.highest_inning_score.toString()
         }))
-        keyValueList.add(PlayerGridItem("SR", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("SR", calculatedScoreCardList.map { batting ->
             batting.strike_rate.toString()
         }))
-        keyValueList.add(PlayerGridItem("Balls", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Balls", calculatedScoreCardList.map { batting ->
             batting.balls_faced.toString()
         }))
-        keyValueList.add(PlayerGridItem("Average", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Average", calculatedScoreCardList.map { batting ->
             batting.average.toString()
         }))
-        keyValueList.add(PlayerGridItem("Fours", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Fours", calculatedScoreCardList.map { batting ->
             batting.four_x.toString()
         }))
-        keyValueList.add(PlayerGridItem("Sixes", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("Sixes", calculatedScoreCardList.map { batting ->
             batting.six_x.toString()
         }))
-        keyValueList.add(PlayerGridItem("50s", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("50s", calculatedScoreCardList.map { batting ->
             batting.fifties.toString()
         }))
-        keyValueList.add(PlayerGridItem("100s", scoreCardList.map { batting ->
+        keyValueList.add(PlayerGridItem("100s", calculatedScoreCardList.map { batting ->
             batting.hundreds.toString()
         }))
     }
@@ -266,7 +200,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
         binding.tableContainer.addView(listView)
     }
 
-    private fun careerTypeBatting(matches: MutableList<Batting>): Batting {
+    private fun calculatingCareerBatting(matches: MutableList<Batting>): Batting {
         val matchesCareer = Batting()
         matches.map { batting ->
             matchesCareer.matches = (matchesCareer.matches ?: 0) + (batting.matches ?: 0)
@@ -335,51 +269,16 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
     ) {
         val careers = player?.career
 
-        val test = mutableListOf<Bowling>()
-        val test4day = mutableListOf<Bowling>()
-        val t20 = mutableListOf<Bowling>()
-        val t10 = mutableListOf<Bowling>()
-        val t20I = mutableListOf<Bowling>()
-        val odi = mutableListOf<Bowling>()
-        val league = mutableListOf<Bowling>()
-        val listA = mutableListOf<Bowling>()
+        val matchCareers=HashMap<String,MutableList<Bowling>>()
 
         for (career in careers!!) {
             career.bowling.let { bowling ->
                 if (bowling != null) {
                     Log.d(TAG, "onViewCreated: career type ${career.type}")
-                    when (career.type) {
-                        "Test/5day" -> {
-                            test.add(bowling)
-                        }
-
-                        "4day" -> {
-                            test4day.add(bowling)
-                        }
-
-                        "T20" -> {
-                            t20.add(bowling)
-                        }
-
-                        "T10" -> {
-                            t10.add(bowling)
-                        }
-
-                        "T20I" -> {
-                            t20I.add(bowling)
-                        }
-
-                        "ODI" -> {
-                            odi.add(bowling)
-                        }
-
-                        "League" -> {
-                            league.add(bowling)
-                        }
-
-                        "List A" -> {
-                            listA.add(bowling)
-                        }
+                    if(matchCareers.containsKey(career.type)){
+                        matchCareers[career.type]?.add(bowling)
+                    }else{
+                        matchCareers[career.type.toString()]= mutableListOf(bowling)
                     }
                 }
             }
@@ -409,43 +308,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
         }
 
         val scoreCardList = mutableListOf<Bowling>()
-        val columnNames = mutableListOf<String>()
-
-        if (test.isNotEmpty()) {
-            columnNames.add("Test")
-            scoreCardList.add(careerTypeBowling(test))
-        }
-        if (test4day.isNotEmpty()) {
-            columnNames.add("4day")
-            scoreCardList.add(careerTypeBowling(test4day))
-        }
-        if (t20.isNotEmpty()) {
-            columnNames.add("T20")
-            scoreCardList.add(careerTypeBowling(t20))
-        }
-        if (t10.isNotEmpty()) {
-            columnNames.add("T10")
-            scoreCardList.add(careerTypeBowling(t10))
-        }
-        if (t20I.isNotEmpty()) {
-            columnNames.add("T20I")
-            scoreCardList.add(careerTypeBowling(t20I))
-        }
-        if (odi.isNotEmpty()) {
-            columnNames.add("ODI")
-            scoreCardList.add(careerTypeBowling(odi))
-        }
-        if (league.isNotEmpty()) {
-            columnNames.add("League")
-            scoreCardList.add(careerTypeBowling(league))
-        }
-        if (listA.isNotEmpty()) {
-            columnNames.add("List A")
-            scoreCardList.add(careerTypeBowling(listA))
-        }
-
-        // Add children views dynamically based on the number of items
-        for (i in 0 until columnNames.size) {
+        matchCareers.map { career ->
             // Create a new TextView instance
             val textView = TextView(context).apply {
                 id = View.generateViewId()
@@ -455,7 +318,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
                     gravity = Gravity.CENTER
                     weight = 3f
                 }
-                text = columnNames[i]
+                text = career.key
                 textSize = 12f
                 setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
                 setTypeface(null, Typeface.BOLD)
@@ -463,6 +326,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
 
             // Add the TextView to the parent layout
             rowIndexColumnHeader.addView(textView)
+            scoreCardList.add(calculatingCareerBowling(career.value))
         }
 
         keyValueList.add(PlayerGridItem("Matches", scoreCardList.map { bowling ->
@@ -532,7 +396,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
         binding.tableContainer.addView(listView)
     }
 
-    private fun careerTypeBowling(matches: MutableList<Bowling>): Bowling {
+    private fun calculatingCareerBowling(matches: MutableList<Bowling>): Bowling {
         val matchesCareer = Bowling()
         matches.map { bowling ->
             matchesCareer.matches = (matchesCareer.matches ?: 0) + (bowling.matches ?: 0)

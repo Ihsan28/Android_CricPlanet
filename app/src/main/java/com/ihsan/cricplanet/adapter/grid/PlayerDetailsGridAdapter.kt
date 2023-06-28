@@ -77,7 +77,6 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
                 setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
 
                 setTypeface(null, Typeface.BOLD_ITALIC)
-
             }
 
             // Add the TextView to the parent layout

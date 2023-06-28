@@ -141,37 +141,14 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBowlingFragment"
-            app:destination="@id/playerBowlingFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBattingFragment"
-            app:destination="@id/playerBattingFragment" />
-        <action
             android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerCareerFragment"
             app:destination="@id/playerCareerFragment" />
         <action
             android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerInfoFragment"
             app:destination="@id/playerInfoFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/playerBattingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingFragment"
-        android:label="fragment_player_batting"
-        tools:layout="@layout/fragment_player_batting" >
-        <argument
-            android:name="player"
-            app:argType="com.ihsan.cricplanet.model.player.PlayerDetails"
-            app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/playerBowlingFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBowlingFragment"
-        android:label="fragment_player_bowling"
-        tools:layout="@layout/fragment_player_bowling" >
-        <argument
-            android:name="player"
-            app:argType="com.ihsan.cricplanet.model.player.PlayerDetails"
-            app:nullable="true" />
+        <action
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBattingBowlingFragment"
+            app:destination="@id/playerBattingBowlingFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerCareerFragment"

@@ -140,6 +140,18 @@
         <argument android:name="playerId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBowlingFragment"
+            app:destination="@id/playerBowlingFragment" />
+        <action
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBattingFragment"
+            app:destination="@id/playerBattingFragment" />
+        <action
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerCareerFragment"
+            app:destination="@id/playerCareerFragment" />
+        <action
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerInfoFragment"
+            app:destination="@id/playerInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerBattingFragment"
@@ -209,5 +221,15 @@
         <argument android:name="teamId"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerBattingBowlingFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingBowlingFragment"
+        android:label="fragment_player_batting_bowling"
+        tools:layout="@layout/fragment_player_batting_bowling" >
+        <argument
+            android:name="player"
+            app:argType="com.ihsan.cricplanet.model.player.PlayerDetails"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -62,7 +62,6 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
         // Add children views dynamically based on the number of items
         for (i in 0 until player.value.size) {
 
-
             // Create a new TextView instance
             val textView = TextView(context).apply {
                 id = View.generateViewId()

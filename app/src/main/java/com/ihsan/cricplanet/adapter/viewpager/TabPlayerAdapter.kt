@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.player.PlayerDetails
+import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingBowlingFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBowlingFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerCareerFragment
@@ -21,8 +22,8 @@ class TabPlayerAdapter(
 
     var listPlayerDetailTab = mutableListOf(
         Tab(PlayerInfoFragment(), "Info"),
-        Tab(PlayerBattingFragment(), "Batting"),
-        Tab(PlayerBowlingFragment(), "Bowling"),
+        Tab(PlayerBattingBowlingFragment(true), "Batting"),
+        Tab(PlayerBattingBowlingFragment(false), "Bowling"),
         Tab(PlayerCareerFragment(), "Career")
     )
 

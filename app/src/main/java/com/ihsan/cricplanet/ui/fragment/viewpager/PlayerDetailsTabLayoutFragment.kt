@@ -11,13 +11,11 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.viewpager.TabPlayerAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerDetailsTabLayoutBinding
-import com.ihsan.cricplanet.model.Tab
-import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingFragment
-import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBowlingFragment
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerDetailsTabLayoutF"
+
 class PlayerDetailsTabLayoutFragment : Fragment() {
     private lateinit var binding: FragmentPlayerDetailsTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
@@ -42,13 +40,13 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
             viewmodel.playerDetails.observe(viewLifecycleOwner) { player ->
                 val tabPlayerAdapter = TabPlayerAdapter(childFragmentManager, lifecycle, player)
                 //Checking if player has no batting and bowling data
-                if (player?.career?.map { it.bowling ==null }?.contains(false)!=true) {
+                if (player?.career?.map { it.bowling == null }?.contains(false) != true) {
                     //removing bowling tab
                     tabPlayerAdapter.listPlayerDetailTab.removeAt(2)
                     Log.d(TAG, "onViewCreated: ${tabPlayerAdapter.listPlayerDetailTab}")
 
                 }
-                if (player?.career?.map { it.batting ==null }?.contains(false)!=true) {
+                if (player?.career?.map { it.batting == null }?.contains(false) != true) {
                     //removing batting tab
                     tabPlayerAdapter.listPlayerDetailTab.removeAt(1)
                 }

@@ -12,8 +12,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBowlingBinding
@@ -21,7 +19,6 @@ import com.ihsan.cricplanet.model.PlayerGridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Bowling
 import com.ihsan.cricplanet.utils.Utils
-import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerBowlingFragment"
 class PlayerBowlingFragment : Fragment() {
@@ -124,7 +121,7 @@ class PlayerBowlingFragment : Fragment() {
 
         //make table for each career type
         careersWithSeasonAndLeague.map { mapOfBowling ->
-            makeSeasonScoreTable(mapOfBowling.first, mapOfBowling.second)
+            makeBowlingSeasonScoreTable(mapOfBowling.first, mapOfBowling.second)
         }
 
         val scoreCardList = mutableListOf<Bowling>()
@@ -132,35 +129,35 @@ class PlayerBowlingFragment : Fragment() {
 
         if (test.isNotEmpty()) {
             columnNames.add("Test")
-            scoreCardList.add(careerType(test))
+            scoreCardList.add(careerTypeBowling(test))
         }
         if (test4day.isNotEmpty()) {
             columnNames.add("4day")
-            scoreCardList.add(careerType(test4day))
+            scoreCardList.add(careerTypeBowling(test4day))
         }
         if (t20.isNotEmpty()) {
             columnNames.add("T20")
-            scoreCardList.add(careerType(t20))
+            scoreCardList.add(careerTypeBowling(t20))
         }
         if (t10.isNotEmpty()) {
             columnNames.add("T10")
-            scoreCardList.add(careerType(t10))
+            scoreCardList.add(careerTypeBowling(t10))
         }
         if (t20I.isNotEmpty()) {
             columnNames.add("T20I")
-            scoreCardList.add(careerType(t20I))
+            scoreCardList.add(careerTypeBowling(t20I))
         }
         if (odi.isNotEmpty()) {
             columnNames.add("ODI")
-            scoreCardList.add(careerType(odi))
+            scoreCardList.add(careerTypeBowling(odi))
         }
         if (league.isNotEmpty()) {
             columnNames.add("League")
-            scoreCardList.add(careerType(league))
+            scoreCardList.add(careerTypeBowling(league))
         }
         if (listA.isNotEmpty()) {
             columnNames.add("List A")
-            scoreCardList.add(careerType(listA))
+            scoreCardList.add(careerTypeBowling(listA))
         }
 
         // Add children views dynamically based on the number of items
@@ -219,7 +216,7 @@ class PlayerBowlingFragment : Fragment() {
         }))
     }
 
-    private fun makeSeasonScoreTable(nameOfSeason: String, bowlings: Bowling) {
+    private fun makeBowlingSeasonScoreTable(nameOfSeason: String, bowlings: Bowling) {
         val keyValueList = mutableListOf<PlayerGridItem>()
         keyValueList.add(PlayerGridItem("Matches", listOf(bowlings.matches.toString())))
         keyValueList.add(PlayerGridItem("Innings", listOf(bowlings.innings.toString())))
@@ -251,7 +248,7 @@ class PlayerBowlingFragment : Fragment() {
         binding.tableContainer.addView(listView)
     }
 
-    private fun careerType(matches: MutableList<Bowling>): Bowling {
+    private fun careerTypeBowling(matches: MutableList<Bowling>): Bowling {
         val matchesCareer = Bowling()
         matches.map { bowling ->
             matchesCareer.matches = (matchesCareer.matches ?: 0) + (bowling.matches ?: 0)

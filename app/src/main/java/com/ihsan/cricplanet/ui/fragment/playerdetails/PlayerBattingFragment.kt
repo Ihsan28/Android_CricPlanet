@@ -120,42 +120,42 @@ class PlayerBattingFragment : Fragment() {
 
         //make table for each career type
         careersWithSeasonAndLeague.map { mapOfBatting ->
-            makeSeasonScoreTable(mapOfBatting.first, mapOfBatting.second)
+            makeBattingSeasonScoreTable(mapOfBatting.first, mapOfBatting.second)
         }
 
         val scoreCardList = mutableListOf<Batting>()
         val columnNames = mutableListOf<String>()
         if (test.isNotEmpty()) {
             columnNames.add("Test")
-            scoreCardList.add(careerType(test))
+            scoreCardList.add(careerTypeBatting(test))
         }
         if (odi.isNotEmpty()) {
             columnNames.add("ODI")
-            scoreCardList.add(careerType(odi))
+            scoreCardList.add(careerTypeBatting(odi))
         }
         if (t20.isNotEmpty()) {
             columnNames.add("T20")
-            scoreCardList.add(careerType(t20))
+            scoreCardList.add(careerTypeBatting(t20))
         }
         if (t20I.isNotEmpty()) {
             columnNames.add("T20I")
-            scoreCardList.add(careerType(t20I))
+            scoreCardList.add(careerTypeBatting(t20I))
         }
         if (test4day.isNotEmpty()) {
             columnNames.add("4day")
-            scoreCardList.add(careerType(test4day))
+            scoreCardList.add(careerTypeBatting(test4day))
         }
         if (t10.isNotEmpty()) {
             columnNames.add("T10")
-            scoreCardList.add(careerType(t10))
+            scoreCardList.add(careerTypeBatting(t10))
         }
         if (league.isNotEmpty()) {
             columnNames.add("League")
-            scoreCardList.add(careerType(league))
+            scoreCardList.add(careerTypeBatting(league))
         }
         if (listA.isNotEmpty()) {
             columnNames.add("List A")
-            scoreCardList.add(careerType(listA))
+            scoreCardList.add(careerTypeBatting(listA))
         }
 
         // Add children views dynamically based on the number of items
@@ -219,7 +219,7 @@ class PlayerBattingFragment : Fragment() {
         }))
     }
 
-    private fun makeSeasonScoreTable(nameOfSeason: String, batting: Batting) {
+    private fun makeBattingSeasonScoreTable(nameOfSeason: String, batting: Batting) {
         val keyValueList = mutableListOf<PlayerGridItem>()
         val keyValueList2 = mutableListOf<Pair<String,List<String>>>()
         keyValueList.add(PlayerGridItem("Matches", listOf(batting.matches.toString())))
@@ -253,7 +253,7 @@ class PlayerBattingFragment : Fragment() {
         binding.tableContainer.addView(listView)
     }
 
-    private fun careerType(matches: MutableList<Batting>): Batting {
+    private fun careerTypeBatting(matches: MutableList<Batting>): Batting {
         val matchesCareer = Batting()
         matches.map { batting ->
             matchesCareer.matches = (matchesCareer.matches ?: 0) + (batting.matches ?: 0)

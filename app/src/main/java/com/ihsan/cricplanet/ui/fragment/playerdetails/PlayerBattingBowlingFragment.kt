@@ -15,16 +15,16 @@ import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBowlingBinding
-import com.ihsan.cricplanet.model.PlayerGridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.ihsan.cricplanet.model.player.careerstats.Bowling
 import com.ihsan.cricplanet.utils.Utils
 
 private const val TAG = "PlayerBattingBowlingFragment"
-class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
+
+class PlayerBattingBowlingFragment(private val isBatting: Boolean) : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBowlingBinding
-    private var keyValueList = mutableListOf<PlayerGridItem>()
+    private var keyValueList = mutableListOf<kotlin.Pair<String, List<String>>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +62,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
     private fun makeBattingCareer(player: PlayerDetails?, rowIndexColumnHeader: LinearLayout) {
         val careers = player?.career
 
-        var matchCareers=HashMap<String,MutableList<Batting>>()
+        var matchCareers = HashMap<String, MutableList<Batting>>()
 
         for (career in careers!!) {
             career.batting.let { batting ->
@@ -79,7 +79,7 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
         }
 
         //show all bowling career (subscription required)
-        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Batting>>()
+        val careersWithSeasonAndLeague = mutableListOf<kotlin.Pair<String, Batting>>()
 
         //make list of career with season and league
         careers.map { career ->
@@ -127,60 +127,60 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
         }
 
         keyValueList.add(
-            PlayerGridItem("Matches", calculatedScoreCardList.map { batting ->
+            Pair("Matches", calculatedScoreCardList.map { batting ->
                 batting.matches.toString()
             })
         )
-        keyValueList.add(PlayerGridItem("Innings", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Innings", calculatedScoreCardList.map { batting ->
             batting.innings.toString()
         }))
-        keyValueList.add(PlayerGridItem("Runs", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Runs", calculatedScoreCardList.map { batting ->
             batting.runs_scored.toString()
         }))
-        keyValueList.add(PlayerGridItem("Not Out", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Not Out", calculatedScoreCardList.map { batting ->
             batting.not_outs.toString()
         }))
-        keyValueList.add(PlayerGridItem("Highest", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Highest", calculatedScoreCardList.map { batting ->
             batting.highest_inning_score.toString()
         }))
-        keyValueList.add(PlayerGridItem("SR", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("SR", calculatedScoreCardList.map { batting ->
             batting.strike_rate.toString()
         }))
-        keyValueList.add(PlayerGridItem("Balls", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Balls", calculatedScoreCardList.map { batting ->
             batting.balls_faced.toString()
         }))
-        keyValueList.add(PlayerGridItem("Average", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Average", calculatedScoreCardList.map { batting ->
             batting.average.toString()
         }))
-        keyValueList.add(PlayerGridItem("Fours", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Fours", calculatedScoreCardList.map { batting ->
             batting.four_x.toString()
         }))
-        keyValueList.add(PlayerGridItem("Sixes", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("Sixes", calculatedScoreCardList.map { batting ->
             batting.six_x.toString()
         }))
-        keyValueList.add(PlayerGridItem("50s", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("50s", calculatedScoreCardList.map { batting ->
             batting.fifties.toString()
         }))
-        keyValueList.add(PlayerGridItem("100s", calculatedScoreCardList.map { batting ->
+        keyValueList.add(Pair("100s", calculatedScoreCardList.map { batting ->
             batting.hundreds.toString()
         }))
     }
 
     private fun makeBattingSeasonScoreTable(nameOfSeason: String, batting: Batting) {
-        val keyValueList = mutableListOf<PlayerGridItem>()
-        val keyValueList2 = mutableListOf<Pair<String, List<String>>>()
-        keyValueList.add(PlayerGridItem("Matches", listOf(batting.matches.toString())))
-        keyValueList.add(PlayerGridItem("Innings", listOf(batting.innings.toString())))
-        keyValueList.add(PlayerGridItem("Runs", listOf(batting.runs_scored.toString())))
-        keyValueList.add(PlayerGridItem("Not Out", listOf(batting.not_outs.toString())))
-        keyValueList.add(PlayerGridItem("Highest", listOf(batting.highest_inning_score.toString())))
-        keyValueList.add(PlayerGridItem("SR", listOf(batting.strike_rate.toString())))
-        keyValueList.add(PlayerGridItem("Balls", listOf(batting.balls_faced.toString())))
-        keyValueList.add(PlayerGridItem("Average", listOf(batting.average.toString())))
-        keyValueList.add(PlayerGridItem("Fours", listOf(batting.four_x.toString())))
-        keyValueList.add(PlayerGridItem("Sixes", listOf(batting.six_x.toString())))
-        keyValueList.add(PlayerGridItem("50s", listOf(batting.fifties.toString())))
-        keyValueList.add(PlayerGridItem("100s", listOf(batting.hundreds.toString())))
+        val keyValueList = mutableListOf<Pair<String, List<String>>>()
+
+        keyValueList.add(Pair("Matches", listOf(batting.matches.toString())))
+        keyValueList.add(Pair("Innings", listOf(batting.innings.toString())))
+        keyValueList.add(Pair("Runs", listOf(batting.runs_scored.toString())))
+        keyValueList.add(Pair("Not Out", listOf(batting.not_outs.toString())))
+        keyValueList.add(Pair("Highest", listOf(batting.highest_inning_score.toString())))
+        keyValueList.add(Pair("SR", listOf(batting.strike_rate.toString())))
+        keyValueList.add(Pair("Balls", listOf(batting.balls_faced.toString())))
+        keyValueList.add(Pair("Average", listOf(batting.average.toString())))
+        keyValueList.add(Pair("Fours", listOf(batting.four_x.toString())))
+        keyValueList.add(Pair("Sixes", listOf(batting.six_x.toString())))
+        keyValueList.add(Pair("50s", listOf(batting.fifties.toString())))
+        keyValueList.add(Pair("100s", listOf(batting.hundreds.toString())))
 
         val titleTextView = Utils().createCurvedTextView(requireContext(), nameOfSeason)
         val listView = GridView(context).apply {
@@ -269,23 +269,23 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
     ) {
         val careers = player?.career
 
-        val matchCareers=HashMap<String,MutableList<Bowling>>()
+        val matchCareers = HashMap<String, MutableList<Bowling>>()
 
         for (career in careers!!) {
             career.bowling.let { bowling ->
                 if (bowling != null) {
                     Log.d(TAG, "onViewCreated: career type ${career.type}")
-                    if(matchCareers.containsKey(career.type)){
+                    if (matchCareers.containsKey(career.type)) {
                         matchCareers[career.type]?.add(bowling)
-                    }else{
-                        matchCareers[career.type.toString()]= mutableListOf(bowling)
+                    } else {
+                        matchCareers[career.type.toString()] = mutableListOf(bowling)
                     }
                 }
             }
         }
 
         //show all bowling career (subscription required)
-        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Bowling>>()
+        val careersWithSeasonAndLeague = mutableListOf<kotlin.Pair<String, Bowling>>()
 
         //make list of pair of career type and bowling
         careers.map { career ->
@@ -329,54 +329,54 @@ class PlayerBattingBowlingFragment(private val isBatting:Boolean) : Fragment() {
             scoreCardList.add(calculatingCareerBowling(career.value))
         }
 
-        keyValueList.add(PlayerGridItem("Matches", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Matches", scoreCardList.map { bowling ->
             bowling.matches.toString()
         }))
-        keyValueList.add(PlayerGridItem("Innings", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Innings", scoreCardList.map { bowling ->
             bowling.innings.toString()
         }))
-        keyValueList.add(PlayerGridItem("Runs", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Runs", scoreCardList.map { bowling ->
             bowling.runs.toString()
         }))
-        keyValueList.add(PlayerGridItem("Overs", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Overs", scoreCardList.map { bowling ->
             bowling.overs.toString()
         }))
-        keyValueList.add(PlayerGridItem("Eco", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Eco", scoreCardList.map { bowling ->
             bowling.econ_rate.toString()
         }))
-        keyValueList.add(PlayerGridItem("Wickets", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Wickets", scoreCardList.map { bowling ->
             bowling.wickets.toString()
         }))
-        keyValueList.add(PlayerGridItem("Wide", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("Wide", scoreCardList.map { bowling ->
             bowling.wide.toString()
         }))
-        keyValueList.add(PlayerGridItem("No Ball", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("No Ball", scoreCardList.map { bowling ->
             bowling.noball.toString()
         }))
-        keyValueList.add(PlayerGridItem("4w", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("4w", scoreCardList.map { bowling ->
             bowling.four_wickets.toString()
         }))
-        keyValueList.add(PlayerGridItem("5w", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("5w", scoreCardList.map { bowling ->
             bowling.five_wickets.toString()
         }))
-        keyValueList.add(PlayerGridItem("10w", scoreCardList.map { bowling ->
+        keyValueList.add(Pair("10w", scoreCardList.map { bowling ->
             bowling.ten_wickets.toString()
         }))
     }
 
     private fun makeBowlingSeasonScoreTable(nameOfSeason: String, bowlings: Bowling) {
-        val keyValueList = mutableListOf<PlayerGridItem>()
-        keyValueList.add(PlayerGridItem("Matches", listOf(bowlings.matches.toString())))
-        keyValueList.add(PlayerGridItem("Innings", listOf(bowlings.innings.toString())))
-        keyValueList.add(PlayerGridItem("Runs", listOf(bowlings.runs.toString())))
-        keyValueList.add(PlayerGridItem("Overs", listOf(bowlings.overs.toString())))
-        keyValueList.add(PlayerGridItem("Eco", listOf(bowlings.econ_rate.toString())))
-        keyValueList.add(PlayerGridItem("Wickets", listOf(bowlings.wickets.toString())))
-        keyValueList.add(PlayerGridItem("Wide", listOf(bowlings.wide.toString())))
-        keyValueList.add(PlayerGridItem("No Ball", listOf(bowlings.noball.toString())))
-        keyValueList.add(PlayerGridItem("4w", listOf(bowlings.four_wickets.toString())))
-        keyValueList.add(PlayerGridItem("5w", listOf(bowlings.five_wickets.toString())))
-        keyValueList.add(PlayerGridItem("10w", listOf(bowlings.ten_wickets.toString())))
+        val keyValueList = mutableListOf<Pair<String,List<String>>>()
+        keyValueList.add(Pair("Matches", listOf(bowlings.matches.toString())))
+        keyValueList.add(Pair("Innings", listOf(bowlings.innings.toString())))
+        keyValueList.add(Pair("Runs", listOf(bowlings.runs.toString())))
+        keyValueList.add(Pair("Overs", listOf(bowlings.overs.toString())))
+        keyValueList.add(Pair("Eco", listOf(bowlings.econ_rate.toString())))
+        keyValueList.add(Pair("Wickets", listOf(bowlings.wickets.toString())))
+        keyValueList.add(Pair("Wide", listOf(bowlings.wide.toString())))
+        keyValueList.add(Pair("No Ball", listOf(bowlings.noball.toString())))
+        keyValueList.add(Pair("4w", listOf(bowlings.four_wickets.toString())))
+        keyValueList.add(Pair("5w", listOf(bowlings.five_wickets.toString())))
+        keyValueList.add(Pair("10w", listOf(bowlings.ten_wickets.toString())))
 
         val titleTextView = Utils().createCurvedTextView(requireContext(), nameOfSeason)
         val listView = GridView(context).apply {

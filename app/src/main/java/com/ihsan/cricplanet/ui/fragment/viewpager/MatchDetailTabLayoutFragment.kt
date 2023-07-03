@@ -19,7 +19,6 @@ import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
-@Suppress("DEPRECATION")
 class MatchDetailTabLayoutFragment : Fragment() {
 
     private lateinit var binding: FragmentMatchDetailTabLayoutBinding
@@ -32,7 +31,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMatchDetailTabLayoutBinding.inflate(inflater, container, false)
         return binding.root
@@ -65,13 +64,24 @@ class MatchDetailTabLayoutFragment : Fragment() {
             //Assigning match Adapter
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
                 val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
+
+                //Removing tab if data is null
+                if (match.batting== null && match.scoreboards==null){
+                    tabMatchDetailAdapter.listMatchDetailTab.removeAt(2)
+                }
+
+                if(match.lineup==null){
+                    tabMatchDetailAdapter.listMatchDetailTab.removeAt(1)
+                }
+
                 viewPager.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = TabMatchDetailAdapter.listMatchDetailTab[position].category
+                    tab.text = tabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
                 Utils().progressAnimationStop(progressBar)
                 //Assigning value of all view fields of top
                 fixtureName.text = match.league?.name
+
                 Utils().also { utils ->
                     //Automatic refresh page function call
                     if (utils.isLive(match.status.toString())){

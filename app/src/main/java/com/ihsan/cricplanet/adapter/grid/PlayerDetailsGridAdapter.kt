@@ -12,10 +12,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.PlayerGridItem
 
-private const val TAG = "PlayerDetailsGridAdapte"
-class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridItem>) :
+private const val TAG = "PlayerDetailsGridAdapter"
+
+class PlayerDetailsGridAdapter(val context: Context, val items: List<Pair<String, List<String>>>) :
     BaseAdapter() {
 
     override fun getCount(): Int {
@@ -35,7 +35,7 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
             .inflate(R.layout.player_batting_bowling_grid_item, parent, false)
         val player = items[position]
 
-        Log.d(TAG, "getView: key: ${player.key} values: ${player.value}")
+        Log.d(TAG, "getView: key: ${player.first} values: ${player.second}")
 
         // Get the parent layout
         val parentLayout: LinearLayout = view.findViewById(R.id.row_index)
@@ -50,7 +50,7 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
                 gravity = Gravity.START
                 weight = 2.7f
             }
-            text = player.key
+            text = player.first
             textSize = 12f
             setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
             setTypeface(null, Typeface.BOLD)
@@ -60,7 +60,7 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
         parentLayout.addView(keyTextView)
 
         // Add children views dynamically based on the number of items
-        for (i in 0 until player.value.size) {
+        for (i in 0 until player.second.size) {
 
             // Create a new TextView instance
             val textView = TextView(context).apply {
@@ -72,7 +72,7 @@ class PlayerDetailsGridAdapter(val context: Context, val items: List<PlayerGridI
                     gravity = Gravity.CENTER
                     weight = 3f
                 }
-                text = player.value[i]
+                text = player.second[i]
                 textSize = 12f
                 setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
 

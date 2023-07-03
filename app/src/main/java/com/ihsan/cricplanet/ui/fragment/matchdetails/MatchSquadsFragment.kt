@@ -11,13 +11,12 @@ import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 
-@Suppress("DEPRECATION")
 class MatchSquadsFragment : Fragment() {
     private lateinit var binding: FragmentMatchSquadsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMatchSquadsBinding.inflate(inflater, container, false)
         return binding.root

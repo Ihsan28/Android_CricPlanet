@@ -50,7 +50,7 @@ class TeamDetailsTabLayoutFragment : Fragment() {
                     TabTeamDetailAdapter(childFragmentManager, lifecycle, team)
                 viewPager.adapter = tabMatchDetailAdapter
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = TabTeamDetailAdapter.listTeamDetailTab[position].category
+                    tab.text = tabMatchDetailAdapter.listTeamDetailTab[position].category
                 }.attach()
 
                 //Assigning value of all view fields of top

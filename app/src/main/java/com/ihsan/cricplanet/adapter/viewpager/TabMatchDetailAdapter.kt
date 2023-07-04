@@ -10,6 +10,7 @@ import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchInfoFragment
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchScorecardFragment
 import com.ihsan.cricplanet.ui.fragment.matchdetails.MatchSquadsFragment
+import com.ihsan.cricplanet.utils.Utils
 
 class TabMatchDetailAdapter(
     manager: FragmentManager,
@@ -39,10 +40,6 @@ class TabMatchDetailAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> addBundle(listMatchDetailTab[position].fragment, "match", match)
-            1 -> addBundle(listMatchDetailTab[position].fragment, "match", match)
-            else -> addBundle(listMatchDetailTab[position].fragment, "match", match)
-        }
+        return addBundle(listMatchDetailTab[position].fragment, "match", match)
     }
 }

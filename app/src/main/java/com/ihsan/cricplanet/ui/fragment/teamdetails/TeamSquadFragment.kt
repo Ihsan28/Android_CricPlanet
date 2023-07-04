@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.adapter.grid.TeamSquadGridAdapter
+import com.ihsan.cricplanet.adapter.grid.TeamSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamSquadBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
 
@@ -33,7 +33,7 @@ class TeamSquadFragment : Fragment() {
                 if (team != null) {
                     //set adapter
                     gridViewTeam.adapter =
-                        team!!.squad?.let { it1 -> TeamSquadGridAdapter(requireContext(), it1) }
+                        team!!.squad?.let { it1 -> TeamSquadAdapter(requireContext(), it1) }
                 }
             }
         }

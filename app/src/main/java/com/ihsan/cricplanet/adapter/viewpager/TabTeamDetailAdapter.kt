@@ -15,14 +15,14 @@ class TabTeamDetailAdapter(
     lifecycle: Lifecycle,
     private val team: TeamDetails
 ) : FragmentStateAdapter(manager, lifecycle) {
-    companion object {
-        val listTeamDetailTab = listOf(
-            Tab(TeamSquadFragment(), "SQUAD"),
-            Tab(TeamFixturesFragment(), "CAREER")
-        )
-    }
 
-    private fun addBundle(fragment: Fragment, key:String, value: TeamDetails): Fragment {
+    val listTeamDetailTab = listOf(
+        Tab(TeamSquadFragment(), "SQUAD"),
+        Tab(TeamFixturesFragment(), "CAREER")
+    )
+
+
+    private fun addBundle(fragment: Fragment, key: String, value: TeamDetails): Fragment {
         val bundle = Bundle()
         bundle.putParcelable(key, value)
         fragment.arguments = bundle
@@ -34,9 +34,6 @@ class TabTeamDetailAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0->addBundle(listTeamDetailTab[position].fragment,"team",team)
-            else->addBundle(listTeamDetailTab[position].fragment,"team",team)
-        }
+        return addBundle(listTeamDetailTab[position].fragment, "team", team)
     }
 }

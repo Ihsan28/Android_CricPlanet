@@ -15,7 +15,7 @@ import com.ihsan.cricplanet.R
 
 private const val TAG = "PlayerDetailsGridAdapter"
 
-class PlayerDetailsGridAdapter(val context: Context, val items: List<Pair<String, List<String>>>) :
+class PlayerDetailsAdapter(val context: Context, val items: List<Pair<String, List<String>>>) :
     BaseAdapter() {
 
     override fun getCount(): Int {

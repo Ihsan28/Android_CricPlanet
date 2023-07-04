@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.adapter.grid.PlayerDetailsGridAdapter
+import com.ihsan.cricplanet.adapter.grid.PlayerDetailsAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBowlingBinding
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Batting
@@ -22,7 +22,7 @@ import com.ihsan.cricplanet.utils.Utils
 
 private const val TAG = "PlayerBattingBowlingFragment"
 
-class PlayerBattingBowlingFragment(private val isBatting: Boolean) : Fragment() {
+class PlayerBattingBowlingFragment(private val isBatting: Boolean=true) : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBowlingBinding
     private var keyValueList = mutableListOf<kotlin.Pair<String, List<String>>>()
 
@@ -53,7 +53,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean) : Fragment() 
 
                 //List Adapter call
                 listView.adapter =
-                    PlayerDetailsGridAdapter(requireContext(), keyValueList)
+                    PlayerDetailsAdapter(requireContext(), keyValueList)
                 Utils().setListViewHeightBasedOnItemsWithAdditionalHeight(listView)
             }
         }
@@ -192,7 +192,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean) : Fragment() 
                 weight = 3f
                 numColumns = 3
             }
-            adapter = PlayerDetailsGridAdapter(context, keyValueList)
+            adapter = PlayerDetailsAdapter(context, keyValueList)
         }
 
         Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(listView)
@@ -388,7 +388,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean) : Fragment() 
                 weight = 3f
                 numColumns = 3
             }
-            adapter = PlayerDetailsGridAdapter(context, keyValueList)
+            adapter = PlayerDetailsAdapter(context, keyValueList)
         }
 
         Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(listView)

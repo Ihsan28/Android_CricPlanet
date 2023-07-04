@@ -49,6 +49,9 @@ class TeamRankingAdapter(private val teamList: List<TeamIncludeRanking>) :
         }
 
         holder.itemView.setOnClickListener {
+            Navigation.findNavController(holder.itemView)
+                .navigate(R.id.action_rankingTabLayoutFragment_to_teamDetailsTabLayoutFragment,
+                    Bundle().apply { putInt("teamId", team.id) })
         }
     }
 }

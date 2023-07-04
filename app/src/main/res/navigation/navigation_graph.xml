@@ -57,6 +57,9 @@
             android:name="matchId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_matchDetailTabLayoutFragment_to_playerDetailsTabLayoutFragment"
+            app:destination="@id/playerDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchInfoFragment"
@@ -198,6 +201,9 @@
         <argument android:name="teamId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_teamDetailsTabLayoutFragment_to_playerDetailsTabLayoutFragment"
+            app:destination="@id/playerDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerBattingBowlingFragment"

@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui .fragment.viewpager
 
 import android.os.Bundle
 import android.os.Handler
@@ -66,11 +66,11 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
 
                 //Removing tab if data is null
-                if (match.batting== null && match.scoreboards==null){
+                if (match.batting?.isEmpty() != false && match.scoreboards?.isEmpty() !=false){
                     tabMatchDetailAdapter.listMatchDetailTab.removeAt(2)
                 }
 
-                if(match.lineup==null){
+                if(match.lineup?.isEmpty() != false){
                     tabMatchDetailAdapter.listMatchDetailTab.removeAt(1)
                 }
 

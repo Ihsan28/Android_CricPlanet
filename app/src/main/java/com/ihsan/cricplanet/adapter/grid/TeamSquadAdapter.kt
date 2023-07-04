@@ -11,10 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
+import com.ihsan.cricplanet.model.team.Squad
 import com.ihsan.cricplanet.utils.Utils
 
-data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) : BaseAdapter() {
+data class TeamSquadAdapter(val context: Context, val items: List<Squad>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return items.size
@@ -44,6 +44,14 @@ data class MatchSquadGridAdapter(val context: Context, val items: List<Lineup>) 
         Utils().also {
             it.loadImageWithPicasso(player.image_path,playerImage)
             playerAge.text= player.dateofbirth?.let { it1 -> it.getPlayerAge(it1) }
+        }
+
+        view.setOnClickListener {
+            Log.d("cricMatchAdapter", "onBindViewHolder: ${player.id}")
+            //Navigating adapter to player details
+            Navigation.findNavController(view)
+                .navigate(R.id.action_teamDetailsTabLayoutFragment_to_playerDetailsTabLayoutFragment,
+                    Bundle().apply { putInt("playerId", player.id) })
         }
 
         return view

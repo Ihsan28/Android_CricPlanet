@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -17,10 +18,12 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
+import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import com.squareup.picasso.Picasso
 import java.math.RoundingMode
@@ -57,6 +60,17 @@ class Utils {
 
     fun progressAnimationStop(progressbar: LottieProgressDialog) {
         progressbar.dismiss()
+    }
+
+    fun addBundle(
+        fragment: Fragment,
+        key: String,
+        value: FixtureByIdWithDetails
+    ): Fragment {
+        val bundle = Bundle()
+        bundle.putParcelable(key, value)
+        fragment.arguments = bundle
+        return fragment
     }
 
     fun oneDecimalPoint(number: Double?): Double {

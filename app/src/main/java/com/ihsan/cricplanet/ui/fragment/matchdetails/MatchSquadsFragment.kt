@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.adapter.grid.MatchSquadGridAdapter
+import com.ihsan.cricplanet.adapter.grid.MatchSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
@@ -40,9 +40,9 @@ class MatchSquadsFragment : Fragment() {
                 if (match != null) {
                     //set adapter
                     gridViewLocal.adapter =
-                        MatchSquadGridAdapter(requireContext(), localTeam as List<Lineup>)
+                        MatchSquadAdapter(requireContext(), localTeam as List<Lineup>)
                     gridViewVisitor.adapter =
-                        MatchSquadGridAdapter(requireContext(), visitorTeam as List<Lineup>)
+                        MatchSquadAdapter(requireContext(), visitorTeam as List<Lineup>)
                 }
             }
         }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -24,6 +25,7 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        Toast.makeText(requireContext(), "called", Toast.LENGTH_SHORT).show()
         // Inflate the layout for this fragment
         binding = FragmentPlayerDetailsTabLayoutBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,8 +35,10 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val tabLayout = binding.tabLayoutPlayerDetails
         val viewPager = binding.viewPager2PlayerDetails
-        args.let {
-            playerId = it.playerId
+        arguments.let {
+            if (it != null) {
+                playerId = it.getInt("playerId")
+            }
 
             viewmodel.getPlayersByIdApi(playerId)
             viewmodel.playerDetails.observe(viewLifecycleOwner) { player ->

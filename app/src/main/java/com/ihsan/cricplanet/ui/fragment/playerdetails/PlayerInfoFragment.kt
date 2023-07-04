@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
-import com.ihsan.cricplanet.adapter.grid.MatchInfoGridAdapter
+import com.ihsan.cricplanet.adapter.grid.MatchInfoAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerInfoBinding
 import com.ihsan.cricplanet.model.GridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails
@@ -43,7 +42,7 @@ class PlayerInfoFragment : Fragment() {
                 keyValueList.add(GridItem("Bowling Style", player?.bowlingstyle.toString()))
 
                 //Grid adapter call for table
-                gridView.adapter = MatchInfoGridAdapter(requireContext(), keyValueList)
+                gridView.adapter = MatchInfoAdapter(requireContext(), keyValueList)
             }
         }
     }

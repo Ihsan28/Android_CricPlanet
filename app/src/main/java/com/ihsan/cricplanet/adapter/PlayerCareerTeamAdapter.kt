@@ -1,6 +1,7 @@
 package com.ihsan.cricplanet.adapter
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.player.TeamIncludeInSquad
@@ -53,7 +55,10 @@ class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,pri
         }
 
         holder.itemView.setOnClickListener {
-
+            /*Log.d("cricMatchAdapterSeries", "onBindViewHolder: ${match.id}")
+            Navigation.findNavController(holder.itemView)
+                .navigate(R.id.action_matchesFragment_to_matchDetailTabLayoutFragment,
+                    Bundle().apply { putInt("matchId", match.id) })*/
         }
     }
 

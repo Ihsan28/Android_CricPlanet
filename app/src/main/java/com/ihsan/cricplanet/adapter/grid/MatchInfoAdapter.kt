@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.GridItem
 
-class MatchInfoGridAdapter (val context: Context, val items: List<GridItem>) : BaseAdapter() {
+class MatchInfoAdapter (val context: Context, val items: List<GridItem>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return items.size

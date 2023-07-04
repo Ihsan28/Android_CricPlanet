@@ -11,11 +11,12 @@ import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerBattingBowlingFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerCareerFragment
 import com.ihsan.cricplanet.ui.fragment.playerdetails.PlayerInfoFragment
+import com.ihsan.cricplanet.utils.Utils
 
 class TabPlayerAdapter(
     manager: FragmentManager,
     lifecycle: Lifecycle,
-    private val player: PlayerDetails
+    val player: PlayerDetails
 ) : FragmentStateAdapter(manager, lifecycle) {
 
     var listPlayerDetailTab = mutableListOf(
@@ -25,10 +26,10 @@ class TabPlayerAdapter(
         Tab(PlayerCareerFragment(), "Career")
     )
 
-    private fun addBundle(fragment: Fragment): Fragment {
+    private fun addBundle(fragment: Fragment, key:String,value:PlayerDetails): Fragment {
         val bundle = Bundle()
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdapterAddBundle: ${player.fullname}")
-        bundle.putParcelable("player", player)
+        bundle.putParcelable(key, player)
         fragment.arguments = bundle
         return fragment
     }
@@ -39,6 +40,6 @@ class TabPlayerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: $position")
-        return addBundle(listPlayerDetailTab[position].fragment)
+        return addBundle(listPlayerDetailTab[position].fragment,"player", player)
     }
 }

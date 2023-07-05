@@ -45,7 +45,7 @@ class Utils {
     fun progressAnimationStart(context: Context, title: String): LottieProgressDialog {
         val progressbar = LottieProgressDialog(
             context,
-            true,
+            false,
             null,
             null,
             null,

@@ -64,7 +64,7 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
     fun filter(text: String) {
         val filteredList = ArrayList<PlayerCard>()
         playerList.map {
-            if (it.fullname.lowercase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true
+            if (it.fullname.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))
             ) {
                 filteredList.add(it)
             }

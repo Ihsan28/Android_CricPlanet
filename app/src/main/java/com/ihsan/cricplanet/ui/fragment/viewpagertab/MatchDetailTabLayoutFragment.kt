@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
@@ -39,7 +41,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Details")
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Match...")
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
@@ -50,13 +52,14 @@ class MatchDetailTabLayoutFragment : Fragment() {
         val localTeamRun = view.findViewById<TextView>(R.id.local_team_run)
         val localTeamOver = view.findViewById<TextView>(R.id.local_team_over)
         val localTeamImage = view.findViewById<ImageView>(R.id.local_team_image)
+        val localTeamImageCard = view.findViewById<CardView>(R.id.local_team_image_card)
         val visitorTeamName = view.findViewById<TextView>(R.id.visitor_team_name)
         val visitorTeamRun = view.findViewById<TextView>(R.id.visitor_team_run)
         val visitorTeamOver = view.findViewById<TextView>(R.id.visitor_team_over)
         val visitorTeamImage = view.findViewById<ImageView>(R.id.visitor_team_image)
+        val visitorTeamImageCard = view.findViewById<CardView>(R.id.visitor_team_image_card)
 
         arguments?.let {
-
             matchId = it.getInt("matchId")
             viewmodel.getFixturesByIdApi(matchId)
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
@@ -78,11 +81,14 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = tabMatchDetailAdapter.listMatchDetailTab[position].category
                 }.attach()
+
+                //progress bar stop
                 Utils().progressAnimationStop(progressBar)
+
                 //Assigning value of all view fields of top
                 fixtureName.text = match.league?.name
 
-                Utils().also { utils ->
+                Utils().also {  utils ->
                     //Automatic refresh page function call
                     if (utils.isLive(match.status.toString())){
                         stopPeriodicRefresh()
@@ -111,9 +117,23 @@ class MatchDetailTabLayoutFragment : Fragment() {
                         visitorTeamOver
                     )
                 }
+
+                localTeamImageCard.setOnClickListener {
+                    navigateToTeamDetails(match.localteam?.id!!)
+                }
+                visitorTeamImageCard.setOnClickListener {
+                    navigateToTeamDetails(match.visitorteam?.id!!)
+                }
             }
         }
     }
+
+    private fun navigateToTeamDetails(teamId: Int) {
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_matchDetailTabLayoutFragment_to_teamDetailsTabLayoutFragment,
+                Bundle().apply { putInt("teamId", teamId) })
+    }
+
     private fun refreshPage() {
         Toast.makeText(requireActivity(), refreshMessage, Toast.LENGTH_SHORT).show()
         viewmodel.getFixturesByIdApi(matchId)

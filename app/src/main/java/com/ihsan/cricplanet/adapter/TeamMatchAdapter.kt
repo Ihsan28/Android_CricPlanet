@@ -51,5 +51,9 @@ class TeamMatchAdapter(private val matchList: List<Fixture>) :
             //set status and background color
             it.setStatus(match.status, holder.status)
         }
+        holder.itemView.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_teamDetailsTabLayoutFragment_to_matchDetailTabLayoutFragment,
+                Bundle().apply { putInt("matchId", match.id) })
+        }
     }
 }

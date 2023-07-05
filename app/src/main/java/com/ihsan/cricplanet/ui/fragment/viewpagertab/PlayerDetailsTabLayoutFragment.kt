@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpagertab
 
 import android.os.Bundle
 import android.util.Log

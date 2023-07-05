@@ -16,6 +16,7 @@ import com.ihsan.cricplanet.model.player.TeamIncludeInSquad
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
+private const val TAG = "PlayerCareerTeamAdapter"
 class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,private val viewModel:CricViewModel,private val viewLifecycleOwner: LifecycleOwner) :
     RecyclerView.Adapter<PlayerCareerTeamAdapter.TeamViewHolder>() {
 
@@ -39,11 +40,11 @@ class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,pri
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         val team = teamList[position]
-        Log.d("cricteamAdapter", "BindViewHolderName: ${team.name}")
+        Log.d(TAG, "BindViewHolderName: ${team.name}")
 
 
         team.in_squad?.season_id?.let {
-            Log.d("cricteamAdapter", "BindViewHolderSeasonId: $it")
+            Log.d(TAG, "BindViewHolderSeasonId: $it")
             viewModel.getSeasonByIdLocal(it).observe(viewLifecycleOwner){season->
                 holder.source.text = season?.league_name ?:"Will Update Soon"
                 holder.teamRanking.text = season?.name ?:""
@@ -55,11 +56,10 @@ class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,pri
         }
 
         holder.itemView.setOnClickListener {
-            /*Log.d("cricMatchAdapterSeries", "onBindViewHolder: ${match.id}")
+            Log.d(TAG, "onBindViewHolder: ${team.id}")
             Navigation.findNavController(holder.itemView)
-                .navigate(R.id.action_matchesFragment_to_matchDetailTabLayoutFragment,
-                    Bundle().apply { putInt("matchId", match.id) })*/
+                .navigate(R.id.action_playerDetailsTabLayoutFragment_to_teamDetailsTabLayoutFragment,
+                    Bundle().apply { putInt("teamId", team.id) })
         }
     }
-
 }

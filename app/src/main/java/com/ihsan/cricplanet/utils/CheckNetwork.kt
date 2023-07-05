@@ -11,8 +11,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.ihsan.cricplanet.ui.MainActivity
+import com.ihsan.cricplanet.ui.fragment.HomeFragment
+import com.ihsan.cricplanet.viewmodel.CricViewModel
 import java.lang.Thread.sleep
 
 data class Network(
@@ -43,9 +46,25 @@ class CheckNetwork : BroadcastReceiver() {
 
         Log.d("Internet", "onReceive: $capabilities")
         if (capabilities != null) {
+            if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)){
+                Log.i("Internet", "NetworkCapabilities.NET_CAPABILITY_INTERNET")
+                Toast.makeText(instance, "INTERNET Connected", Toast.LENGTH_SHORT)
+                    .show()
+                networkStatus.value!!.connection = capabilities
+            } else {
+                networkStatus.value!!.connection = null
+            }
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                Toast.makeText(instance, "ETHERNET ON", Toast.LENGTH_SHORT)
+                    .show()
+                networkStatus.value!!.ethernet = true
+            } else {
+                networkStatus.value!!.ethernet = false
+            }
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) && !networkStatus.value!!.wifi) {
                 Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                Toast.makeText(instance, "Internet connected On WIFI", Toast.LENGTH_SHORT).show()
+                Toast.makeText(instance, "WIFI ON", Toast.LENGTH_SHORT).show()
                 networkStatus.value!!.wifi = true
                 networkStatus.value!!.cellular = false
             } else {
@@ -53,22 +72,14 @@ class CheckNetwork : BroadcastReceiver() {
             }
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) && !networkStatus.value!!.cellular) {
                 Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                Toast.makeText(instance, "Internet connected On CELLULAR", Toast.LENGTH_SHORT)
+                Toast.makeText(instance, "CELLULAR ON", Toast.LENGTH_SHORT)
                     .show()
                 networkStatus.value!!.cellular = true
             } else {
                 networkStatus.value!!.cellular = false
             }
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                Toast.makeText(instance, "Internet connected On ETHERNET", Toast.LENGTH_SHORT)
-                    .show()
-                networkStatus.value!!.ethernet = true
-            } else {
-                networkStatus.value!!.ethernet = false
-            }
-        } else if (capabilities == null) {
-            Toast.makeText(MyApplication.instance, "No Internet Connection", Toast.LENGTH_SHORT)
+        } else {
+            Toast.makeText(MyApplication.instance, "No Internet", Toast.LENGTH_SHORT)
                 .show()
             Log.d("Internet", "onReceive: Not connected")
         }

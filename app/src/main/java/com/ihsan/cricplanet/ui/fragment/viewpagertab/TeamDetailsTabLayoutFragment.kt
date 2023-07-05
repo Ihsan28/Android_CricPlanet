@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpagertab
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -30,6 +30,7 @@ class TeamDetailsTabLayoutFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Team...")
 
         //Tab layout
         val tabLayout = binding.tabLayoutTeamDetails
@@ -52,6 +53,9 @@ class TeamDetailsTabLayoutFragment : Fragment() {
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = tabMatchDetailAdapter.listTeamDetailTab[position].category
                 }.attach()
+
+                //stop progress Animation
+                Utils().progressAnimationStop(progressBar)
 
                 //Assigning value of all view fields of top
                 binding.teamName.text = team.name

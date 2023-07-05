@@ -56,7 +56,6 @@ class MatchDetailTabLayoutFragment : Fragment() {
         val visitorTeamImage = view.findViewById<ImageView>(R.id.visitor_team_image)
 
         arguments?.let {
-
             matchId = it.getInt("matchId")
             viewmodel.getFixturesByIdApi(matchId)
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")

@@ -55,11 +55,10 @@ class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,pri
         }
 
         holder.itemView.setOnClickListener {
-            /*Log.d("cricMatchAdapterSeries", "onBindViewHolder: ${match.id}")
+            Log.d("cricMatchAdapterSeries", "onBindViewHolder: ${team.id}")
             Navigation.findNavController(holder.itemView)
-                .navigate(R.id.action_matchesFragment_to_matchDetailTabLayoutFragment,
-                    Bundle().apply { putInt("matchId", match.id) })*/
+                .navigate(R.id.action_playerDetailsTabLayoutFragment_to_teamDetailsTabLayoutFragment,
+                    Bundle().apply { putInt("teamId", team.id) })
         }
     }
-
 }

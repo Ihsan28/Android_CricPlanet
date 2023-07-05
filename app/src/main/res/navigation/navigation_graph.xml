@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.MatchTabLayoutFragment"
         android:label="fragment_match_tab_layout"
         tools:layout="@layout/fragment_match_tab_layout" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchDetailTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchDetailTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.MatchDetailTabLayoutFragment"
         android:label="fragment_match_detail_tab_layout"
         tools:layout="@layout/fragment_match_detail_tab_layout" >
         <argument
@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_matchDetailTabLayoutFragment_to_playerDetailsTabLayoutFragment"
             app:destination="@id/playerDetailsTabLayoutFragment" />
+        <action
+            android:id="@+id/action_matchDetailTabLayoutFragment_to_teamDetailsTabLayoutFragment"
+            app:destination="@id/teamDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchInfoFragment"
@@ -111,18 +114,18 @@
     </fragment>
     <fragment
         android:id="@+id/rankingTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.RankingTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.RankingTabLayoutFragment"
         android:label="fragment_ranking_tab_layout"
         tools:layout="@layout/fragment_ranking_tab_layout" >
         <action
             android:id="@+id/action_rankingTabLayoutFragment_to_rankingFragment2"
-            app:destination="@id/rankingFragment2" />
+            app:destination="@id/rankingFragment" />
         <action
             android:id="@+id/action_rankingTabLayoutFragment_to_teamDetailsTabLayoutFragment"
             app:destination="@id/teamDetailsTabLayoutFragment" />
     </fragment>
     <fragment
-        android:id="@+id/rankingFragment2"
+        android:id="@+id/rankingFragment"
         android:name="com.ihsan.cricplanet.ui.fragment.RankingFragment"
         android:label="RankingFragment" >
         <argument
@@ -137,21 +140,15 @@
     </fragment>
     <fragment
         android:id="@+id/playerDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.PlayerDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.PlayerDetailsTabLayoutFragment"
         android:label="fragment_player_details_tab_layout"
         tools:layout="@layout/fragment_player_details_tab_layout" >
         <argument android:name="playerId"
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerCareerFragment"
-            app:destination="@id/playerCareerFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerInfoFragment"
-            app:destination="@id/playerInfoFragment" />
-        <action
-            android:id="@+id/action_playerDetailsTabLayoutFragment_to_playerBattingBowlingFragment"
-            app:destination="@id/playerBattingBowlingFragment" />
+            android:id="@+id/action_playerDetailsTabLayoutFragment_to_teamDetailsTabLayoutFragment"
+            app:destination="@id/teamDetailsTabLayoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerCareerFragment"
@@ -195,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/teamDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.TeamDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment"
         android:label="fragment_team_details_tab_layout"
         tools:layout="@layout/fragment_team_details_tab_layout" >
         <argument android:name="teamId"

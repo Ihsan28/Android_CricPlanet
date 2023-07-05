@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpagertab
 
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ihsan.cricplanet.adapter.TeamRankingAdapter
-import com.ihsan.cricplanet.adapter.viewpager.TabMatchAdapter
 import com.ihsan.cricplanet.adapter.viewpager.TabRankingAdapter
 import com.ihsan.cricplanet.databinding.FragmentRankingTabLayoutBinding
 import com.ihsan.cricplanet.utils.Utils

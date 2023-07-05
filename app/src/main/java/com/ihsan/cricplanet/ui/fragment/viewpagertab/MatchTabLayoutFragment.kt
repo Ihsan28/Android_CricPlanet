@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpagertab
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchTabLayoutBinding
-import com.ihsan.cricplanet.utils.Utils
 
 class MatchTabLayoutFragment : Fragment() {
     private lateinit var binding: FragmentMatchTabLayoutBinding

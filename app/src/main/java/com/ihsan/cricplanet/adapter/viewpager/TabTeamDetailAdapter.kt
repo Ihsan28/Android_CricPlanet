@@ -9,6 +9,7 @@ import com.ihsan.cricplanet.model.Tab
 import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
+import com.ihsan.cricplanet.utils.Utils
 
 class TabTeamDetailAdapter(
     manager: FragmentManager,
@@ -21,19 +22,11 @@ class TabTeamDetailAdapter(
         Tab(TeamFixturesFragment(), "CAREER")
     )
 
-
-    private fun addBundle(fragment: Fragment, key: String, value: TeamDetails): Fragment {
-        val bundle = Bundle()
-        bundle.putParcelable(key, value)
-        fragment.arguments = bundle
-        return fragment
-    }
-
     override fun getItemCount(): Int {
         return listTeamDetailTab.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return addBundle(listTeamDetailTab[position].fragment, "team", team)
+        return Utils().addBundle(listTeamDetailTab[position].fragment, "team", team)
     }
 }

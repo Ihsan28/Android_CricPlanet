@@ -26,20 +26,12 @@ class TabPlayerAdapter(
         Tab(PlayerCareerFragment(), "Career")
     )
 
-    private fun addBundle(fragment: Fragment, key:String,value:PlayerDetails): Fragment {
-        val bundle = Bundle()
-        Log.d("cricTabPlayerAdapter", "cricTabPlayerAdapterAddBundle: ${player.fullname}")
-        bundle.putParcelable(key, player)
-        fragment.arguments = bundle
-        return fragment
-    }
-
     override fun getItemCount(): Int {
         return listPlayerDetailTab.size
     }
 
     override fun createFragment(position: Int): Fragment {
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: $position")
-        return addBundle(listPlayerDetailTab[position].fragment,"player", player)
+        return Utils().addBundle(listPlayerDetailTab[position].fragment,"player", player)
     }
 }

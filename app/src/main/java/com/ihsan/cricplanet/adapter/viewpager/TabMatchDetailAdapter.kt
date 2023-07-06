@@ -1,6 +1,5 @@
 package com.ihsan.cricplanet.adapter.viewpager
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -24,22 +23,11 @@ class TabMatchDetailAdapter(
         Tab(MatchScorecardFragment(), "SCORECARD")
     )
 
-    private fun addBundle(
-        fragment: Fragment,
-        key: String,
-        value: FixtureByIdWithDetails
-    ): Fragment {
-        val bundle = Bundle()
-        bundle.putParcelable(key, value)
-        fragment.arguments = bundle
-        return fragment
-    }
-
     override fun getItemCount(): Int {
         return listMatchDetailTab.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return addBundle(listMatchDetailTab[position].fragment, "match", match)
+        return Utils().addBundle(listMatchDetailTab[position].fragment, "match", match)
     }
 }

@@ -29,11 +29,14 @@ data class Network(
     var ethernet: Boolean
 )
 
-class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastReceiver(),CoroutineScope {
-
-    private val job = Job()
-
-    override val coroutineContext= Dispatchers.IO + job
+class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastReceiver() {
+    companion object {
+        val networkStatus = MutableLiveData(
+            Network(
+                connection = false, wifi = false, cellular = false, ethernet = false
+            )
+        )
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
         Thread {
@@ -93,6 +96,9 @@ class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastRe
             Log.d("Internet", "onReceive: Not connected")
             network.connection = false
         }
+        networkStatus.postValue(network)
+
+        // Alternative of companion object
         listener.onConnectionEstablished(network)
     }
 
@@ -108,9 +114,5 @@ class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastRe
                 Constant.internetPermissionAccessCode
             )
         }
-    }
-
-    fun destroy() {
-        job.complete()
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -26,6 +27,7 @@ import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
 import com.squareup.picasso.Picasso
+import kotlinx.android.parcel.Parcelize
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -65,10 +67,21 @@ class Utils {
     fun addBundle(
         fragment: Fragment,
         key: String,
-        value: FixtureByIdWithDetails
+        value: Parcelable
     ): Fragment {
         val bundle = Bundle()
         bundle.putParcelable(key, value)
+        fragment.arguments = bundle
+        return fragment
+    }
+
+    fun addBundle(
+        fragment: Fragment,
+        key: String,
+        value: String
+    ): Fragment {
+        val bundle = Bundle()
+        bundle.putString(key, value)
         fragment.arguments = bundle
         return fragment
     }

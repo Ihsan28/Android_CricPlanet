@@ -112,6 +112,6 @@ class RankingFragment : Fragment() {
         if (womenList != null) {
             list.addAll(womenList)
         }
-        return list.sortedWith(compareBy<TeamIncludeRanking> { it.position }.thenBy { it.ranking?.rating })
+        return list.sortedWith(compareBy<TeamIncludeRanking> { it.position }.thenByDescending { it.ranking?.rating })
     }
 }

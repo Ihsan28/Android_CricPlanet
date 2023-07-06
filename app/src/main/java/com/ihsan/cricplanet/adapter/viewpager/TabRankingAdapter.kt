@@ -32,29 +32,18 @@ class TabRankingAdapter(
         keyCategory: String,
         categoryValue: String,
         key: String,
-        value: List<GlobalTeamRanking>
+        value: GlobalTeamRankingList
     ): Fragment {
-        val valueList = GlobalTeamRankingList(listOf(
-            value[0],
-            value[1],
-            value[2],
-            value[3],
-            value[4],
-            value[5]
-        ))
+
         val bundle = Bundle()
-        bundle.putParcelable(key, valueList)
+        bundle.putParcelable(key, value)
         bundle.putString(keyCategory, categoryValue)
         fragment.arguments = bundle
         return fragment
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
-            1 -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
-            else -> addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", ranking)
-        }
+        return addBundle(rankingListTab[position].fragment,"category",rankingListTab[position].category, "rankingList", GlobalTeamRankingList(ranking.map { it }))
     }
 }
 

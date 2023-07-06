@@ -4,6 +4,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -12,24 +13,43 @@ import com.ihsan.cricplanet.R.id
 import com.ihsan.cricplanet.databinding.ActivityMainBinding
 import com.ihsan.cricplanet.ui.fragment.HomeFragment
 import com.ihsan.cricplanet.utils.CheckNetwork
+import com.ihsan.cricplanet.utils.Network
+import com.ihsan.cricplanet.utils.SignalingNetworkListener
 import com.ihsan.cricplanet.utils.WorkRequest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var bottomNavigation: BottomNavigationView
-    private val checkNetwork=CheckNetwork()
+    private lateinit var checkNetwork:CheckNetwork
+
+    companion object {
+        val networkStatus = MutableLiveData(
+            Network(
+                connection = false, wifi = false, cellular = false, ethernet = false
+            )
+        )
+    }
     override fun onResume() {
         super.onResume()
+        checkNetwork=CheckNetwork(createNetworkListener())
+        checkNetwork.checkINTERNETPermission()
         //Network check register and toast at start up
         registerReceiver(checkNetwork, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
-        CheckNetwork.networkStatus.observe(this) {
-            if (!it.wifi && !it.cellular && !it.ethernet) {
-                Toast.makeText(this, "No Internet.....", Toast.LENGTH_SHORT).show()
+        //check Internet permission
+        networkStatus.observe(this) {
+            /*if (!it.connection) {
+                Toast.makeText(this, "No Internet.....home", Toast.LENGTH_SHORT).show()
             }
             else{
                 Toast.makeText(this, "Internet Connected home", Toast.LENGTH_SHORT).show()
-            }
+            }*/
+        }
+    }
+
+    private fun createNetworkListener() = object : SignalingNetworkListener {
+        override fun onConnectionEstablished(network: Network) {
+            networkStatus.postValue(network)
         }
     }
 
@@ -37,9 +57,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //check Internet permission
-        checkNetwork.checkINTERNETPermission()
 
         //Periodic work request call
         WorkRequest().setPeriodicWorkRequest()

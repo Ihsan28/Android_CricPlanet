@@ -16,28 +16,32 @@ import androidx.lifecycle.MutableLiveData
 import com.ihsan.cricplanet.ui.MainActivity
 import com.ihsan.cricplanet.ui.fragment.HomeFragment
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import java.lang.Thread.sleep
+import kotlin.coroutines.CoroutineContext
 
 data class Network(
-    var connection: NetworkCapabilities?,
+    var connection: Boolean,
     var wifi: Boolean,
     var cellular: Boolean,
     var ethernet: Boolean
 )
 
-class CheckNetwork : BroadcastReceiver() {
-    companion object {
-        val networkStatus = MutableLiveData(
-            Network(
-                connection = null, wifi = false, cellular = false, ethernet = false
-            )
-        )
-    }
+class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastReceiver(),CoroutineScope {
+
+    private val job = Job()
+
+    override val coroutineContext= Dispatchers.IO + job
 
     override fun onReceive(context: Context, intent: Intent) {
         Thread {
             sleep(1000)
         }
+        val network=Network(
+            connection = false, wifi = false, cellular = false, ethernet = false
+        )
         val instance = MyApplication.instance
         val connectivityManager =
             instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -50,39 +54,46 @@ class CheckNetwork : BroadcastReceiver() {
                 Log.i("Internet", "NetworkCapabilities.NET_CAPABILITY_INTERNET")
                 Toast.makeText(instance, "INTERNET Connected", Toast.LENGTH_SHORT)
                     .show()
-                networkStatus.value!!.connection = capabilities
+                network.connection = true
             } else {
-                networkStatus.value!!.connection = null
+                network.connection = false
             }
+
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
                 Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
                 Toast.makeText(instance, "ETHERNET ON", Toast.LENGTH_SHORT)
                     .show()
-                networkStatus.value!!.ethernet = true
+                network.ethernet = true
             } else {
-                networkStatus.value!!.ethernet = false
+                network.ethernet = false
             }
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) && !networkStatus.value!!.wifi) {
+
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                 Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                 Toast.makeText(instance, "WIFI ON", Toast.LENGTH_SHORT).show()
-                networkStatus.value!!.wifi = true
-                networkStatus.value!!.cellular = false
+                network.wifi = true
+                network.cellular = false
             } else {
-                networkStatus.value!!.wifi = false
+                network.wifi = false
             }
-            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) && !networkStatus.value!!.cellular) {
+
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                 Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
                 Toast.makeText(instance, "CELLULAR ON", Toast.LENGTH_SHORT)
                     .show()
-                networkStatus.value!!.cellular = true
+                network.cellular = true
             } else {
-                networkStatus.value!!.cellular = false
+                network.cellular = false
             }
+
+
         } else {
             Toast.makeText(MyApplication.instance, "No Internet", Toast.LENGTH_SHORT)
                 .show()
             Log.d("Internet", "onReceive: Not connected")
+            network.connection = false
         }
+        listener.onConnectionEstablished(network)
     }
 
     fun checkINTERNETPermission() {
@@ -97,5 +108,9 @@ class CheckNetwork : BroadcastReceiver() {
                 Constant.internetPermissionAccessCode
             )
         }
+    }
+
+    fun destroy() {
+        job.complete()
     }
 }

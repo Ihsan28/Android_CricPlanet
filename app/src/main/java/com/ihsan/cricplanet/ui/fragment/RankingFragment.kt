@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.TeamRankingAdapter
 import com.ihsan.cricplanet.databinding.FragmentRankingBinding
 import com.ihsan.cricplanet.model.team.TeamIncludeRanking
+import com.ihsan.cricplanet.utils.BottomSpaceItemDecoration
 import com.ihsan.cricplanet.utils.Utils
 
 class RankingFragment : Fragment() {
@@ -40,6 +41,7 @@ class RankingFragment : Fragment() {
         recyclerViewBatting.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerViewBatting.setHasFixedSize(true)
+        recyclerViewBatting.addItemDecoration(BottomSpaceItemDecoration())
 
         //getting navigation argument
         args.let { rankingArgs ->
@@ -65,7 +67,6 @@ class RankingFragment : Fragment() {
 
                 //assigning adapter
                 recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
-
             }
             Utils().progressAnimationStop(progressBar)
         }

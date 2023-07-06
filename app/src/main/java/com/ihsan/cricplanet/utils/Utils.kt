@@ -21,13 +21,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
+import com.google.android.material.internal.ViewUtils.RelativePadding
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
-import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
+import com.ihsan.cricplanet.model.team.GlobalTeamRankingList
 import com.squareup.picasso.Picasso
-import kotlinx.android.parcel.Parcelize
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -82,6 +82,21 @@ class Utils {
     ): Fragment {
         val bundle = Bundle()
         bundle.putString(key, value)
+        fragment.arguments = bundle
+        return fragment
+    }
+
+    fun addBundle(
+        fragment: Fragment,
+        keyCategory: String,
+        categoryValue: String,
+        key: String,
+        value: GlobalTeamRankingList
+    ): Fragment {
+
+        val bundle = Bundle()
+        bundle.putParcelable(key, value)
+        bundle.putString(keyCategory, categoryValue)
         fragment.arguments = bundle
         return fragment
     }
@@ -416,6 +431,15 @@ class Utils {
         gridView.requestLayout()
     }
 
+    fun addSpaceAtBottomOfList(gridView:GridView,height:Int=200){
+        gridView.setPadding(0, 0, 0, height)
+        gridView.clipToPadding = false
+    }
+
+    fun addSpaceAtBottomOfList(listView:ListView,height:Int=200){
+        listView.setPadding(0, 0, 0, height)
+        listView.clipToPadding = false
+    }
 
     fun createCurvedTextView(context: Context,title: String): TextView {
         val textView = TextView(context)

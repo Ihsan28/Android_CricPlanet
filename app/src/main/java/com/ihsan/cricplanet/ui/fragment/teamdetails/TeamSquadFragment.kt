@@ -4,14 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.GridView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.TeamSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamSquadBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
+import com.ihsan.cricplanet.ui.fragment.callBackInterface.TeamDetailsTabLayoutFragmentCallback
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment
+import com.ihsan.cricplanet.utils.MyApplication
+import com.ihsan.cricplanet.utils.Utils
 
 @Suppress("DEPRECATION")
 class TeamSquadFragment : Fragment() {
     private lateinit var binding: FragmentTeamSquadBinding
+    var parentFragmentCallback: TeamDetailsTabLayoutFragmentCallback? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +36,7 @@ class TeamSquadFragment : Fragment() {
         var team: TeamDetails?
         val gridViewTeam = binding.gridViewSquadTeam
 
+
         arguments.let {
             if (it != null) {
                 team = it.getParcelable("team")
@@ -34,8 +45,38 @@ class TeamSquadFragment : Fragment() {
                     //set adapter
                     gridViewTeam.adapter =
                         team!!.squad?.let { it1 -> TeamSquadAdapter(requireContext(), it1) }
+                    // Add a footer view to create space after the last item
+                    Utils().addSpaceAtBottomOfList(gridViewTeam)
                 }
             }
+
+            //Auto Hide Top view
+            var mBottomViewVisible = true
+            gridViewTeam.setOnScrollListener(object : AbsListView.OnScrollListener {
+                private var lastFirstVisibleItem: Int = 0
+
+                override fun onScroll(
+                    view: AbsListView?,
+                    firstVisibleItem: Int,
+                    visibleItemCount: Int,
+                    totalItemCount: Int
+                ) {
+                    if (firstVisibleItem > lastFirstVisibleItem && mBottomViewVisible) {
+                        Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT).show()
+                        parentFragmentCallback?.hideTopView()
+                        mBottomViewVisible = false
+                    } else if (firstVisibleItem < 2 && !mBottomViewVisible) {
+                        Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT).show()
+                        parentFragmentCallback?.showTopView()
+                        mBottomViewVisible = true
+                    }
+                    lastFirstVisibleItem = firstVisibleItem
+                }
+
+                override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+                    // No specific action needed
+                }
+            })
         }
 
     }

@@ -22,7 +22,7 @@ import com.ihsan.cricplanet.utils.Utils
 
 private const val TAG = "PlayerBattingBowlingFragment"
 
-class PlayerBattingBowlingFragment(private val isBatting: Boolean=true) : Fragment() {
+class PlayerBattingBowlingFragment(private val isBatting: Boolean = true) : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBowlingBinding
     private var keyValueList = mutableListOf<kotlin.Pair<String, List<String>>>()
 
@@ -79,7 +79,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean=true) : Fragme
         }
 
         //show all bowling career (subscription required)
-        val careersWithSeasonAndLeague = mutableListOf<kotlin.Pair<String, Batting>>()
+        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Batting>>()
 
         //make list of career with season and league
         careers.map { career ->
@@ -365,7 +365,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean=true) : Fragme
     }
 
     private fun makeBowlingSeasonScoreTable(nameOfSeason: String, bowlings: Bowling) {
-        val keyValueList = mutableListOf<Pair<String,List<String>>>()
+        val keyValueList = mutableListOf<Pair<String, List<String>>>()
         keyValueList.add(Pair("Matches", listOf(bowlings.matches.toString())))
         keyValueList.add(Pair("Innings", listOf(bowlings.innings.toString())))
         keyValueList.add(Pair("Runs", listOf(bowlings.runs.toString())))

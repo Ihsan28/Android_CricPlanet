@@ -41,4 +41,6 @@
     <string name="_4s">4s</string>
     <string name="_6s">6s</string>
     <string name="sr">SR</string>
+    <string name="score">score</string>
+    <string name="rank">rank</string>
 </resources>

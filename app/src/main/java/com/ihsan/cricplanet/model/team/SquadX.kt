@@ -6,4 +6,4 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SquadX(
     val season_id: Int?
-):Parcelable
+) : Parcelable

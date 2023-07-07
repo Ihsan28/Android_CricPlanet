@@ -19,9 +19,8 @@ data class Batting(
     var hundreds: Int?,
     val fow_balls: Double?,
     val fow_score: Int?,
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

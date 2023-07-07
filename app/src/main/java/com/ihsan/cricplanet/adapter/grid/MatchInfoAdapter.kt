@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.GridItem
 
-class MatchInfoAdapter (val context: Context, val items: List<GridItem>) : BaseAdapter() {
+class MatchInfoAdapter(val context: Context, val items: List<GridItem>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return items.size
@@ -24,8 +24,9 @@ class MatchInfoAdapter (val context: Context, val items: List<GridItem>) : BaseA
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.match_info_grid_item, parent, false)
-        val player=items[position]
+        val view: View = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.match_info_grid_item, parent, false)
+        val player = items[position]
 
         view.findViewById<TextView>(R.id.row_index_key).text = player.key
         view.findViewById<TextView>(R.id.row_index_value).text = player.value

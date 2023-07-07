@@ -20,4 +20,4 @@ data class Squad(
     val resource: String?,
     val squad: SquadX?,
     val updated_at: String?
-):Parcelable
+) : Parcelable

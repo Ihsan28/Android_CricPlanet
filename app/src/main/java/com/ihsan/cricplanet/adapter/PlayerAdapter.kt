@@ -14,11 +14,11 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.utils.Utils
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PlayerAdapter(private val playerList: List<PlayerCard>) :
     RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
-    private var playerFilterList=playerList
+    private var playerFilterList = playerList
+
     class PlayerViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val playerName: TextView = itemView.findViewById(R.id.league_name)
         val playerAge: TextView = itemView.findViewById(R.id.league_type)
@@ -49,9 +49,9 @@ class PlayerAdapter(private val playerList: List<PlayerCard>) :
         holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${player.id}")
             //Navigating adapter to player details
-             Navigation.findNavController(holder.itemView)
-                 .navigate(R.id.action_playerFragment_to_playerDetailsTabLayoutFragment,
-                     Bundle().apply { putInt("playerId", player.id) })
+            Navigation.findNavController(holder.itemView)
+                .navigate(R.id.action_playerFragment_to_playerDetailsTabLayoutFragment,
+                    Bundle().apply { putInt("playerId", player.id) })
         }
     }
 

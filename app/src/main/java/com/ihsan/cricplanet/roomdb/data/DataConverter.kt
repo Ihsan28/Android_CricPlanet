@@ -6,7 +6,7 @@ import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 class DataConverter {
 
     fun getSeasonTable(listSeason: List<SeasonByIdIncludeLeague>?): List<SeasonByIdIncludeLeagueTable> {
-        return listSeason!!.map{ season->
+        return listSeason!!.map { season ->
             SeasonByIdIncludeLeagueTable(
                 season.id,
                 season.name,

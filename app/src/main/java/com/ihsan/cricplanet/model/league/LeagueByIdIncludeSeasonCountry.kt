@@ -18,4 +18,4 @@ data class LeagueByIdIncludeSeasonCountry(
     val season_id: Int?,
     val type: String?,
     val updated_at: String?
-): Parcelable
+) : Parcelable

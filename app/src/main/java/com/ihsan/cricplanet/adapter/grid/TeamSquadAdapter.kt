@@ -32,18 +32,18 @@ data class TeamSquadAdapter(val context: Context, val items: List<Squad>) : Base
         Log.d("cricMatchSquadAdapter", "getView: ${items.size}")
         val view: View = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.match_squad_grid_item, parent, false)
-        val player=items[position]
+        val player = items[position]
         val playerName = view.findViewById<TextView>(R.id.left_player)
         val playerAge = view.findViewById<TextView>(R.id.league_type)
         val playerPosition = view.findViewById<TextView>(R.id.player_position)
-        val playerImage=view.findViewById<ImageView>(R.id.league_image)
+        val playerImage = view.findViewById<ImageView>(R.id.league_image)
 
         playerName.text = player.fullname
-        playerPosition.text= player.position?.name
+        playerPosition.text = player.position?.name
 
         Utils().also {
-            it.loadImageWithPicasso(player.image_path,playerImage)
-            playerAge.text= player.dateofbirth?.let { it1 -> it.getPlayerAge(it1) }
+            it.loadImageWithPicasso(player.image_path, playerImage)
+            playerAge.text = player.dateofbirth?.let { it1 -> it.getPlayerAge(it1) }
         }
 
         view.setOnClickListener {

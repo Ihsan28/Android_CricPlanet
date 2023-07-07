@@ -24,7 +24,8 @@ class CricRepository(private val cricDao: CricDao) {
     fun readSeason(): LiveData<List<SeasonByIdIncludeLeagueTable>> {
         return cricDao.readSeason()
     }
-    fun readSeasonById(id:Int): LiveData<SeasonByIdIncludeLeagueTable> {
+
+    fun readSeasonById(id: Int): LiveData<SeasonByIdIncludeLeagueTable> {
         return cricDao.readSeasonById(id)
     }
 
@@ -50,8 +51,8 @@ class CricRepository(private val cricDao: CricDao) {
         Log.d(
             "cricRepository", "getLiveFixturesApi: ${
                 CricApi.retrofitService.getLiveFixturesResponse(
-                    "localteam,visitorteam,venue,season,league", 
-                    "starting_at", 
+                    "localteam,visitorteam,venue,season,league",
+                    "starting_at",
                     Constant.API_KEY
                 ).data
             }"
@@ -108,6 +109,7 @@ class CricRepository(private val cricDao: CricDao) {
             Constant.API_KEY
         ).data
     }
+
     suspend fun getPlayersByIdApi(Id: Int): PlayerDetails {
         return CricApi.retrofitService.getPlayerByIdResponse(
             Id,
@@ -115,19 +117,22 @@ class CricRepository(private val cricDao: CricDao) {
             Constant.API_KEY
         ).data
     }
+
     suspend fun getLeaguesApi(): List<LeagueIncludeSeasons> {
         return CricApi.retrofitService.getLeaguesResponse(
             "season,seasons",
             Constant.API_KEY
         ).data
     }
+
     suspend fun getLeagueByIdApi(): LeagueByIdIncludeSeasonCountry {
         return CricApi.retrofitService.getLeaguesByIdResponse(
             "season,country",
             Constant.API_KEY
         ).data
     }
-    suspend fun getSeasonApi():List<SeasonByIdIncludeLeague> {
+
+    suspend fun getSeasonApi(): List<SeasonByIdIncludeLeague> {
         return CricApi.retrofitService.getSeasonResponse(
             "league",
             Constant.API_KEY

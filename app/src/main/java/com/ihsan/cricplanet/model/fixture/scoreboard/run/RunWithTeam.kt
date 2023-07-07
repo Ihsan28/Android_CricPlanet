@@ -19,9 +19,8 @@ data class RunWithTeam(
     val team: Team?,
     val updated_at: String?,
     val wickets: Int?
-): Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         0,
         null,

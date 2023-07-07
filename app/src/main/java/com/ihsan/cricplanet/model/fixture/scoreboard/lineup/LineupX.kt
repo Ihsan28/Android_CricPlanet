@@ -9,9 +9,8 @@ data class LineupX(
     val substitution: Boolean?,
     val team_id: Int?,
     val wicketkeeper: Boolean?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

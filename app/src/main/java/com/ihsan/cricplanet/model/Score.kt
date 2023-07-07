@@ -18,9 +18,8 @@ data class Score(
     val resource: String?,
     val runs: Int?,
     val six: Boolean?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.BattingIncludeBatsman
-import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 
 class BattingScorecardAdapter(private val battingScorecardList: List<BattingIncludeBatsman>) :
     RecyclerView.Adapter<BattingScorecardAdapter.BattingViewHolder>() {
@@ -24,7 +23,8 @@ class BattingScorecardAdapter(private val battingScorecardList: List<BattingIncl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BattingViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(R.layout.batting_scorecard_item, parent, false)
+        val root = LayoutInflater.from(parent.context)
+            .inflate(R.layout.batting_scorecard_item, parent, false)
         return BattingViewHolder(root)
     }
 
@@ -36,11 +36,11 @@ class BattingScorecardAdapter(private val battingScorecardList: List<BattingIncl
     override fun onBindViewHolder(holder: BattingViewHolder, position: Int) {
         val scorecard = battingScorecardList[position]
         Log.d("teamAdapter", "BindViewHolder: ${battingScorecardList.size}")
-        holder.playerName.text=scorecard.batsman?.fullname
-        holder.playerRun.text=scorecard.score.toString()
-        holder.playerBall.text=scorecard.ball.toString()
-        holder.player4s.text=scorecard.four_x.toString()
-        holder.player6s.text=scorecard.six_x.toString()
-        holder.playerSR.text=scorecard.rate.toString()
+        holder.playerName.text = scorecard.batsman?.fullname
+        holder.playerRun.text = scorecard.score.toString()
+        holder.playerBall.text = scorecard.ball.toString()
+        holder.player4s.text = scorecard.four_x.toString()
+        holder.player6s.text = scorecard.six_x.toString()
+        holder.playerSR.text = scorecard.rate.toString()
     }
 }

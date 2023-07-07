@@ -6,15 +6,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ihsan.cricplanet.model.league.LeagueIncludeSeasons
-import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
-import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.model.league.LeagueByIdIncludeSeasonCountry
+import com.ihsan.cricplanet.model.league.LeagueIncludeSeasons
 import com.ihsan.cricplanet.model.player.PlayerCard
 import com.ihsan.cricplanet.model.player.PlayerDetails
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeague
+import com.ihsan.cricplanet.model.season.SeasonByIdIncludeLeagueTable
 import com.ihsan.cricplanet.model.season.SeasonForCard
 import com.ihsan.cricplanet.model.team.GlobalTeamRanking
 import com.ihsan.cricplanet.model.team.TeamDetails
@@ -48,21 +48,25 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
     val liveFixture: LiveData<List<FixtureIncludeForLiveCard>> = _liveFixture
     private val _fixtureByIdWithDetails = MutableLiveData<FixtureByIdWithDetails>()
     val fixtureByIdWithDetails: LiveData<FixtureByIdWithDetails> = _fixtureByIdWithDetails
+
     //Player LiveData Holder
     private val _player = MutableLiveData<List<PlayerCard>>()
     val player: LiveData<List<PlayerCard>> = _player
     private val _playerDetails = MutableLiveData<PlayerDetails>()
     val playerDetails: LiveData<PlayerDetails> = _playerDetails
+
     //team LiveData Holder
     private val _teamRanking = MutableLiveData<List<GlobalTeamRanking>>()
     val teamRanking: LiveData<List<GlobalTeamRanking>> = _teamRanking
     private val _teamById = MutableLiveData<TeamDetails>()
     val teamById: LiveData<TeamDetails> = _teamById
+
     //league LiveData Holder
     private val _league = MutableLiveData<List<LeagueIncludeSeasons>>()
     val league: LiveData<List<LeagueIncludeSeasons>> = _league
     private val _leagueById = MutableLiveData<LeagueByIdIncludeSeasonCountry>()
     val leagueById: LiveData<LeagueByIdIncludeSeasonCountry> = _leagueById
+
     //season LiveData Holder
     private val _seasonById = MutableLiveData<SeasonForCard>()
     val seasonById: LiveData<SeasonForCard> = _seasonById
@@ -86,7 +90,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
         repository.storeSeasonLocal(DataConverter().getSeasonTable(listSeason))
     }
 
-    fun getSeasonByIdLocal(id:Int): LiveData<SeasonByIdIncludeLeagueTable> {
+    fun getSeasonByIdLocal(id: Int): LiveData<SeasonByIdIncludeLeagueTable> {
         return repository.readSeasonById(id)
     }
 
@@ -105,9 +109,9 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTeamRanking() {
         GlobalScope.launch {
-            viewModelScope.launch{
+            viewModelScope.launch {
                 try {
-                    _teamRanking.value=repository.getTeamRankingApi()
+                    _teamRanking.value = repository.getTeamRankingApi()
                     Log.d("cricTeamViewmodel", "getTeamRanking: ${teamRanking.value?.size}")
                 } catch (e: java.lang.Exception) {
                     Log.d("cricteamCatch", "getTeam: $e")
@@ -134,7 +138,10 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _fixtureByIdWithDetails.value = repository.getFixturesByIdApi(Id)
-                    Log.d("cricViewModel", "viewModel Api getFixtureById: ${fixtureByIdWithDetails.value?.id}")
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getFixtureById: ${fixtureByIdWithDetails.value?.id}"
+                    )
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getFixtureById: $e")
                 }
@@ -160,7 +167,10 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _todayFixture.value = repository.getTodayFixturesApi()
-                    Log.d("cricViewModel", "viewModel Api getTodayFixture: ${todayFixture.value?.size}")
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getTodayFixture: ${todayFixture.value?.size}"
+                    )
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getTodayFixture: $e")
                 }
@@ -199,6 +209,7 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
     fun getPlayersApi() {
         GlobalScope.launch {
             viewModelScope.launch {
@@ -218,13 +229,17 @@ class CricViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 try {
                     _playerDetails.value = repository.getPlayersByIdApi(Id)
-                    Log.d("cricViewModel", "viewModel Api getPlayersById: ${fixtureByIdWithDetails.value?.id}")
+                    Log.d(
+                        "cricViewModel",
+                        "viewModel Api getPlayersById: ${fixtureByIdWithDetails.value?.id}"
+                    )
                 } catch (e: java.lang.Exception) {
                     Log.d("cricViewModelCatch", "viewModel Api getPlayersById: $e")
                 }
             }
         }
     }
+
     fun getLeagueApi() {
         GlobalScope.launch {
             viewModelScope.launch {

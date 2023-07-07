@@ -2,7 +2,6 @@ package com.ihsan.cricplanet.adapter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.utils.Utils
-import com.squareup.picasso.Picasso
 
 class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
     RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {

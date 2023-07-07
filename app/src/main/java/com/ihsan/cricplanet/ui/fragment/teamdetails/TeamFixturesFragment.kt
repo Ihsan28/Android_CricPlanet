@@ -1,32 +1,33 @@
 package com.ihsan.cricplanet.ui.fragment.teamdetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.adapter.TeamMatchAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamFixturesBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
-import com.ihsan.cricplanet.utils.Utils
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
+import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.viewmodel.CricViewModel
-import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class TeamFixturesFragment : Fragment() {
     private lateinit var binding: FragmentTeamFixturesBinding
-    private val viewModel: CricViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
+    var parentFragmentCallback: DetailsTabLayoutFragmentCallback? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentTeamFixturesBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,13 +41,34 @@ class TeamFixturesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.setHasFixedSize(true)
 
-        var team:TeamDetails
+        var team: TeamDetails
         // getting the argument from navigation argument
         arguments.let {
             if (it != null) {
-                team= it.getParcelable("team")!!
+                team = it.getParcelable("team")!!
                 recyclerView.adapter = team.results?.let { it1 -> TeamMatchAdapter(it1) }
             }
+            //Auto Hide Top view
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                private var lastFirstVisibleItem: Int = 0
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                    if (firstVisibleItem > lastFirstVisibleItem && mBottomViewVisible) {
+                        Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT).show()
+                        parentFragmentCallback?.hideTopView()
+                        mBottomViewVisible = false
+                    } else if (firstVisibleItem < 2 && !mBottomViewVisible) {
+                        Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT).show()
+                        parentFragmentCallback?.showTopView()
+                        mBottomViewVisible = true
+                    }
+
+                    lastFirstVisibleItem = firstVisibleItem
+                }
+            })
+
         }
     }
 }

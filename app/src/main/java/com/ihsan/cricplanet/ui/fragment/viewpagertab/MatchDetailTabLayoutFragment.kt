@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui .fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpager
 
 import android.os.Bundle
 import android.os.Handler
@@ -27,9 +27,9 @@ class MatchDetailTabLayoutFragment : Fragment() {
     private val viewmodel: CricViewModel by viewModels()
     private var matchId: Int = 0
     private val liveHandler = Handler(Looper.getMainLooper())
-    private var runnable:Runnable?=null
-    private val DELAY_MS:Long=60000 //refresh delay in millis
-    private val refreshMessage="refreshing.." //refresh delay in millis
+    private var runnable: Runnable? = null
+    private val DELAY_MS: Long = 60000 //refresh delay in millis
+    private val refreshMessage = "refreshing.." //refresh delay in millis
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +41,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Match...")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Match...")
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
@@ -66,14 +66,15 @@ class MatchDetailTabLayoutFragment : Fragment() {
 
             //Assigning match Adapter
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
-                val tabMatchDetailAdapter = TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
+                val tabMatchDetailAdapter =
+                    TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
 
                 //Removing tab if data is null
-                if (match.batting?.isEmpty() != false && match.scoreboards?.isEmpty() !=false){
+                if (match.batting?.isEmpty() != false && match.scoreboards?.isEmpty() != false) {
                     tabMatchDetailAdapter.listMatchDetailTab.removeAt(2)
                 }
 
-                if(match.lineup?.isEmpty() != false){
+                if (match.lineup?.isEmpty() != false) {
                     tabMatchDetailAdapter.listMatchDetailTab.removeAt(1)
                 }
 
@@ -88,9 +89,9 @@ class MatchDetailTabLayoutFragment : Fragment() {
                 //Assigning value of all view fields of top
                 fixtureName.text = match.league?.name
 
-                Utils().also {  utils ->
+                Utils().also { utils ->
                     //Automatic refresh page function call
-                    if (utils.isLive(match.status.toString())){
+                    if (utils.isLive(match.status.toString())) {
                         stopPeriodicRefresh()
                         runnable = object : Runnable {
                             override fun run() {

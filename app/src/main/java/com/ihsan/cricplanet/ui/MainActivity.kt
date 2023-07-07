@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     "Wifi Connected"
                 } else if (it.cellular) {
                     "Cellular Connected"
-                }else{
+                } else {
                     "No Internet Connected"
                 }
             }

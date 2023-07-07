@@ -5,27 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
-import android.widget.GridView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.grid.TeamSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamSquadBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
-import com.ihsan.cricplanet.ui.fragment.callBackInterface.TeamDetailsTabLayoutFragmentCallback
-import com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 
 @Suppress("DEPRECATION")
 class TeamSquadFragment : Fragment() {
     private lateinit var binding: FragmentTeamSquadBinding
-    var parentFragmentCallback: TeamDetailsTabLayoutFragmentCallback? = null
+    var parentFragmentCallback: DetailsTabLayoutFragmentCallback? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentTeamSquadBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,7 +48,6 @@ class TeamSquadFragment : Fragment() {
             }
 
             //Auto Hide Top view
-            var mBottomViewVisible = true
             gridViewTeam.setOnScrollListener(object : AbsListView.OnScrollListener {
                 private var lastFirstVisibleItem: Int = 0
 
@@ -62,11 +58,13 @@ class TeamSquadFragment : Fragment() {
                     totalItemCount: Int
                 ) {
                     if (firstVisibleItem > lastFirstVisibleItem && mBottomViewVisible) {
-                        Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT)
+                            .show()
                         parentFragmentCallback?.hideTopView()
                         mBottomViewVisible = false
                     } else if (firstVisibleItem < 2 && !mBottomViewVisible) {
-                        Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT)
+                            .show()
                         parentFragmentCallback?.showTopView()
                         mBottomViewVisible = true
                     }

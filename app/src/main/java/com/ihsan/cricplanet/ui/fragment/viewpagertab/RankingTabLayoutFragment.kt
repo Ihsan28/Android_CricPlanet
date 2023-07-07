@@ -2,10 +2,10 @@ package com.ihsan.cricplanet.ui.fragment.viewpagertab
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,15 +16,15 @@ import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
 
 class RankingTabLayoutFragment : Fragment() {
-    private lateinit var binding:FragmentRankingTabLayoutBinding
-    private val viewModel:CricViewModel by viewModels()
+    private lateinit var binding: FragmentRankingTabLayoutBinding
+    private val viewModel: CricViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment
-        binding=FragmentRankingTabLayoutBinding.inflate(inflater,container,false)
+        binding = FragmentRankingTabLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,7 +41,7 @@ class RankingTabLayoutFragment : Fragment() {
         viewModel.getTeamRanking()
         viewModel.teamRanking.observe(viewLifecycleOwner) {
             Log.d("cricRankingTab", "onViewCreated Parent RankingList: $it")
-            val tabRankingAdapter = TabRankingAdapter(childFragmentManager, lifecycle,it)
+            val tabRankingAdapter = TabRankingAdapter(childFragmentManager, lifecycle, it)
             viewPage.adapter = tabRankingAdapter
             TabLayoutMediator(tabLayout, viewPage) { tab, position ->
                 tab.text = TabRankingAdapter.rankingListTab[position].category

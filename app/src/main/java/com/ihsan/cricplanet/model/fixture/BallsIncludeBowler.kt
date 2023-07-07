@@ -26,9 +26,8 @@ data class BallsIncludeBowler(
     val team: Team?,
     val team_id: Int?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

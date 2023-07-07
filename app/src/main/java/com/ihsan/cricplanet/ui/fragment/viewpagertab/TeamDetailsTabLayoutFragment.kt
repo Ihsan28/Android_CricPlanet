@@ -7,48 +7,70 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabTeamDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamDetailsTabLayoutBinding
-import com.ihsan.cricplanet.ui.fragment.callBackInterface.TeamDetailsTabLayoutFragmentCallback
+import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
-import com.ihsan.cricplanet.utils.MyApplication
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
+import kotlin.properties.Delegates
 
-class TeamDetailsTabLayoutFragment : Fragment(), TeamDetailsTabLayoutFragmentCallback {
+class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
+    companion object {
+        var mBottomViewVisible =true
+    }
+
     private lateinit var bindingTeamDetailsTab: FragmentTeamDetailsTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
     private var teamId: Int = 0
+
+    private val childFragmentLifecycleCallbacks =
+        object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentAttached(
+                fm: FragmentManager,
+                childFragment: Fragment,
+                context: Context
+            ) {
+                if (childFragment is TeamSquadFragment) {
+                    childFragment.parentFragmentCallback = this@TeamDetailsTabLayoutFragment
+                } else if (childFragment is TeamFixturesFragment) {
+                    childFragment.parentFragmentCallback = this@TeamDetailsTabLayoutFragment
+                }
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        bindingTeamDetailsTab = FragmentTeamDetailsTabLayoutBinding.inflate(inflater, container, false)
+        bindingTeamDetailsTab =
+            FragmentTeamDetailsTabLayoutBinding.inflate(inflater, container, false)
         return bindingTeamDetailsTab.root
-    }
-
-    override fun onAttachFragment(childFragment: Fragment) {
-        super.onAttachFragment(childFragment)
-        if (childFragment is TeamSquadFragment) {
-            childFragment.parentFragmentCallback = this
-        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        //childFragmentManager.addFragmentOnAttachListener(context)
+        childFragmentManager.registerFragmentLifecycleCallbacks(
+            childFragmentLifecycleCallbacks,
+            false
+        )
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        childFragmentManager.unregisterFragmentLifecycleCallbacks(childFragmentLifecycleCallbacks)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Team...")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Team...")
 
         //Tab layout
         val tabLayout = bindingTeamDetailsTab.tabLayoutTeamDetails
@@ -75,7 +97,7 @@ class TeamDetailsTabLayoutFragment : Fragment(), TeamDetailsTabLayoutFragmentCal
 
                 Thread.sleep(1000)
 
-                setupChildFragments()
+                //setupChildFragments()
 
                 //stop progress Animation
                 Utils().progressAnimationStop(progressBar)
@@ -93,40 +115,21 @@ class TeamDetailsTabLayoutFragment : Fragment(), TeamDetailsTabLayoutFragmentCal
 
             }
         }
-
-        //Auto Hide Top view
-        var mBottomViewVisible = true
-        val scrollView = bindingTeamDetailsTab.detailsTeamContainer
-        val mBottomView = bindingTeamDetailsTab.topInfo
-        scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY > oldScrollY && mBottomViewVisible) {
-                mBottomView.animate()?.translationY(mBottomView.height.toFloat() ?: 0f)?.start()
-                mBottomViewVisible = false
-            } else if (scrollY < oldScrollY && !mBottomViewVisible) {
-                mBottomView.animate()?.translationY(0f)?.start()
-                mBottomViewVisible = true
-            }
-        }
     }
 
-    private fun setupChildFragments() {
-        val childFragment1 = TeamSquadFragment()
-
-        childFragment1.parentFragmentCallback = this
-        Toast.makeText(MyApplication.instance, "assigned", Toast.LENGTH_SHORT).show()
-        // Attach the child fragments to the tab layout or any other container
-        // ...
+    override fun hideTopView() {
+        Utils().animateHideTopView(
+            bindingTeamDetailsTab.topInfo,
+            bindingTeamDetailsTab.tabLayoutTeamDetails,
+            bindingTeamDetailsTab.viewPager2TeamDetails
+        )
     }
 
-    override fun hideTopView(){
-        Toast.makeText(MyApplication.instance, "hide", Toast.LENGTH_SHORT).show()
-        val mBottomView = bindingTeamDetailsTab.topInfo
-        mBottomView.animate()?.translationY(mBottomView.height.toFloat())?.start()
-    }
-
-    override fun showTopView(){
-        Toast.makeText(MyApplication.instance, "show", Toast.LENGTH_SHORT).show()
-        val mBottomView = bindingTeamDetailsTab.topInfo
-        mBottomView.animate()?.translationY(0f)?.start()
+    override fun showTopView() {
+        Utils().animateShowTopView(
+            bindingTeamDetailsTab.topInfo,
+            bindingTeamDetailsTab.tabLayoutTeamDetails,
+            bindingTeamDetailsTab.viewPager2TeamDetails
+        )
     }
 }

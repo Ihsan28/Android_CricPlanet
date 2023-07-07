@@ -13,4 +13,4 @@ data class GlobalTeamRanking(
     val team: List<TeamIncludeRanking>?,
     val type: String?,
     val updated_at: String?
-):Parcelable
+) : Parcelable

@@ -1,9 +1,9 @@
 package com.ihsan.cricplanet.model.player
 
 import android.os.Parcelable
-import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.model.player.careerstats.Batting
 import com.ihsan.cricplanet.model.player.careerstats.Bowling
+import com.ihsan.cricplanet.model.season.Season
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -16,9 +16,8 @@ data class Career(
     val season_id: Int?,
     val type: String?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

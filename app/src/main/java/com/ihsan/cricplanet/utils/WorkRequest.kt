@@ -8,6 +8,7 @@ import com.ihsan.cricplanet.worker.DataReloadWorker
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "cricWorkRequest"
+
 class WorkRequest {
     fun setPeriodicWorkRequest() {
         val workManager = WorkManager.getInstance(MyApplication.instance)
@@ -19,7 +20,7 @@ class WorkRequest {
             .build()
         workManager.enqueueUniquePeriodicWork(
             "ReloadData",
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.UPDATE,
             dataLoad
         )
     }

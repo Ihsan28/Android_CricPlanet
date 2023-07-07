@@ -21,7 +21,7 @@ class SeriesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentSeriesBinding.inflate(inflater, container, false)
         return binding.root
@@ -29,7 +29,7 @@ class SeriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Series")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Series")
         //Refresh Layout
         val refreshLayout = binding.swipeLayout
 

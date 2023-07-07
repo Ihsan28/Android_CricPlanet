@@ -17,9 +17,8 @@ data class LeagueIncludeSeasons(
     val season: Season?,
     val seasons: List<Season>?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         0,

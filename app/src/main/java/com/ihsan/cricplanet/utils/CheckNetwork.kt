@@ -11,16 +11,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.ihsan.cricplanet.ui.MainActivity
-import com.ihsan.cricplanet.ui.fragment.HomeFragment
-import com.ihsan.cricplanet.viewmodel.CricViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import java.lang.Thread.sleep
-import kotlin.coroutines.CoroutineContext
 
 data class Network(
     var connection: Boolean,
@@ -42,7 +35,7 @@ class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastRe
         Thread {
             sleep(1000)
         }
-        val network=Network(
+        val network = Network(
             connection = false, wifi = false, cellular = false, ethernet = false
         )
         val instance = MyApplication.instance
@@ -53,7 +46,7 @@ class CheckNetwork(private val listener: SignalingNetworkListener) : BroadcastRe
 
         Log.d("Internet", "onReceive: $capabilities")
         if (capabilities != null) {
-            if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)){
+            if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
                 Log.i("Internet", "NetworkCapabilities.NET_CAPABILITY_INTERNET")
                 Toast.makeText(instance, "INTERNET Connected", Toast.LENGTH_SHORT)
                     .show()

@@ -8,9 +8,8 @@ data class Position(
     val id: Int,
     val name: String?,
     val resource: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         0,
         null,
         null,

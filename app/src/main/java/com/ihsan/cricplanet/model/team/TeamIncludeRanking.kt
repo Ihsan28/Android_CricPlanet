@@ -15,4 +15,4 @@ data class TeamIncludeRanking(
     val ranking: Ranking?,
     val resource: String?,
     val updated_at: String?
-):Parcelable
+) : Parcelable

@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         val viewPager = binding.viewpager
         //Live Api Call
         viewModel.getLiveFixturesApi()
-        val progressBar=Utils().progressAnimationStart(requireContext(),"Loading Home")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Home")
         //Live Observer
         viewModel.liveFixture.observe(viewLifecycleOwner) {
             Log.d("cricHome", "onViewCreatedHomeSlider: $it")
@@ -137,6 +137,7 @@ class HomeFragment : Fragment() {
             sliderHandler.removeCallbacks(updateSlider!!)
         }
     }
+
     fun autoReload() {
         viewModel.getLiveFixturesApi()
         viewModel.getTodayFixturesApi()

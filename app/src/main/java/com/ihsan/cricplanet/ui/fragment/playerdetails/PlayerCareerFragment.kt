@@ -21,7 +21,7 @@ class PlayerCareerFragment : Fragment() {
     private val viewmodel: CricViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPlayerCareerBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,7 +39,7 @@ class PlayerCareerFragment : Fragment() {
             if (it != null) {
                 player = it.getParcelable("player")
                 Log.d("cricPlayerCareer", "onViewCreated: ${player}")
-                recyclerViewCareer.adapter = player?.teams?.let {listTeam->
+                recyclerViewCareer.adapter = player?.teams?.let { listTeam ->
                     PlayerCareerTeamAdapter(
                         listTeam, viewmodel, viewLifecycleOwner
                     )

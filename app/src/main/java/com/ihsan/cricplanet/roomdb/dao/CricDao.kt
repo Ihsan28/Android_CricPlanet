@@ -14,6 +14,7 @@ interface CricDao {
 
     @Query("SELECT * FROM season")
     fun readSeason(): LiveData<List<SeasonByIdIncludeLeagueTable>>
+
     @Query("SELECT * FROM season WHERE id = :id")
-    fun readSeasonById(id:Int): LiveData<SeasonByIdIncludeLeagueTable>
+    fun readSeasonById(id: Int): LiveData<SeasonByIdIncludeLeagueTable>
 }

@@ -27,14 +27,19 @@ class PlayerInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val player:PlayerDetails?
-        val utils=Utils()
+        val player: PlayerDetails?
+        val utils = Utils()
         val gridView = binding.playerInfoListView
         arguments.let {
             if (it != null) {
-                player=it.getParcelable("player")
+                player = it.getParcelable("player")
                 Log.d("cricPlayerInfo", "onViewCreated: ${player?.fullname}")
-                keyValueList.add(GridItem("Born", "${player?.dateofbirth?.let { it1 -> utils.getPlayerBorn(it1) }}"))
+                keyValueList.add(
+                    GridItem(
+                        "Born",
+                        "${player?.dateofbirth?.let { it1 -> utils.getPlayerBorn(it1) }}"
+                    )
+                )
                 keyValueList.add(GridItem("Role", player?.position?.name.toString()))
                 keyValueList.add(GridItem("Name", player?.fullname.toString()))
                 keyValueList.add(GridItem("Batting Style", player?.battingstyle.toString()))

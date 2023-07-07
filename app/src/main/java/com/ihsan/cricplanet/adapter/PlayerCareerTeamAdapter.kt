@@ -17,7 +17,12 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerCareerTeamAdapter"
-class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,private val viewModel:CricViewModel,private val viewLifecycleOwner: LifecycleOwner) :
+
+class PlayerCareerTeamAdapter(
+    private val teamList: List<TeamIncludeInSquad>,
+    private val viewModel: CricViewModel,
+    private val viewLifecycleOwner: LifecycleOwner
+) :
     RecyclerView.Adapter<PlayerCareerTeamAdapter.TeamViewHolder>() {
 
     class TeamViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
@@ -45,11 +50,11 @@ class PlayerCareerTeamAdapter(private val teamList: List<TeamIncludeInSquad>,pri
 
         team.in_squad?.season_id?.let {
             Log.d(TAG, "BindViewHolderSeasonId: $it")
-            viewModel.getSeasonByIdLocal(it).observe(viewLifecycleOwner){season->
-                holder.source.text = season?.league_name ?:"Will Update Soon"
-                holder.teamRanking.text = season?.name ?:""
+            viewModel.getSeasonByIdLocal(it).observe(viewLifecycleOwner) { season ->
+                holder.source.text = season?.league_name ?: "Will Update Soon"
+                holder.teamRanking.text = season?.name ?: ""
                 holder.teamName.text = team.name
-                Utils().also {utils->
+                Utils().also { utils ->
                     utils.loadImageWithPicasso(team.image_path, holder.image)
                 }
             }

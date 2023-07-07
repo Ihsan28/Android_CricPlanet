@@ -2,7 +2,6 @@ package com.ihsan.cricplanet.model
 
 import android.os.Parcelable
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
@@ -18,8 +17,7 @@ data class Team(
     val national_team: Boolean?,
     val resource: String?,
     val updated_at: String?
-):Parcelable
-{
+) : Parcelable {
     constructor() : this(
         null,
         null,

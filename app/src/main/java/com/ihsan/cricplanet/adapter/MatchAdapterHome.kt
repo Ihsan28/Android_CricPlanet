@@ -2,22 +2,17 @@ package com.ihsan.cricplanet.adapter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
-import com.ihsan.cricplanet.model.season.FixtureForSeason
-import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
-import com.squareup.picasso.Picasso
 
 class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
     RecyclerView.Adapter<MatchAdapterHome.MatchViewHolder>() {
@@ -39,7 +34,8 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(R.layout.home_match_card_item, parent, false)
+        val root = LayoutInflater.from(parent.context)
+            .inflate(R.layout.home_match_card_item, parent, false)
         Log.d("cricTeamAdapter", "onCreateViewHolder: ${matchList.size}")
         return MatchViewHolder(root)
     }
@@ -58,7 +54,7 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
         holder.localTeamName.text = match.localteam!!.name
         //visitor team information
         holder.visitorTeamName.text = match.visitorteam!!.name
-        holder.matchRound.text=match.round.toString()
+        holder.matchRound.text = match.round.toString()
 
         //Date Time
         holder.upcomingDate.text = dateTimeList[0]
@@ -81,12 +77,12 @@ class MatchAdapterHome(private val matchList: List<FixtureIncludeForCard>) :
             )
         }
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${match.id}")
             //Navigate to Details Fragment
             Navigation.findNavController(holder.itemView).navigate(
                 R.id.action_homeFragment_to_matchDetailTabLayoutFragment,
-                Bundle().apply { putInt("matchId", match.id)})
+                Bundle().apply { putInt("matchId", match.id) })
         }
     }
 }

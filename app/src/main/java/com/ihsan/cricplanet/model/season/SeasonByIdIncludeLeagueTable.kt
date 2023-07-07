@@ -12,9 +12,8 @@ data class SeasonByIdIncludeLeagueTable(
     val league_image_path: String?,
     val league_name: String?,
     val type: String?,
-)
-{
-    constructor():this(
+) {
+    constructor() : this(
         0,
         null,
         null,

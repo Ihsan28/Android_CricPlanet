@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.viewpager.widget.PagerAdapter
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
@@ -49,7 +48,7 @@ class LiveMatchSliderAdapter(
         val upcomingDate: TextView = itemView.findViewById(R.id.fixture_date)
         val upcomingTime: TextView = itemView.findViewById(R.id.fixture_time)
 
-        liveMatchList[position].let {liveMatch->
+        liveMatchList[position].let { liveMatch ->
 
             val dateTimeList = Utils().dateFormat(liveMatch.starting_at!!)
             Log.d("teamAdapter", "BindViewHolder: ${liveMatchList.size}")
@@ -100,10 +99,10 @@ class LiveMatchSliderAdapter(
             }
 
             //Navigating to match details adapter
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(
                     R.id.action_homeFragment_to_matchDetailTabLayoutFragment,
-                    Bundle().apply { putInt("matchId", liveMatch.id)})
+                    Bundle().apply { putInt("matchId", liveMatch.id) })
             }
         }
 

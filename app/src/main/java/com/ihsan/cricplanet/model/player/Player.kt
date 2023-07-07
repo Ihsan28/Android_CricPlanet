@@ -19,9 +19,8 @@ data class Player(
     val position: Position,
     val resource: String,
     val updated_at: String
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         "N/A",
         "N/A",
         0,
@@ -32,7 +31,7 @@ data class Player(
         0,
         "N/A",
         "N/A",
-        Position(0,"N/A","N/A"),
+        Position(0, "N/A", "N/A"),
         "N/A",
         "N/A",
     )

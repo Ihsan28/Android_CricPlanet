@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GlobalTeamRankingList(val ranking:List<GlobalTeamRanking>?):Parcelable
+data class GlobalTeamRankingList(val ranking: List<GlobalTeamRanking>?) : Parcelable

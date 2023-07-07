@@ -24,7 +24,7 @@ private const val TAG = "PlayerBattingBowlingFragment"
 
 class PlayerBattingBowlingFragment(private val isBatting: Boolean = true) : Fragment() {
     private lateinit var binding: FragmentPlayerBattingBowlingBinding
-    private var keyValueList = mutableListOf<kotlin.Pair<String, List<String>>>()
+    private var keyValueList = mutableListOf<Pair<String, List<String>>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -285,7 +285,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean = true) : Frag
         }
 
         //show all bowling career (subscription required)
-        val careersWithSeasonAndLeague = mutableListOf<kotlin.Pair<String, Bowling>>()
+        val careersWithSeasonAndLeague = mutableListOf<Pair<String, Bowling>>()
 
         //make list of pair of career type and bowling
         careers.map { career ->

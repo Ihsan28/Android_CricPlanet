@@ -2,20 +2,16 @@ package com.ihsan.cricplanet.adapter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.fixture.Fixture
-import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.utils.Utils
-import com.squareup.picasso.Picasso
 
 class TeamMatchAdapter(private val matchList: List<Fixture>) :
     RecyclerView.Adapter<TeamMatchAdapter.MatchViewHolder>() {
@@ -29,7 +25,8 @@ class TeamMatchAdapter(private val matchList: List<Fixture>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(R.layout.team_match_card_item, parent, false)
+        val root = LayoutInflater.from(parent.context)
+            .inflate(R.layout.team_match_card_item, parent, false)
         Log.d("teamAdapter", "onCreateViewHolder: ${matchList.size}")
         return MatchViewHolder(root)
     }
@@ -46,14 +43,15 @@ class TeamMatchAdapter(private val matchList: List<Fixture>) :
         holder.matchName.text = "${match.type}"
         holder.matchRound.text = match.round
         holder.upcomingDate.text = dateTimeList[0]
-        holder.noteOrVenue.text =match.note
+        holder.noteOrVenue.text = match.note
         Utils().also {
             //set status and background color
             it.setStatus(match.status, holder.status)
         }
         holder.itemView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_teamDetailsTabLayoutFragment_to_matchDetailTabLayoutFragment,
-                Bundle().apply { putInt("matchId", match.id) })
+            Navigation.findNavController(it)
+                .navigate(R.id.action_teamDetailsTabLayoutFragment_to_matchDetailTabLayoutFragment,
+                    Bundle().apply { putInt("matchId", match.id) })
         }
     }
 }

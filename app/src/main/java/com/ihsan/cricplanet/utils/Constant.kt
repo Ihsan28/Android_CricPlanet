@@ -25,8 +25,10 @@ class Constant {
         //Query Parameters
         const val include = "include"
         const val sort = "sort"
+
         //fields
         const val fieldsPlayer = "fields[players]"
+
         //Filter
         const val filterByStatus = "filter[status]"
         const val filterBySeason = "filter[season_id]"

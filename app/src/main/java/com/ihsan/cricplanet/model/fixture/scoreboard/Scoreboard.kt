@@ -23,9 +23,8 @@ data class Scoreboard(
     val updated_at: String?,
     val wickets: Int?,
     val wide: Int?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         0,

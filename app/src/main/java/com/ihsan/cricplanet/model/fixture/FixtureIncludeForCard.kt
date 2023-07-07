@@ -1,10 +1,10 @@
 package com.ihsan.cricplanet.model.fixture
 
-import com.ihsan.cricplanet.model.league.League
-import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
 import com.ihsan.cricplanet.model.fixture.scoreboard.run.RunWithTeam
+import com.ihsan.cricplanet.model.league.League
+import com.ihsan.cricplanet.model.season.Season
 
 data class FixtureIncludeForCard(
     val draw_noresult: Any?,

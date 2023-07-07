@@ -27,9 +27,8 @@ data class BattingIncludeBatsman(
     val sort: Int?,
     val team_id: Int?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         0,
         null,

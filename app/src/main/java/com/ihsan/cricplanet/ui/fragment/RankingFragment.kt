@@ -20,7 +20,7 @@ class RankingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentRankingBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,7 +28,7 @@ class RankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val progressBar= Utils().progressAnimationStart(requireContext(),"Loading Teams")
+        val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Teams")
         var rankingList: List<TeamIncludeRanking>?
 
         //binding toggle button
@@ -57,6 +57,7 @@ class RankingFragment : Fragment() {
                         womenRankingButton.id -> getListForWomen(rankingArgs)
                         else -> getList(rankingArgs)
                     }
+
                     else -> getList(rankingArgs)
                 }
 
@@ -90,7 +91,7 @@ class RankingFragment : Fragment() {
         }
     }
 
-    private fun getList(rankingArgs: RankingFragmentArgs): List<TeamIncludeRanking>? {
+    private fun getList(rankingArgs: RankingFragmentArgs): List<TeamIncludeRanking> {
         val menList = when (rankingArgs.category) {
             "T20" -> rankingArgs.rankingList?.ranking?.get(0)?.team
             "ODI" -> rankingArgs.rankingList?.ranking?.get(1)?.team

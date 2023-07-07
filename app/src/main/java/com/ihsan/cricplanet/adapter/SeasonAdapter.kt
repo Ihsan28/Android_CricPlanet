@@ -14,7 +14,11 @@ import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.utils.Utils
 
-class SeasonAdapter(private val seasonList: List<Season>, private val leagueImage:String?, private val leagueCode:String?) :
+class SeasonAdapter(
+    private val seasonList: List<Season>,
+    private val leagueImage: String?,
+    private val leagueCode: String?
+) :
     RecyclerView.Adapter<SeasonAdapter.SeasonViewHolder>() {
 
     class SeasonViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
@@ -47,9 +51,9 @@ class SeasonAdapter(private val seasonList: List<Season>, private val leagueImag
         holder.itemView.setOnClickListener {
             Log.d("cricMatchAdapter", "onBindViewHolder: ${season.id}")
 
-             Navigation.findNavController(holder.itemView)
-                 .navigate(R.id.action_seriesFragment_to_matchesFragment,
-                     Bundle().apply { putString("category", season.id.toString()) })
+            Navigation.findNavController(holder.itemView)
+                .navigate(R.id.action_seriesFragment_to_matchesFragment,
+                    Bundle().apply { putString("category", season.id.toString()) })
         }
     }
 }

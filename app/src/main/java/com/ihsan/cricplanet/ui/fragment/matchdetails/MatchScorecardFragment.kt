@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.BattingScorecardAdapter
-import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.adapter.MatchBallsAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchScorecardBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
@@ -18,7 +17,7 @@ class MatchScorecardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMatchScorecardBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,7 +44,8 @@ class MatchScorecardFragment : Fragment() {
                 recyclerViewUpcoming.layoutManager =
                     LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
                 recyclerViewUpcoming.setHasFixedSize(true)
-                recyclerViewUpcoming.adapter = match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
+                recyclerViewUpcoming.adapter =
+                    match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
             }
         }
     }

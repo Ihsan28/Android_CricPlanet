@@ -1,6 +1,6 @@
 package com.ihsan.cricplanet.model.fixture
 
-import com.ihsan.cricplanet.model.*
+import com.ihsan.cricplanet.model.Venue
 import com.ihsan.cricplanet.model.league.League
 import com.ihsan.cricplanet.model.season.Season
 import com.ihsan.cricplanet.model.team.TeamIncludeRanking

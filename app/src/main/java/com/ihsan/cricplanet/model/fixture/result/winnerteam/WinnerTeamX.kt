@@ -13,9 +13,8 @@ data class WinnerTeamX(
     val national_team: Boolean?,
     val resource: String?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         0,

@@ -7,9 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class InSquad(
     val league_id: Int?,
     val season_id: Int?
-): Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
     )

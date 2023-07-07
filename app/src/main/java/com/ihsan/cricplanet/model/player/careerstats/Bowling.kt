@@ -20,9 +20,8 @@ data class Bowling(
     var ten_wickets: Int?,
     var wickets: Int?,
     var wide: Int?
-): Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

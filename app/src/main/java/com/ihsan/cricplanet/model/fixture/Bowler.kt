@@ -19,9 +19,8 @@ data class Bowler(
     val position: Position?,
     val resource: String?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

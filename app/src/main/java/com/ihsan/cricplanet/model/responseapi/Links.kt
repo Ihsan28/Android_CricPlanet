@@ -5,9 +5,8 @@ data class Links(
     val last: String?,
     val next: String?,
     val prev: Any?
-)
-{
-    constructor():this(
+) {
+    constructor() : this(
         null,
         null,
         null,

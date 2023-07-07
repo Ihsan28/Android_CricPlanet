@@ -24,9 +24,8 @@ data class PlayerDetails(
     val resource: String?,
     val teams: List<TeamIncludeInSquad>?,
     val updated_at: String?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

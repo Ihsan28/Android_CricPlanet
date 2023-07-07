@@ -40,9 +40,8 @@ data class ManOfSeries(
     val visitorteam_id: Int?,
     val weather_report: List<String>?,
     val winner_team_id: Int?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

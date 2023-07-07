@@ -1,6 +1,5 @@
 package com.ihsan.cricplanet.adapter.viewpager
 
-import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -32,6 +31,6 @@ class TabPlayerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         Log.d("cricTabPlayerAdapter", "cricTabPlayerAdaptercreateFragmentPosition: $position")
-        return Utils().addBundle(listPlayerDetailTab[position].fragment,"player", player)
+        return Utils().addBundle(listPlayerDetailTab[position].fragment, "player", player)
     }
 }

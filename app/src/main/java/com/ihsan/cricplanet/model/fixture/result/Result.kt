@@ -36,9 +36,8 @@ data class Result(
     val visitorteam_id: Int?,
     val weather_report: List<Any>?,
     val winner_team_id: Int?
-)
-{
-    constructor():this(
+) {
+    constructor() : this(
         null,
         null,
         null,

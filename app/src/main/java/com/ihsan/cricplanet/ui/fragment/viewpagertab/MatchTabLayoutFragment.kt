@@ -14,8 +14,8 @@ class MatchTabLayoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMatchTabLayoutBinding.inflate(inflater,container,false)
+    ): View {
+        binding = FragmentMatchTabLayoutBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }

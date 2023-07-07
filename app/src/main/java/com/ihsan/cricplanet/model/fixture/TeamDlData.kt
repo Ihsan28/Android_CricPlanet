@@ -8,9 +8,8 @@ data class TeamDlData(
     val overs: Double?,
     val score: Int?,
     val wickets_out: Double?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null

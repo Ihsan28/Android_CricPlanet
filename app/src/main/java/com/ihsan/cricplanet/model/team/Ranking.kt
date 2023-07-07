@@ -9,4 +9,4 @@ data class Ranking(
     val points: Int?,
     val position: Int?,
     val rating: Int?
-):Parcelable
+) : Parcelable

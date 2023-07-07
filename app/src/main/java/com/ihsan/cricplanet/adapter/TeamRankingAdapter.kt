@@ -1,8 +1,5 @@
 package com.ihsan.cricplanet.adapter
 
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.team.TeamIncludeRanking
 import com.ihsan.cricplanet.utils.Utils

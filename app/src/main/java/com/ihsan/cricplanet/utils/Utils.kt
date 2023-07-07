@@ -20,8 +20,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
-import com.google.android.material.internal.ViewUtils.RelativePadding
+import com.google.android.material.tabs.TabLayout
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.model.Team
 import com.ihsan.cricplanet.model.VenueIncludeCountry
@@ -62,6 +63,30 @@ class Utils {
 
     fun progressAnimationStop(progressbar: LottieProgressDialog) {
         progressbar.dismiss()
+    }
+
+    fun animateHideTopView(topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+        Toast.makeText(MyApplication.instance, "hide", Toast.LENGTH_SHORT).show()
+
+        topInfo.animate()?.translationY(-topInfo.height.toFloat())?.start()
+        tabLayout.animate()?.translationY(-topInfo.height.toFloat())?.start()
+        viewPager.animate()?.translationY(-topInfo.height.toFloat())?.start()
+
+        val layoutParams = viewPager.layoutParams
+        layoutParams.height = viewPager.height + topInfo.height
+        viewPager.layoutParams = layoutParams
+    }
+
+    fun animateShowTopView(topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+        Toast.makeText(MyApplication.instance, "show", Toast.LENGTH_SHORT).show()
+
+        topInfo.animate()?.translationY(0f)?.start()
+        tabLayout.animate()?.translationY(0f)?.start()
+        viewPager.animate()?.translationY(0f)?.start()
+
+        val layoutParams = viewPager.layoutParams
+        layoutParams.height = viewPager.height - topInfo.height
+        viewPager.layoutParams = layoutParams
     }
 
     fun addBundle(
@@ -177,6 +202,7 @@ class Utils {
             return listOf("", "")
         }
     }
+
     fun getPlayerBorn(dateString: String): String {
         return try {
             val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -405,7 +431,7 @@ class Utils {
         }
 
         val params = listView.layoutParams
-        params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1))+200
+        params.height = totalHeight + (listView.dividerHeight * (listAdapter.count - 1)) + 200
         listView.layoutParams = params
         listView.requestLayout()
     }
@@ -417,7 +443,10 @@ class Utils {
         val itemsPerRow = 3
         val numRows = (gridAdapter.count + itemsPerRow - 1) / itemsPerRow
 
-        Log.d(TAG, "setGridViewHeightBasedOnItemsWithAdditionalHeight: col: ${gridView.numColumns} row: $numRows")
+        Log.d(
+            TAG,
+            "setGridViewHeightBasedOnItemsWithAdditionalHeight: col: ${gridView.numColumns} row: $numRows"
+        )
 
         for (i in 0 until numRows) {
             val listItem = gridAdapter.getView(i, null, gridView)
@@ -431,17 +460,17 @@ class Utils {
         gridView.requestLayout()
     }
 
-    fun addSpaceAtBottomOfList(gridView:GridView,height:Int=200){
+    fun addSpaceAtBottomOfList(gridView: GridView, height: Int = 200) {
         gridView.setPadding(0, 0, 0, height)
         gridView.clipToPadding = false
     }
 
-    fun addSpaceAtBottomOfList(listView:ListView,height:Int=200){
+    fun addSpaceAtBottomOfList(listView: ListView, height: Int = 200) {
         listView.setPadding(0, 0, 0, height)
         listView.clipToPadding = false
     }
 
-    fun createCurvedTextView(context: Context,title: String): TextView {
+    fun createCurvedTextView(context: Context, title: String): TextView {
         val textView = TextView(context)
         textView.id = View.generateViewId()
         textView.layoutParams = LinearLayout.LayoutParams(
@@ -467,7 +496,7 @@ class Utils {
                 null,
                 null
             )
-            paint.color=Color.DKGRAY // Set the desired background color
+            paint.color = Color.DKGRAY // Set the desired background color
         }
         textView.background = backgroundDrawable
 

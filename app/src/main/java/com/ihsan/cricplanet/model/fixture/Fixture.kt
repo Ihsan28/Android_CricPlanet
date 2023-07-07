@@ -39,9 +39,8 @@ data class Fixture(
     val visitorteam_id: Int?,
     @Ignore val weather_report: List<String>?,
     val winner_team_id: Int?
-):Parcelable
-{
-    constructor():this(
+) : Parcelable {
+    constructor() : this(
         null,
         null,
         null,

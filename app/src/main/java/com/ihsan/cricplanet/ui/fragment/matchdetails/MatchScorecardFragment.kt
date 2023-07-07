@@ -10,10 +10,13 @@ import com.ihsan.cricplanet.adapter.BattingScorecardAdapter
 import com.ihsan.cricplanet.adapter.MatchBallsAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchScorecardBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 
 @Suppress("DEPRECATION")
 class MatchScorecardFragment : Fragment() {
     private lateinit var binding: FragmentMatchScorecardBinding
+    var parentFragmentCallback: DetailsTabLayoutFragmentCallback? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

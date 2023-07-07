@@ -18,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -42,7 +43,7 @@ private const val TAG = "cricUtils"
 class Utils {
 
     fun refreshMessage() {
-        Toast.makeText(MyApplication.instance, "Refreshing", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MyApplication.instance, "Refreshing...", Toast.LENGTH_SHORT).show()
     }
 
     fun progressAnimationStart(context: Context, title: String): LottieProgressDialog {
@@ -65,27 +66,31 @@ class Utils {
         progressbar.dismiss()
     }
 
-    fun animateHideTopView(topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+    fun animateHideTopView(containerLayout: ConstraintLayout,topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
         Toast.makeText(MyApplication.instance, "hide", Toast.LENGTH_SHORT).show()
 
         topInfo.animate()?.translationY(-topInfo.height.toFloat())?.start()
         tabLayout.animate()?.translationY(-topInfo.height.toFloat())?.start()
         viewPager.animate()?.translationY(-topInfo.height.toFloat())?.start()
 
+        //update viewpager height
         val layoutParams = viewPager.layoutParams
-        layoutParams.height = viewPager.height + topInfo.height
+        layoutParams.height = containerLayout.height-tabLayout.height
+        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT).show()
         viewPager.layoutParams = layoutParams
     }
 
-    fun animateShowTopView(topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+    fun animateShowTopView(containerLayout: ConstraintLayout,topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
         Toast.makeText(MyApplication.instance, "show", Toast.LENGTH_SHORT).show()
 
         topInfo.animate()?.translationY(0f)?.start()
         tabLayout.animate()?.translationY(0f)?.start()
         viewPager.animate()?.translationY(0f)?.start()
 
+        //update viewpager height
         val layoutParams = viewPager.layoutParams
-        layoutParams.height = viewPager.height - topInfo.height
+        layoutParams.height = containerLayout.height-(topInfo.height+tabLayout.height)
+        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT).show()
         viewPager.layoutParams = layoutParams
     }
 
@@ -502,5 +507,4 @@ class Utils {
 
         return textView
     }
-
 }

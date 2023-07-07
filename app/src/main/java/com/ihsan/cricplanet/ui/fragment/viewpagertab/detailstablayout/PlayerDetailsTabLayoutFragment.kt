@@ -1,5 +1,6 @@
-package com.ihsan.cricplanet.ui.fragment.viewpagertab
+package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,21 +8,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.adapter.viewpager.TabPlayerAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerDetailsTabLayoutBinding
+import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment
+import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerDetailsTabLayoutF"
 
-class PlayerDetailsTabLayoutFragment : Fragment() {
+class PlayerDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
+    companion object {
+        var mBottomViewVisible = true
+    }
     private lateinit var binding: FragmentPlayerDetailsTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
     private val args: PlayerDetailsTabLayoutFragmentArgs by navArgs()
     private var playerId: Int = 0
+    private val childFragmentLifecycleCallbacks =
+        object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentAttached(
+                fm: FragmentManager,
+                childFragment: Fragment,
+                context: Context
+            ) {
+                if (childFragment is TeamSquadFragment) {
+                    childFragment.parentFragmentCallback = this@PlayerDetailsTabLayoutFragment
+                } else if (childFragment is TeamFixturesFragment) {
+                    childFragment.parentFragmentCallback = this@PlayerDetailsTabLayoutFragment
+                }
+            }
+        }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -72,5 +94,21 @@ class PlayerDetailsTabLayoutFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun hideTopView() {
+        /*Utils().animateHideTopView(
+            binding.detailsTeamContainer,
+            binding.topInfo,
+            binding.tabLayoutMatchDetails,
+            binding.viewPager2MatchDetails)*/
+    }
+
+    override fun showTopView() {
+        /*Utils().animateShowTopView(
+            binding.detailsTeamContainer,
+            binding.topInfo,
+            binding.tabLayoutMatchDetails,
+            binding.viewPager2MatchDetails)*/
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment">
+    tools:context=".ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment">
 
     <LinearLayout
         android:id="@+id/top_info"
@@ -86,7 +86,6 @@
                             android:minHeight="130dp"
                             tools:src="@tools:sample/backgrounds/scenic" />
                     </androidx.cardview.widget.CardView>
-
 
                     <TextView
                         android:id="@+id/team_name"

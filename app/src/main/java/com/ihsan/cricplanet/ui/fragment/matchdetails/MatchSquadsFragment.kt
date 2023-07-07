@@ -5,14 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.MatchSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment
+import com.ihsan.cricplanet.utils.MyApplication
 
 class MatchSquadsFragment : Fragment() {
     private lateinit var binding: FragmentMatchSquadsBinding
+    var parentFragmentCallback: DetailsTabLayoutFragmentCallback? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +34,7 @@ class MatchSquadsFragment : Fragment() {
         var match: FixtureByIdWithDetails?
         val gridViewLocal = binding.gridViewSquadLocal
         val gridViewVisitor = binding.gridViewSquadVisitor
+        val scrollView = binding.scrollViewMatchSquadsContainer
 
         arguments.let {
             if (it != null) {
@@ -43,6 +51,36 @@ class MatchSquadsFragment : Fragment() {
                         MatchSquadAdapter(requireContext(), localTeam as List<Lineup>)
                     gridViewVisitor.adapter =
                         MatchSquadAdapter(requireContext(), visitorTeam as List<Lineup>)
+
+                    //Auto Hide Top view
+                    /*scrollView.addOnScrollListener(object : AbsListView.OnScrollListener {
+                        private var lastFirstVisibleItem: Int = 0
+
+                        override fun onScroll(
+                            view: AbsListView?,
+                            firstVisibleItem: Int,
+                            visibleItemCount: Int,
+                            totalItemCount: Int
+                        ) {
+                            if (firstVisibleItem > lastFirstVisibleItem && TeamDetailsTabLayoutFragment.mBottomViewVisible) {
+                                Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT)
+                                    .show()
+                                parentFragmentCallback?.hideTopView()
+                                TeamDetailsTabLayoutFragment.mBottomViewVisible = false
+                            } else if (firstVisibleItem < 2 && !TeamDetailsTabLayoutFragment.mBottomViewVisible) {
+                                Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT)
+                                    .show()
+                                parentFragmentCallback?.showTopView()
+                                TeamDetailsTabLayoutFragment.mBottomViewVisible = true
+                            }
+                            lastFirstVisibleItem = firstVisibleItem
+                        }
+
+                        override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+                            // No specific action needed
+                        }
+                    })*/
+
                 }
             }
         }

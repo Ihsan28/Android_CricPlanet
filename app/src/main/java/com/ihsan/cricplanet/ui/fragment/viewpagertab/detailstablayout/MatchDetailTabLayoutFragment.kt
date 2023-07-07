@@ -1,5 +1,6 @@
-package com.ihsan.cricplanet.ui.fragment.viewpager
+package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,16 +13,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
+import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment
+import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
+import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
-class MatchDetailTabLayoutFragment : Fragment() {
+class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
+    companion object {
+        var mBottomViewVisible = true
+    }
 
     private lateinit var binding: FragmentMatchDetailTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
@@ -29,7 +37,34 @@ class MatchDetailTabLayoutFragment : Fragment() {
     private val liveHandler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     private val DELAY_MS: Long = 60000 //refresh delay in millis
-    private val refreshMessage = "refreshing.." //refresh delay in millis
+
+    private val childFragmentLifecycleCallbacks =
+        object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentAttached(
+                fm: FragmentManager,
+                childFragment: Fragment,
+                context: Context
+            ) {
+                if (childFragment is TeamSquadFragment) {
+                    childFragment.parentFragmentCallback = this@MatchDetailTabLayoutFragment
+                } else if (childFragment is TeamFixturesFragment) {
+                    childFragment.parentFragmentCallback = this@MatchDetailTabLayoutFragment
+                }
+            }
+        }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        childFragmentManager.registerFragmentLifecycleCallbacks(
+            childFragmentLifecycleCallbacks,
+            false
+        )
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        childFragmentManager.unregisterFragmentLifecycleCallbacks(childFragmentLifecycleCallbacks)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -136,7 +171,7 @@ class MatchDetailTabLayoutFragment : Fragment() {
     }
 
     private fun refreshPage() {
-        Toast.makeText(requireActivity(), refreshMessage, Toast.LENGTH_SHORT).show()
+        Utils().refreshMessage()
         viewmodel.getFixturesByIdApi(matchId)
     }
 
@@ -152,5 +187,21 @@ class MatchDetailTabLayoutFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         stopPeriodicRefresh()
+    }
+
+    override fun hideTopView() {
+        Utils().animateHideTopView(
+            binding.detailsTeamContainer,
+            binding.topInfo,
+            binding.tabLayoutMatchDetails,
+            binding.viewPager2MatchDetails)
+    }
+
+    override fun showTopView() {
+        Utils().animateShowTopView(
+            binding.detailsTeamContainer,
+            binding.topInfo,
+            binding.tabLayoutMatchDetails,
+            binding.viewPager2MatchDetails)
     }
 }

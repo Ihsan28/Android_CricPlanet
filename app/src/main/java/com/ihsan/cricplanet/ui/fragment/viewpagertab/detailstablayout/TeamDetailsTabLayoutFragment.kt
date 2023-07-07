@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpagertab
+package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -18,11 +18,10 @@ import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
-import kotlin.properties.Delegates
 
 class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
     companion object {
-        var mBottomViewVisible =true
+        var mBottomViewVisible = true
     }
 
     private lateinit var bindingTeamDetailsTab: FragmentTeamDetailsTabLayoutBinding
@@ -119,17 +118,17 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
     override fun hideTopView() {
         Utils().animateHideTopView(
+            bindingTeamDetailsTab.detailsTeamContainer,
             bindingTeamDetailsTab.topInfo,
             bindingTeamDetailsTab.tabLayoutTeamDetails,
-            bindingTeamDetailsTab.viewPager2TeamDetails
-        )
+            bindingTeamDetailsTab.viewPager2TeamDetails)
     }
 
     override fun showTopView() {
         Utils().animateShowTopView(
+            bindingTeamDetailsTab.detailsTeamContainer,
             bindingTeamDetailsTab.topInfo,
             bindingTeamDetailsTab.tabLayoutTeamDetails,
-            bindingTeamDetailsTab.viewPager2TeamDetails
-        )
+            bindingTeamDetailsTab.viewPager2TeamDetails)
     }
 }

@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchDetailTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpager.MatchDetailTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.MatchDetailTabLayoutFragment"
         android:label="MatchDetailTabLayoutFragment"
         tools:layout="@layout/fragment_match_detail_tab_layout" >
         <argument
@@ -140,7 +140,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.PlayerDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.PlayerDetailsTabLayoutFragment"
         android:label="fragment_player_details_tab_layout"
         tools:layout="@layout/fragment_player_details_tab_layout" >
         <argument android:name="playerId"
@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/teamDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.TeamDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment"
         android:label="fragment_team_details_tab_layout"
         tools:layout="@layout/fragment_team_details_tab_layout" >
         <argument android:name="teamId"

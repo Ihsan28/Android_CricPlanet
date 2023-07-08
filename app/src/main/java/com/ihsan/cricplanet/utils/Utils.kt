@@ -441,11 +441,10 @@ class Utils {
         listView.requestLayout()
     }
 
-    fun setGridViewHeightBasedOnItemsWithAdditionalHeight(gridView: GridView) {
+    fun setGridViewHeightBasedOnItemsWithAdditionalHeight(gridView: GridView,itemsPerRow: Int = 3) {
         val gridAdapter = gridView.adapter ?: return
 
         var totalHeight = 0
-        val itemsPerRow = 3
         val numRows = (gridAdapter.count + itemsPerRow - 1) / itemsPerRow
 
         Log.d(

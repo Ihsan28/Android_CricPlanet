@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.MatchSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
@@ -15,6 +16,7 @@ import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment
 import com.ihsan.cricplanet.utils.MyApplication
+import com.ihsan.cricplanet.utils.Utils
 
 class MatchSquadsFragment : Fragment() {
     private lateinit var binding: FragmentMatchSquadsBinding
@@ -34,7 +36,7 @@ class MatchSquadsFragment : Fragment() {
         var match: FixtureByIdWithDetails?
         val gridViewLocal = binding.gridViewSquadLocal
         val gridViewVisitor = binding.gridViewSquadVisitor
-        val scrollView = binding.scrollViewMatchSquadsContainer
+        val nestedScrollView = binding.scrollViewMatchSquadsContainer
 
         arguments.let {
             if (it != null) {
@@ -49,38 +51,28 @@ class MatchSquadsFragment : Fragment() {
                     //set adapter
                     gridViewLocal.adapter =
                         MatchSquadAdapter(requireContext(), localTeam as List<Lineup>)
+
                     gridViewVisitor.adapter =
                         MatchSquadAdapter(requireContext(), visitorTeam as List<Lineup>)
 
+                    //set gridview height
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewLocal,1)
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewVisitor,1)
+
                     //Auto Hide Top view
-                    /*scrollView.addOnScrollListener(object : AbsListView.OnScrollListener {
-                        private var lastFirstVisibleItem: Int = 0
-
-                        override fun onScroll(
-                            view: AbsListView?,
-                            firstVisibleItem: Int,
-                            visibleItemCount: Int,
-                            totalItemCount: Int
-                        ) {
-                            if (firstVisibleItem > lastFirstVisibleItem && TeamDetailsTabLayoutFragment.mBottomViewVisible) {
-                                Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT)
-                                    .show()
-                                parentFragmentCallback?.hideTopView()
-                                TeamDetailsTabLayoutFragment.mBottomViewVisible = false
-                            } else if (firstVisibleItem < 2 && !TeamDetailsTabLayoutFragment.mBottomViewVisible) {
-                                Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT)
-                                    .show()
-                                parentFragmentCallback?.showTopView()
-                                TeamDetailsTabLayoutFragment.mBottomViewVisible = true
-                            }
-                            lastFirstVisibleItem = firstVisibleItem
+                    var lastScrollY = 0
+                    nestedScrollView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+                        if (scrollY > lastScrollY && TeamDetailsTabLayoutFragment.mBottomViewVisible) {
+                            Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT).show()
+                            parentFragmentCallback?.hideTopView()
+                            TeamDetailsTabLayoutFragment.mBottomViewVisible = false
+                        } else if (scrollY < 2 && !TeamDetailsTabLayoutFragment.mBottomViewVisible) {
+                            Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT).show()
+                            parentFragmentCallback?.showTopView()
+                            TeamDetailsTabLayoutFragment.mBottomViewVisible = true
                         }
-
-                        override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
-                            // No specific action needed
-                        }
-                    })*/
-
+                        lastScrollY = scrollY
+                    }
                 }
             }
         }

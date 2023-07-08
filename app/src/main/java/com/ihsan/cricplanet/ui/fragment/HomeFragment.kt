@@ -3,10 +3,12 @@ package com.ihsan.cricplanet.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.*
@@ -14,12 +16,16 @@ import androidx.viewpager.widget.ViewPager
 import com.ihsan.cricplanet.adapter.LiveMatchSliderAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.databinding.FragmentHomeBinding
+import com.ihsan.cricplanet.utils.CheckNetwork
+import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
+import com.ihsan.cricplanet.utils.MyApplication
+import com.ihsan.cricplanet.utils.Network
+import com.ihsan.cricplanet.utils.SignalingNetworkListener
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import me.relex.circleindicator.CircleIndicator
 
-@Suppress("DEPRECATION")
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),SignalingNetworkListener {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: CricViewModel by viewModels()
     private lateinit var recyclerViewToday: RecyclerView
@@ -28,7 +34,7 @@ class HomeFragment : Fragment() {
     lateinit var viewPagerAdapter: LiveMatchSliderAdapter
     lateinit var indicator: CircleIndicator
     private val PERIOD_MS: Long = 4000
-    private val sliderHandler = Handler()
+    private val sliderHandler = Handler(Looper.myLooper()!!)
     private var updateSlider: Runnable? = null
 
     override fun onCreateView(
@@ -41,6 +47,19 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        networkStatus.observe(viewLifecycleOwner) {
+            if (it.connection) {
+                viewModel.getLiveFixturesApi()
+                viewModel.getTodayFixturesApi()
+                viewModel.getUpcomingFixturesApi()
+            } else {
+                Toast.makeText(
+                    MyApplication.instance,
+                    "No Internet Connection",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
         stopAutoSlide()
         startAutoSlide()
     }
@@ -142,6 +161,14 @@ class HomeFragment : Fragment() {
         viewModel.getLiveFixturesApi()
         viewModel.getTodayFixturesApi()
         viewModel.getRecentFixturesApi()
+    }
+
+    override fun onConnectionEstablished(network: Network) {
+        Toast.makeText(MyApplication.instance, "kfd;", Toast.LENGTH_SHORT).show()
+        if(network.connection){
+            Toast.makeText(MyApplication.instance, "reloaded", Toast.LENGTH_SHORT).show()
+            autoReload()
+        }
     }
 }
 

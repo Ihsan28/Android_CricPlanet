@@ -43,16 +43,6 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
             }
         }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        bindingTeamDetailsTab =
-            FragmentTeamDetailsTabLayoutBinding.inflate(inflater, container, false)
-        return bindingTeamDetailsTab.root
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         childFragmentManager.registerFragmentLifecycleCallbacks(
@@ -64,6 +54,15 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
     override fun onDetach() {
         super.onDetach()
         childFragmentManager.unregisterFragmentLifecycleCallbacks(childFragmentLifecycleCallbacks)
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        bindingTeamDetailsTab =
+            FragmentTeamDetailsTabLayoutBinding.inflate(inflater, container, false)
+        return bindingTeamDetailsTab.root
     }
 
     @SuppressLint("SetTextI18n")

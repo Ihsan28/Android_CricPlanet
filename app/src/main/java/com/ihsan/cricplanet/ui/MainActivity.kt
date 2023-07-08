@@ -12,6 +12,7 @@ import com.ihsan.cricplanet.R.id
 import com.ihsan.cricplanet.databinding.ActivityMainBinding
 import com.ihsan.cricplanet.utils.CheckNetwork
 import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
+import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Network
 import com.ihsan.cricplanet.utils.SignalingNetworkListener
 import com.ihsan.cricplanet.utils.WorkRequest
@@ -22,10 +23,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var checkNetwork: CheckNetwork
 
-
     override fun onResume() {
         super.onResume()
+        //Network check register
         checkNetwork = CheckNetwork(createNetworkListener())
+
         //check Internet permission
         checkNetwork.checkINTERNETPermission()
         //Network check register and toast at start up
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun createNetworkListener() = object : SignalingNetworkListener {
         override fun onConnectionEstablished(network: Network) {
             // alternative to the networkStatus LiveData
+            Toast.makeText(this@MainActivity, "s;fks", Toast.LENGTH_SHORT).show()
         }
     }
 

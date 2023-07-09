@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -36,7 +37,7 @@ class MatchSquadsFragment : Fragment() {
         var match: FixtureByIdWithDetails?
         val gridViewLocal = binding.gridViewSquadLocal
         val gridViewVisitor = binding.gridViewSquadVisitor
-        val nestedScrollView = binding.scrollViewMatchSquadsContainer
+        val nestedScrollView = binding.scrollViewSquad
 
         arguments.let {
             if (it != null) {
@@ -60,8 +61,8 @@ class MatchSquadsFragment : Fragment() {
                     Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewVisitor,1)
 
                     //Auto Hide Top view
-                    var lastScrollY = 0
-                    nestedScrollView.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
+                    /*var lastScrollY = 0
+                    nestedScrollView.setOnScrollChangeListener { _: ScrollView?, _: Int, scrollY: Int, _: Int, _: Int ->
                         if (scrollY > lastScrollY && TeamDetailsTabLayoutFragment.mBottomViewVisible) {
                             Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT).show()
                             parentFragmentCallback?.hideTopView()
@@ -72,7 +73,7 @@ class MatchSquadsFragment : Fragment() {
                             TeamDetailsTabLayoutFragment.mBottomViewVisible = true
                         }
                         lastScrollY = scrollY
-                    }
+                    }*/
                 }
             }
         }

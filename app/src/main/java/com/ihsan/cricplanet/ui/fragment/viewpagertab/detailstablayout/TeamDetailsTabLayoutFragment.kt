@@ -65,7 +65,6 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
         return bindingTeamDetailsTab.root
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Team...")
@@ -92,10 +91,6 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                     tab.text = tabMatchDetailAdapter.listTeamDetailTab[position].category
                 }.attach()
-
-                Thread.sleep(1000)
-
-                //setupChildFragments()
 
                 //stop progress Animation
                 Utils().progressAnimationStop(progressBar)

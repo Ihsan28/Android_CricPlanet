@@ -16,11 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="6dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="60dp" />
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.LeagueAdapter
 import com.ihsan.cricplanet.databinding.FragmentSeriesBinding
+import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
@@ -18,6 +20,15 @@ import kotlinx.coroutines.launch
 class SeriesFragment : Fragment() {
     private lateinit var binding: FragmentSeriesBinding
     private val viewModel: CricViewModel by viewModels()
+
+    override fun onResume() {
+        super.onResume()
+        networkStatus.observe(viewLifecycleOwner) {
+            if (it.connection) {
+                refreshSeries()
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,12 +60,16 @@ class SeriesFragment : Fragment() {
 
         //Refreshing The Home Page
         refreshLayout.setOnRefreshListener {
-            viewModel.viewModelScope.launch {
-                //getting data for league from Api
-                viewModel.getLeagueApi()
-                Utils().refreshMessage()
-            }
+            refreshSeries()
             refreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun refreshSeries() {
+        viewModel.viewModelScope.launch {
+            //getting data for league from Api
+            viewModel.getLeagueApi()
+            Utils().refreshMessage()
         }
     }
 }

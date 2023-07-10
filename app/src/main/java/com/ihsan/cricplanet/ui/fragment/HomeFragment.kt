@@ -52,12 +52,6 @@ class HomeFragment : Fragment(),SignalingNetworkListener {
                 viewModel.getLiveFixturesApi()
                 viewModel.getTodayFixturesApi()
                 viewModel.getUpcomingFixturesApi()
-            } else {
-                Toast.makeText(
-                    MyApplication.instance,
-                    "No Internet Connection",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
         stopAutoSlide()

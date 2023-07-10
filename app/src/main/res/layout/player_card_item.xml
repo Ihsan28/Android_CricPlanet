@@ -67,8 +67,8 @@
                     android:hint="@string/age"
                     android:layout_marginHorizontal="5dp"
                     android:maxLines="1"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic" />
 
             </LinearLayout>
 

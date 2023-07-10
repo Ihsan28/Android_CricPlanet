@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,9 @@ import com.ihsan.cricplanet.adapter.MatchAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
 import com.ihsan.cricplanet.utils.BottomSpaceItemDecoration
+import com.ihsan.cricplanet.utils.CheckNetwork
+import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
+import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
@@ -24,6 +28,15 @@ class MatchesFragment : Fragment() {
     private val viewModel: CricViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private val args: MatchesFragmentArgs by navArgs()
+
+    override fun onResume() {
+        super.onResume()
+        networkStatus.observe(viewLifecycleOwner) {
+            if (it.connection) {
+                refreshPage()
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -121,22 +134,27 @@ class MatchesFragment : Fragment() {
                 }
             }
 
-
             //Refreshing The Match Page
             refreshLayout.setOnRefreshListener {
-                viewModel.viewModelScope.launch {
-                    when (argument.category) {
-                        "UPCOMING" -> viewModel.getUpcomingFixturesApi()
-                        "RECENT" -> viewModel.getRecentFixturesApi()
-                        "T20" -> viewModel.getFixturesApi()
-                        "ODI" -> viewModel.getFixturesApi()
-                        "TEST" -> viewModel.getFixturesApi()
-                        "ALL" -> viewModel.getFixturesApi()
-                        else -> viewModel.getFixturesApi()
-                    }
-                    Utils().refreshMessage()
-                }
+                refreshPage()
                 refreshLayout.isRefreshing = false
+            }
+        }
+    }
+
+    private fun refreshPage() {
+        args.let {argument->
+            viewModel.viewModelScope.launch {
+                when (argument.category) {
+                    "UPCOMING" -> viewModel.getUpcomingFixturesApi()
+                    "RECENT" -> viewModel.getRecentFixturesApi()
+                    "T20" -> viewModel.getFixturesApi()
+                    "ODI" -> viewModel.getFixturesApi()
+                    "TEST" -> viewModel.getFixturesApi()
+                    "ALL" -> viewModel.getFixturesApi()
+                    else -> viewModel.getFixturesApi()
+                }
+                Utils().refreshMessage()
             }
         }
     }

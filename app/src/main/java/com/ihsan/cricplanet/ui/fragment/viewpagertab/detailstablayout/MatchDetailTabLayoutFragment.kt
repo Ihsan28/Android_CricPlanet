@@ -65,6 +65,7 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
         super.onDetach()
         childFragmentManager.unregisterFragmentLifecycleCallbacks(childFragmentLifecycleCallbacks)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -37,17 +37,17 @@ class RankingFragment : Fragment() {
         val menWomenToggleButton = binding.genderToggleGroup
 
         //Assigning Recycler view
-        val recyclerViewBatting = binding.recyclerviewTeamRanking
-        recyclerViewBatting.layoutManager =
+        val recyclerviewTeamRanking = binding.recyclerviewTeamRanking
+        recyclerviewTeamRanking.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        recyclerViewBatting.setHasFixedSize(true)
-        recyclerViewBatting.addItemDecoration(BottomSpaceItemDecoration())
+        recyclerviewTeamRanking.setHasFixedSize(true)
+        recyclerviewTeamRanking.addItemDecoration(BottomSpaceItemDecoration())
 
         //getting navigation argument
         args.let { rankingArgs ->
             //get match
             rankingList = getList(rankingArgs)
-            recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
+            recyclerviewTeamRanking.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
             Utils().progressAnimationStop(progressBar)
             //toggle button click listener
             menWomenToggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -67,7 +67,7 @@ class RankingFragment : Fragment() {
                 }
 
                 //assigning adapter
-                recyclerViewBatting.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
+                recyclerviewTeamRanking.adapter = rankingList?.let { it1 -> TeamRankingAdapter(it1) }
             }
             Utils().progressAnimationStop(progressBar)
         }

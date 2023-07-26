@@ -393,17 +393,17 @@ class Utils {
         visitorTeamOver: TextView
     ) {
         if (runs?.size != 0 && runs != null) {
-            localTeamName.text = runs[0].team?.name
-            localTeamRun.text = runs[0].score.toString()
-            localTeamOver.text = runs[0].overs.toString()
+            localTeamName.text = runs[1].team?.name
+            localTeamRun.text = runs[1].score.toString()
+            localTeamOver.text = runs[1].overs.toString()
 
-            visitorTeamName.text = runs[1].team?.name
-            visitorTeamRun.text = runs[1].score.toString()
-            visitorTeamOver.text = runs[1].overs.toString()
+            visitorTeamName.text = runs[0].team?.name
+            visitorTeamRun.text = runs[0].score.toString()
+            visitorTeamOver.text = runs[0].overs.toString()
 
             Utils().also { it2 ->
-                it2.loadImageWithPicasso(runs[0].team?.image_path, localTeamImage)
-                it2.loadImageWithPicasso(runs[1].team?.image_path, visitorTeamImage)
+                it2.loadImageWithPicasso(runs[1].team?.image_path, localTeamImage)
+                it2.loadImageWithPicasso(runs[0].team?.image_path, visitorTeamImage)
             }
 
         } else {

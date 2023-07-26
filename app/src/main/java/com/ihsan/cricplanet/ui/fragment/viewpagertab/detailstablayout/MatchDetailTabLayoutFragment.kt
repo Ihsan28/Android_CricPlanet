@@ -37,6 +37,7 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
     private val liveHandler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     private val DELAY_MS: Long = 60000 //refresh delay in millis
+    private var isLoaded=false
 
     private val childFragmentLifecycleCallbacks =
         object : FragmentManager.FragmentLifecycleCallbacks() {
@@ -84,11 +85,13 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
         val fixtureName = view.findViewById<TextView>(R.id.fixture_name)
         val fixtureStatus = view.findViewById<TextView>(R.id.fixture_status)
+
         val localTeamName = view.findViewById<TextView>(R.id.local_team_name)
         val localTeamRun = view.findViewById<TextView>(R.id.local_team_run)
         val localTeamOver = view.findViewById<TextView>(R.id.local_team_over)
         val localTeamImage = view.findViewById<ImageView>(R.id.local_team_image)
         val localTeamImageCard = view.findViewById<CardView>(R.id.local_team_image_card)
+
         val visitorTeamName = view.findViewById<TextView>(R.id.visitor_team_name)
         val visitorTeamRun = view.findViewById<TextView>(R.id.visitor_team_run)
         val visitorTeamOver = view.findViewById<TextView>(R.id.visitor_team_over)
@@ -97,6 +100,10 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
         arguments?.let {
             matchId = it.getInt("matchId")
+        }
+
+        if (matchId != 0 && !isLoaded){
+            isLoaded=true
             viewmodel.getFixturesByIdApi(matchId)
             Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
 

@@ -27,10 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/white"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp">
-
 
             <ImageView
                 android:id="@+id/local_team_image"
@@ -42,7 +40,6 @@
                 android:elevation="20dp"
                 android:maxHeight="150dp"
                 android:minHeight="130dp"
-                android:padding="5dp"
                 tools:src="@tools:sample/backgrounds/scenic" />
         </androidx.cardview.widget.CardView>
 

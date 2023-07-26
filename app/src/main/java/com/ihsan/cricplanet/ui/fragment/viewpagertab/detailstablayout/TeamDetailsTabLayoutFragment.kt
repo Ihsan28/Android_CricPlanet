@@ -85,7 +85,6 @@ class TeamDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
             //Assigning match Adapter
             viewmodel.teamById.observe(viewLifecycleOwner) { team ->
 
-
                 val tabMatchDetailAdapter =
                     TabTeamDetailAdapter(childFragmentManager, lifecycle, team)
                 viewPager.adapter = tabMatchDetailAdapter

@@ -69,7 +69,7 @@ class MatchAdapter(private val matchList: List<FixtureIncludeForCard>) :
             it.setVenue(match.status, match.note, match.venue, holder.noteOrVenue)
             it.setRun(
                 match.runs,
-                match.localteam,
+                match.localteam.id,
                 holder.localTeamRun,
                 holder.localTeamOver,
                 holder.visitorTeamRun,

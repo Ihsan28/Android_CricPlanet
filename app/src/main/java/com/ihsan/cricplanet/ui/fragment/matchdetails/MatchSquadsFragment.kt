@@ -37,7 +37,7 @@ class MatchSquadsFragment : Fragment() {
         var match: FixtureByIdWithDetails?
         val gridViewLocal = binding.gridViewSquadLocal
         val gridViewVisitor = binding.gridViewSquadVisitor
-        val nestedScrollView = binding.scrollViewSquad
+        //val nestedScrollView = binding.scrollViewSquad
 
         arguments.let {
             if (it != null) {
@@ -57,8 +57,8 @@ class MatchSquadsFragment : Fragment() {
                         MatchSquadAdapter(requireContext(), visitorTeam as List<Lineup>)
 
                     //set gridview height
-                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewLocal,1)
-                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewVisitor,1)
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewLocal,1,400)
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewVisitor,1,400)
 
                     //Auto Hide Top view
                     /*var lastScrollY = 0

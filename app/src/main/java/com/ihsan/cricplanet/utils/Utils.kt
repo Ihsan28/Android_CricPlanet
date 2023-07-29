@@ -66,7 +66,12 @@ class Utils {
         progressbar.dismiss()
     }
 
-    fun animateHideTopView(containerLayout: ConstraintLayout,topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+    fun animateHideTopView(
+        containerLayout: ConstraintLayout,
+        topInfo: LinearLayout,
+        tabLayout: TabLayout,
+        viewPager: ViewPager2
+    ) {
         Toast.makeText(MyApplication.instance, "hide", Toast.LENGTH_SHORT).show()
 
         topInfo.animate()?.translationY(-topInfo.height.toFloat())?.start()
@@ -75,12 +80,18 @@ class Utils {
 
         //update viewpager height
         val layoutParams = viewPager.layoutParams
-        layoutParams.height = containerLayout.height-tabLayout.height
-        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT).show()
+        layoutParams.height = containerLayout.height - tabLayout.height
+        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT)
+            .show()
         viewPager.layoutParams = layoutParams
     }
 
-    fun animateShowTopView(containerLayout: ConstraintLayout,topInfo: LinearLayout, tabLayout: TabLayout, viewPager: ViewPager2) {
+    fun animateShowTopView(
+        containerLayout: ConstraintLayout,
+        topInfo: LinearLayout,
+        tabLayout: TabLayout,
+        viewPager: ViewPager2
+    ) {
         Toast.makeText(MyApplication.instance, "show", Toast.LENGTH_SHORT).show()
 
         topInfo.animate()?.translationY(0f)?.start()
@@ -89,8 +100,9 @@ class Utils {
 
         //update viewpager height
         val layoutParams = viewPager.layoutParams
-        layoutParams.height = containerLayout.height-(topInfo.height+tabLayout.height)
-        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT).show()
+        layoutParams.height = containerLayout.height - (topInfo.height + tabLayout.height)
+        Toast.makeText(MyApplication.instance, layoutParams.height.toString(), Toast.LENGTH_SHORT)
+            .show()
         viewPager.layoutParams = layoutParams
     }
 
@@ -238,14 +250,14 @@ class Utils {
     @SuppressLint("SetTextI18n")
     fun setRun(
         runs: List<RunWithTeam>?,
-        localTeam: Team,
+        localTeamId: Int,
         localTeamRun: TextView,
         localTeamOver: TextView,
         visitorTeamRun: TextView,
         visitorTeamOver: TextView
     ) {
         if (runs != null && runs.size == 2) {
-            if (localTeam.id == runs[0].team_id) {
+            if (localTeamId == runs[0].team_id) {
                 localTeamRun.text = "${runs[0].score}-${runs[0].wickets}"
                 localTeamOver.text = "${runs[0].overs} ov"
 
@@ -392,28 +404,21 @@ class Utils {
         visitorTeamRun: TextView,
         visitorTeamOver: TextView
     ) {
-        if (runs?.size != 0 && runs != null) {
-            localTeamName.text = runs[1].team?.name
-            localTeamRun.text = runs[1].score.toString()
-            localTeamOver.text = runs[1].overs.toString()
-
-            visitorTeamName.text = runs[0].team?.name
-            visitorTeamRun.text = runs[0].score.toString()
-            visitorTeamOver.text = runs[0].overs.toString()
-
-            Utils().also { it2 ->
-                it2.loadImageWithPicasso(runs[1].team?.image_path, localTeamImage)
-                it2.loadImageWithPicasso(runs[0].team?.image_path, visitorTeamImage)
+        if (runs?.size != 0 && runs != null && localTeam != null && visitorTeam != null) {
+            if (localTeam.id == runs[0].team_id) {
+                localTeamName.text = runs[0].team?.name
+                visitorTeamName.text = runs[1].team?.name
+            }else{
+                localTeamName.text = runs[1].team?.name
+                visitorTeamName.text = runs[0].team?.name
             }
-
+            setRun(runs, localTeam.id, localTeamRun, localTeamOver, visitorTeamRun, visitorTeamOver)
         } else {
             localTeamName.text = localTeam?.name
             visitorTeamName.text = visitorTeam?.name
-            Utils().also { it2 ->
-                it2.loadImageWithPicasso(localTeam?.image_path, localTeamImage)
-                it2.loadImageWithPicasso(visitorTeam?.image_path, visitorTeamImage)
-            }
         }
+        loadImageWithPicasso(localTeam?.image_path, localTeamImage)
+        loadImageWithPicasso(visitorTeam?.image_path, visitorTeamImage)
     }
 
     fun loadImageWithPicasso(imagePath: String?, imageView: ImageView) {
@@ -441,7 +446,11 @@ class Utils {
         listView.requestLayout()
     }
 
-    fun setGridViewHeightBasedOnItemsWithAdditionalHeight(gridView: GridView,itemsPerRow: Int = 3) {
+    fun setGridViewHeightBasedOnItemsWithAdditionalHeight(
+        gridView: GridView,
+        itemsPerRow: Int = 3,
+        additionalHeight: Int = 200
+    ) {
         val gridAdapter = gridView.adapter ?: return
 
         var totalHeight = 0
@@ -459,7 +468,7 @@ class Utils {
         }
 
         val params = gridView.layoutParams
-        params.height = totalHeight + (gridView.verticalSpacing * (numRows - 1)) + 200
+        params.height = totalHeight + (gridView.verticalSpacing * (numRows - 1)) + additionalHeight
         gridView.layoutParams = params
         gridView.requestLayout()
     }

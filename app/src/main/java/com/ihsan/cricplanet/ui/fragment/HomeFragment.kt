@@ -16,7 +16,6 @@ import androidx.viewpager.widget.ViewPager
 import com.ihsan.cricplanet.adapter.LiveMatchSliderAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterHome
 import com.ihsan.cricplanet.databinding.FragmentHomeBinding
-import com.ihsan.cricplanet.utils.CheckNetwork
 import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Network
@@ -25,7 +24,7 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import me.relex.circleindicator.CircleIndicator
 
-class HomeFragment : Fragment(),SignalingNetworkListener {
+class HomeFragment : Fragment(), SignalingNetworkListener {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: CricViewModel by viewModels()
     private lateinit var recyclerViewToday: RecyclerView
@@ -159,7 +158,7 @@ class HomeFragment : Fragment(),SignalingNetworkListener {
 
     override fun onConnectionEstablished(network: Network) {
         Toast.makeText(MyApplication.instance, "kfd;", Toast.LENGTH_SHORT).show()
-        if(network.connection){
+        if (network.connection) {
             Toast.makeText(MyApplication.instance, "reloaded", Toast.LENGTH_SHORT).show()
             autoReload()
         }

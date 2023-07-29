@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- border_shape.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" /> <!-- Set to the background color of your layout -->
+    <stroke
+        android:width="5dp"
+        android:color="#FF0000" />
+    <corners android:radius="8dp" /> <!-- Set corner radius if you want rounded corners -->
+</shape>

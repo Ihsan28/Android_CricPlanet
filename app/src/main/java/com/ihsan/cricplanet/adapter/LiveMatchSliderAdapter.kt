@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.viewpager.widget.PagerAdapter
 import com.ihsan.cricplanet.R
+import com.ihsan.cricplanet.model.fixture.FixtureIncludeForCard
 import com.ihsan.cricplanet.model.fixture.FixtureIncludeForLiveCard
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils

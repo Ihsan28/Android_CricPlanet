@@ -67,6 +67,7 @@ data class FixtureByIdWithDetails(
     val visitorteam_id: Int?,
     val weather_report: List<String>?,
     val batting: List<BattingIncludeBatsman>?,
+    val bowling: List<BowlingIncludeBowler>?,
     val balls: List<BallsIncludeBowler>?,
     val winner_team_id: Int?,
     val winnerteam: WinnerTeamX?
@@ -78,6 +79,7 @@ data class FixtureByIdWithDetails(
         null,
         null,
         0,
+        null,
         null,
         null,
         null,

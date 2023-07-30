@@ -69,6 +69,11 @@ class HomeFragment : Fragment(), SignalingNetworkListener {
         //Live Observer
         viewModel.liveFixture.observe(viewLifecycleOwner) {
             Log.d("cricHome", "onViewCreatedHomeSlider: $it")
+            if(it.isEmpty()){
+                binding.liveSlider.visibility = View.GONE
+            }else{
+                binding.liveSlider.visibility = View.VISIBLE
+            }
             stopAutoSlide()
             viewPagerAdapter = LiveMatchSliderAdapter(requireContext(), it)
             viewPager.adapter = viewPagerAdapter

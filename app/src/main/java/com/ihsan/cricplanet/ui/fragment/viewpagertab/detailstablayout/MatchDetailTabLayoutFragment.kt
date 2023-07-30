@@ -26,6 +26,7 @@ import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTa
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
+private const val TAG = "MatchDetailTabLayoutFragment"
 class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
     companion object {
         var mBottomViewVisible = true
@@ -109,6 +110,7 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
             //Assigning match Adapter
             viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
+                Log.d(TAG, "onViewCreated: $match")
                 val tabMatchDetailAdapter =
                     TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
 

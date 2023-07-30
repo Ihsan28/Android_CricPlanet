@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ihsan.cricplanet.adapter.BattingScorecardAdapter
+import com.ihsan.cricplanet.adapter.BowlingScorecardAdapter
 import com.ihsan.cricplanet.adapter.MatchBallsAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchScorecardBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
@@ -35,19 +36,27 @@ class MatchScorecardFragment : Fragment() {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         recyclerViewBatting.setHasFixedSize(true)
 
+        val recyclerViewBowling = binding.recyclerviewBowlingScore
+        recyclerViewBowling.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        recyclerViewBowling.setHasFixedSize(true)
 
         arguments.let {
             if (it != null) {
                 match = it.getParcelable("match")
                 recyclerViewBatting.adapter =
-                    match?.batting?.let { it1 -> BattingScorecardAdapter(it1) }
+                    match?.batting?.let { battingIncludeBatsmanList -> BattingScorecardAdapter(battingIncludeBatsmanList) }
+
+                recyclerViewBowling.adapter =
+                    match?.bowling?.let { bowlingIncludeBatsmanList -> BowlingScorecardAdapter(bowlingIncludeBatsmanList) }
 
                 //Recycler view for Balls or Match History
-                val recyclerViewUpcoming = binding.recyclerviewBalls
-                recyclerViewUpcoming.layoutManager =
+                val recyclerViewScorecard = binding.recyclerviewBalls
+                recyclerViewScorecard.layoutManager =
                     LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-                recyclerViewUpcoming.setHasFixedSize(true)
-                recyclerViewUpcoming.adapter =
+                recyclerViewScorecard.setHasFixedSize(true)
+
+                recyclerViewScorecard.adapter =
                     match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
             }
         }

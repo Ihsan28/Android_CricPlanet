@@ -45,19 +45,31 @@ class MatchScorecardFragment : Fragment() {
             if (it != null) {
                 match = it.getParcelable("match")
                 recyclerViewBatting.adapter =
-                    match?.batting?.let { battingIncludeBatsmanList -> BattingScorecardAdapter(battingIncludeBatsmanList) }
+                    match?.batting?.let { battingIncludeBatsmanList ->
+                        BattingScorecardAdapter(
+                            battingIncludeBatsmanList
+                        )
+                    }
 
                 recyclerViewBowling.adapter =
-                    match?.bowling?.let { bowlingIncludeBatsmanList -> BowlingScorecardAdapter(bowlingIncludeBatsmanList) }
+                    match?.bowling?.let { bowlingIncludeBatsmanList ->
+                        BowlingScorecardAdapter(
+                            bowlingIncludeBatsmanList
+                        )
+                    }
 
-                //Recycler view for Balls or Match History
                 val recyclerViewScorecard = binding.recyclerviewBalls
-                recyclerViewScorecard.layoutManager =
-                    LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-                recyclerViewScorecard.setHasFixedSize(true)
+                if (match?.balls != null && match?.balls?.size!! > 0) {
+                    //Recycler view for Balls or Match History
+                    recyclerViewScorecard.layoutManager =
+                        LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+                    recyclerViewScorecard.setHasFixedSize(true)
 
-                recyclerViewScorecard.adapter =
-                    match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
+                    recyclerViewScorecard.adapter =
+                        match?.balls?.let { it1 -> MatchBallsAdapter(it1.take(20)) }
+                } else {
+                    recyclerViewScorecard.visibility = View.GONE
+                }
             }
         }
     }

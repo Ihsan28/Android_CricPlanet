@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.model.fixture.BallsIncludeBowler
 import com.ihsan.cricplanet.model.fixture.BowlingIncludeBowler
+import com.ihsan.cricplanet.utils.Utils
 
 class BowlingScorecardAdapter(private val bowlingScorecardList: List<BowlingIncludeBowler>) :
     RecyclerView.Adapter<BowlingScorecardAdapter.BattingViewHolder>() {
     class BattingViewHolder(private val binding: View) : RecyclerView.ViewHolder(binding) {
         val playerName: TextView = itemView.findViewById(R.id.batting_name)
-        val playerRun: TextView = itemView.findViewById(R.id.batting_run)
-        val playerBall: TextView = itemView.findViewById(R.id.batting_ball)
-        val player4s: TextView = itemView.findViewById(R.id.batting_4s)
-        val player6s: TextView = itemView.findViewById(R.id.batting_6s)
-        val playerSR: TextView = itemView.findViewById(R.id.batting_sr)
+        val playerOver: TextView = itemView.findViewById(R.id.batting_run)
+        val playerMedian: TextView = itemView.findViewById(R.id.batting_ball)
+        val playerRunGiven: TextView = itemView.findViewById(R.id.batting_4s)
+        val playerWicket: TextView = itemView.findViewById(R.id.batting_6s)
+        val playerER: TextView = itemView.findViewById(R.id.batting_sr)
 
     }
 
@@ -38,10 +38,10 @@ class BowlingScorecardAdapter(private val bowlingScorecardList: List<BowlingIncl
         val scorecard = bowlingScorecardList[position]
         Log.d("teamAdapter", "BindViewHolder: ${bowlingScorecardList.size}")
         holder.playerName.text = scorecard.bowler?.fullname
-        holder.playerRun.text = scorecard.overs.toString()
-        holder.playerBall.text = scorecard.medians.toString()
-       /* holder.player4s.text = scorecard.four_x.toString()
-        holder.player6s.text = scorecard.six_x.toString()
-        holder.playerSR.text = scorecard.e.toString()*/
+        holder.playerOver.text = scorecard.overs.toString()
+        holder.playerMedian.text = scorecard.medians.toString()
+        holder.playerRunGiven.text = scorecard.runs.toString()
+        holder.playerWicket.text = scorecard.wickets.toString()
+        holder.playerER.text = Utils().oneDecimalPoint(scorecard.rate).toString()
     }
 }

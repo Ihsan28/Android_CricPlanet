@@ -8,6 +8,8 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
 import android.os.Bundle
 import android.os.Parcelable
+import android.print.PrintAttributes.Margins
+import android.text.Layout.Alignment
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -20,6 +22,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.devhoony.lottieproegressdialog.LottieProgressDialog
@@ -217,6 +220,37 @@ class Utils {
         } catch (e: DateTimeParseException) {
             Log.d(TAG, "dateFormat: $e")
             return listOf("", "")
+        }
+    }
+    fun dateFormatWithMonth(dateString: String?): List<String> {
+        if (dateString == null) {
+            return listOf("N/A", "N/A")
+        }
+        try {
+            val apiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'000Z'")
+            val targetFormat = DateTimeFormatter.ofPattern("dd MMM, yy/hh:mm a")
+
+            val date = apiFormat.parse(dateString)
+            val dateTime= targetFormat.format(date).split("/").toMutableList()
+            val listDate= dateTime[0].split(" ").toMutableList()
+
+            listDate[0]= getDayWithSuffix(listDate[0].toInt())
+            dateTime[0]= listDate.joinToString(" ")
+
+            return dateTime
+        } catch (e: DateTimeParseException) {
+            Log.d(TAG, "dateFormat: $e")
+            return listOf("", "")
+        }
+    }
+
+    private fun getDayWithSuffix(day: Int): String {
+        return when {
+            day in 11..13 -> "${day}th"
+            day % 10 == 1 -> "${day}st"
+            day % 10 == 2 -> "${day}nd"
+            day % 10 == 3 -> "${day}rd"
+            else -> "${day}th"
         }
     }
 
@@ -491,15 +525,21 @@ class Utils {
         ).apply {
             gravity = Gravity.CENTER
             weight = 3f
+            setMargins(10, 0, 10, 10)
         }
-        textView.text = title
-        textView.textSize = 22f
-        textView.setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
-        textView.typeface = null
-        textView.setTypeface(null, Typeface.BOLD)
+
+        textView.apply {
+            textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+            text = title
+            textSize = 22f
+            setTextColor(ContextCompat.getColor(context, R.color.md_blue_50))
+            typeface = null
+            setTypeface(null, Typeface.BOLD)
+        }
 
         // Create a shape drawable with curved background
-        val cornerRadius = 5f // Adjust the corner radius as desired
+        val cornerRadius = 10f // Adjust the corner radius as desired
         val backgroundDrawable = ShapeDrawable().apply {
             shape = RoundRectShape(
                 floatArrayOf(

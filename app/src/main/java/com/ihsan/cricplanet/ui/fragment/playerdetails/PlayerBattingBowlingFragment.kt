@@ -85,7 +85,7 @@ class PlayerBattingBowlingFragment(private val isBatting: Boolean = true) : Frag
         careers.map { career ->
             career.batting.let { batting ->
                 if (batting != null) {
-                    val dateTimeList = Utils().dateFormat(career.updated_at)
+                    val dateTimeList = Utils().dateFormatWithMonth(career.updated_at)
                     careersWithSeasonAndLeague.add(
                         Pair(
                             "${career.type} | ${dateTimeList[0]} | ${dateTimeList[1]}",

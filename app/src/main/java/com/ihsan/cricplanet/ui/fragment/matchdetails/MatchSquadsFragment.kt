@@ -5,18 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.ScrollView
-import android.widget.Toast
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.MatchSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
-import com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment
-import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 
 class MatchSquadsFragment : Fragment() {
@@ -57,8 +51,12 @@ class MatchSquadsFragment : Fragment() {
                         MatchSquadAdapter(requireContext(), visitorTeam as List<Lineup>)
 
                     //set gridview height
-                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewLocal,1,400)
-                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewVisitor,1,400)
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(gridViewLocal, 1, 400)
+                    Utils().setGridViewHeightBasedOnItemsWithAdditionalHeight(
+                        gridViewVisitor,
+                        1,
+                        400
+                    )
 
                     //Auto Hide Top view
                     /*var lastScrollY = 0

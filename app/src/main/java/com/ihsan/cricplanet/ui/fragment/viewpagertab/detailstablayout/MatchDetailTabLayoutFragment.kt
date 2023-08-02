@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -20,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.R
 import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
+import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamSquadFragment
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
@@ -27,6 +27,7 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "MatchDetailTabLayoutFragment"
+
 class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
     companion object {
         var mBottomViewVisible = true
@@ -34,11 +35,11 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
     private lateinit var binding: FragmentMatchDetailTabLayoutBinding
     private val viewmodel: CricViewModel by viewModels()
+    private var match: FixtureByIdWithDetails? = null
     private var matchId: Int = 0
     private val liveHandler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     private val DELAY_MS: Long = 60000 //refresh delay in millis
-    private var isLoaded=false
 
     private val childFragmentLifecycleCallbacks =
         object : FragmentManager.FragmentLifecycleCallbacks() {
@@ -80,6 +81,32 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val progressBar = Utils().progressAnimationStart(requireContext(), "Loading Match...")
+
+        arguments?.let {
+            matchId = it.getInt("matchId")
+        }
+
+        if (matchId != 0 && match == null) {
+            //Api call for match details
+            viewmodel.getFixturesByIdApi(matchId)
+            Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
+
+            //Assigning match Adapter
+            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { fixtureDetails ->
+                match = fixtureDetails
+                Log.d(TAG, "onViewCreated: $match")
+                loadFixtureDetailsDatToView(view)
+                //progress bar stop
+                Utils().progressAnimationStop(progressBar)
+            }
+        } else {
+            loadFixtureDetailsDatToView(view)
+            //progress bar stop
+            Utils().progressAnimationStop(progressBar)
+        }
+    }
+
+    private fun loadFixtureDetailsDatToView(view: View){
         //Tab layout
         val tabLayout = binding.tabLayoutMatchDetails
         val viewPager = binding.viewPager2MatchDetails
@@ -99,78 +126,61 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
         val visitorTeamImage = view.findViewById<ImageView>(R.id.visitor_team_image)
         val visitorTeamImageCard = view.findViewById<CardView>(R.id.visitor_team_image_card)
 
-        arguments?.let {
-            matchId = it.getInt("matchId")
+        val tabMatchDetailAdapter =
+            TabMatchDetailAdapter(childFragmentManager, lifecycle, match!!)
+
+        //Removing tab if data is null
+        if (match!!.batting?.isEmpty() != false && match!!.scoreboards?.isEmpty() != false) {
+            tabMatchDetailAdapter.listMatchDetailTab.removeAt(2)
         }
 
-        if (matchId != 0 && !isLoaded){
-            isLoaded=true
-            viewmodel.getFixturesByIdApi(matchId)
-            Log.d("cricDetailsTabLayout", "onViewCreated: $matchId")
+        if (match!!.lineup?.isEmpty() != false) {
+            tabMatchDetailAdapter.listMatchDetailTab.removeAt(1)
+        }
 
-            //Assigning match Adapter
-            viewmodel.fixtureByIdWithDetails.observe(viewLifecycleOwner) { match ->
-                Log.d(TAG, "onViewCreated: $match")
-                val tabMatchDetailAdapter =
-                    TabMatchDetailAdapter(childFragmentManager, lifecycle, match)
+        viewPager.adapter = tabMatchDetailAdapter
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabMatchDetailAdapter.listMatchDetailTab[position].category
+        }.attach()
 
-                //Removing tab if data is null
-                if (match.batting?.isEmpty() != false && match.scoreboards?.isEmpty() != false) {
-                    tabMatchDetailAdapter.listMatchDetailTab.removeAt(2)
-                }
+        //Assigning value of all view fields of top
+        fixtureName.text = match!!.league?.name
 
-                if (match.lineup?.isEmpty() != false) {
-                    tabMatchDetailAdapter.listMatchDetailTab.removeAt(1)
-                }
-
-                viewPager.adapter = tabMatchDetailAdapter
-                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = tabMatchDetailAdapter.listMatchDetailTab[position].category
-                }.attach()
-
-                //progress bar stop
-                Utils().progressAnimationStop(progressBar)
-
-                //Assigning value of all view fields of top
-                fixtureName.text = match.league?.name
-
-                Utils().also { utils ->
-                    //Automatic refresh page function call
-                    if (utils.isLive(match.status.toString())) {
-                        stopPeriodicRefresh()
-                        runnable = object : Runnable {
-                            override fun run() {
-                                refreshPage()
-                                // 1 minute interval
-                                liveHandler.postDelayed(this, DELAY_MS)
-                            }
-                        }
-                        startPeriodicRefresh()
+        Utils().also { utils ->
+            //Automatic refresh page function call
+            if (utils.isLive(match!!.status.toString())) {
+                stopPeriodicRefresh()
+                runnable = object : Runnable {
+                    override fun run() {
+                        refreshPage()
+                        // 1 minute interval
+                        liveHandler.postDelayed(this, DELAY_MS)
                     }
-                    //setting status and runs
-                    utils.setStatus(match.status, fixtureStatus)
-                    utils.setRunsWithTeamName(
-                        match.runs,
-                        match.localteam,
-                        match.visitorteam,
-                        localTeamName,
-                        localTeamImage,
-                        localTeamRun,
-                        localTeamOver,
-                        visitorTeamName,
-                        visitorTeamImage,
-                        visitorTeamRun,
-                        visitorTeamOver
-                    )
                 }
-
-                localTeamImageCard.setOnClickListener {
-                    navigateToTeamDetails(match.localteam?.id!!)
-                }
-                visitorTeamImageCard.setOnClickListener {
-                    navigateToTeamDetails(match.visitorteam?.id!!)
-                }
+                startPeriodicRefresh()
             }
+            //setting status and runs
+            utils.setStatus(match!!.status, fixtureStatus)
+            utils.setRunsWithTeamName(
+                match!!.runs,
+                match!!.localteam,
+                match!!.visitorteam,
+                localTeamName,
+                localTeamImage,
+                localTeamRun,
+                localTeamOver,
+                visitorTeamName,
+                visitorTeamImage,
+                visitorTeamRun,
+                visitorTeamOver
+            )
+        }
+
+        localTeamImageCard.setOnClickListener {
+            navigateToTeamDetails(match!!.localteam?.id!!)
+        }
+        visitorTeamImageCard.setOnClickListener {
+            navigateToTeamDetails(match!!.visitorteam?.id!!)
         }
     }
 
@@ -204,7 +214,8 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
             binding.detailsTeamContainer,
             binding.topInfo,
             binding.tabLayoutMatchDetails,
-            binding.viewPager2MatchDetails)
+            binding.viewPager2MatchDetails
+        )
     }
 
     override fun showTopView() {
@@ -212,6 +223,7 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
             binding.detailsTeamContainer,
             binding.topInfo,
             binding.tabLayoutMatchDetails,
-            binding.viewPager2MatchDetails)
+            binding.viewPager2MatchDetails
+        )
     }
 }

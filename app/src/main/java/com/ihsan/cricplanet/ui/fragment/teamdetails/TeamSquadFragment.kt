@@ -56,11 +56,14 @@ class TeamSquadFragment : Fragment() {
                     visibleItemCount: Int,
                     totalItemCount: Int
                 ) {
-                    if (firstVisibleItem > lastFirstVisibleItem && mBottomViewVisible) {
+                    //scroll down
+                    if (firstVisibleItem > lastFirstVisibleItem && firstVisibleItem>3 && mBottomViewVisible ) {
                         Toast.makeText(MyApplication.instance, "call hide", Toast.LENGTH_SHORT)
                             .show()
                         parentFragmentCallback?.hideTopView()
+                        //view?.scrollTo(0, firstVisibleItem)
                         mBottomViewVisible = false
+
                     } else if (firstVisibleItem < 2 && !mBottomViewVisible) {
                         Toast.makeText(MyApplication.instance, "call show", Toast.LENGTH_SHORT)
                             .show()
@@ -71,7 +74,7 @@ class TeamSquadFragment : Fragment() {
                 }
 
                 override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
-                    // No specific action needed
+
                 }
             })
         }

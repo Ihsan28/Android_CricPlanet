@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment">
+    tools:context=".ui.fragment.teamdetails.viewpager.TeamDetailsTabLayoutFragment">
 
     <LinearLayout
         android:id="@+id/top_info"

@@ -1,6 +1,5 @@
-package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
+package com.ihsan.cricplanet.ui.fragment.teamdetails.viewpager
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
+package com.ihsan.cricplanet.ui.fragment.playerdetails.viewpager
 
 import android.content.Context
 import android.os.Bundle
@@ -21,7 +21,6 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "PlayerDetailsTabLayoutF"
-
 class PlayerDetailsTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
     companion object {
         var mBottomViewVisible = true

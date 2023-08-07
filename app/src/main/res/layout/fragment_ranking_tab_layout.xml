@@ -5,7 +5,7 @@
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.viewpagertab.RankingTabLayoutFragment">
+    tools:context=".ui.fragment.RankingTabLayoutFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

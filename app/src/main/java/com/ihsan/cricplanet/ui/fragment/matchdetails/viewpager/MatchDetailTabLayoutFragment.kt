@@ -1,4 +1,4 @@
-package com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout
+package com.ihsan.cricplanet.ui.fragment.matchdetails.viewpager
 
 import android.content.Context
 import android.os.Bundle
@@ -27,7 +27,6 @@ import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 
 private const val TAG = "MatchDetailTabLayoutFragment"
-
 class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallback {
     companion object {
         var mBottomViewVisible = true
@@ -186,7 +185,8 @@ class MatchDetailTabLayoutFragment : Fragment(), DetailsTabLayoutFragmentCallbac
 
     private fun navigateToTeamDetails(teamId: Int) {
         Navigation.findNavController(requireView())
-            .navigate(R.id.action_matchDetailTabLayoutFragment_to_teamDetailsTabLayoutFragment,
+            .navigate(
+                R.id.action_matchDetailTabLayoutFragment_to_teamDetailsTabLayoutFragment,
                 Bundle().apply { putInt("teamId", teamId) })
     }
 

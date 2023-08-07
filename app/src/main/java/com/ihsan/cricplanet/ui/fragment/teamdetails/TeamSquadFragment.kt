@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.adapter.grid.TeamSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamSquadBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
-import com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible
+import com.ihsan.cricplanet.ui.fragment.teamdetails.viewpager.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback
 import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils

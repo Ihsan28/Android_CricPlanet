@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.MatchTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.MatchTabLayoutFragment"
         android:label="fragment_match_tab_layout"
         tools:layout="@layout/fragment_match_tab_layout" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchDetailTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.MatchDetailTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.matchdetails.viewpager.MatchDetailTabLayoutFragment"
         android:label="MatchDetailTabLayoutFragment"
         tools:layout="@layout/fragment_match_detail_tab_layout" >
         <argument
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/rankingTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.RankingTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.RankingTabLayoutFragment"
         android:label="fragment_ranking_tab_layout"
         tools:layout="@layout/fragment_ranking_tab_layout" >
         <action
@@ -140,7 +140,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.PlayerDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.playerdetails.viewpager.PlayerDetailsTabLayoutFragment"
         android:label="fragment_player_details_tab_layout"
         tools:layout="@layout/fragment_player_details_tab_layout" >
         <argument android:name="playerId"
@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/teamDetailsTabLayoutFragment"
-        android:name="com.ihsan.cricplanet.ui.fragment.viewpagertab.detailstablayout.TeamDetailsTabLayoutFragment"
+        android:name="com.ihsan.cricplanet.ui.fragment.teamdetails.viewpager.TeamDetailsTabLayoutFragment"
         android:label="fragment_team_details_tab_layout"
         tools:layout="@layout/fragment_team_details_tab_layout" >
         <argument android:name="teamId"

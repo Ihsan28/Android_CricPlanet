@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -16,9 +15,7 @@ import com.ihsan.cricplanet.adapter.MatchAdapter
 import com.ihsan.cricplanet.adapter.MatchAdapterSeries
 import com.ihsan.cricplanet.databinding.FragmentMatchesBinding
 import com.ihsan.cricplanet.utils.BottomSpaceItemDecoration
-import com.ihsan.cricplanet.utils.CheckNetwork
 import com.ihsan.cricplanet.utils.CheckNetwork.Companion.networkStatus
-import com.ihsan.cricplanet.utils.MyApplication
 import com.ihsan.cricplanet.utils.Utils
 import com.ihsan.cricplanet.viewmodel.CricViewModel
 import kotlinx.coroutines.launch
@@ -37,6 +34,7 @@ class MatchesFragment : Fragment() {
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -143,7 +141,7 @@ class MatchesFragment : Fragment() {
     }
 
     private fun refreshPage() {
-        args.let {argument->
+        args.let { argument ->
             viewModel.viewModelScope.launch {
                 when (argument.category) {
                     "UPCOMING" -> viewModel.getUpcomingFixturesApi()

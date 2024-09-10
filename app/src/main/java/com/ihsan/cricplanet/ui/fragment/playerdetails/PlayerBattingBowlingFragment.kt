@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.adapter.grid.PlayerDetailsAdapter
+import com.ihsan.cricplanet.ui.fragment.playerdetails.adapter.grid.PlayerDetailsAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerBattingBowlingBinding
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.model.player.careerstats.Batting

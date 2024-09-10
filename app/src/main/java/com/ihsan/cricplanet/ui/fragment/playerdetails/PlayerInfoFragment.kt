@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.adapter.grid.MatchInfoAdapter
+import com.ihsan.cricplanet.ui.fragment.matchdetails.adapter.grid.MatchInfoAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerInfoBinding
 import com.ihsan.cricplanet.model.GridItem
 import com.ihsan.cricplanet.model.player.PlayerDetails

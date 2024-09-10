@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ihsan.cricplanet.adapter.BattingScorecardAdapter
-import com.ihsan.cricplanet.adapter.BowlingScorecardAdapter
-import com.ihsan.cricplanet.adapter.MatchBallsAdapter
+import com.ihsan.cricplanet.ui.fragment.matchdetails.adapter.BattingScorecardAdapter
+import com.ihsan.cricplanet.ui.fragment.matchdetails.adapter.BowlingScorecardAdapter
+import com.ihsan.cricplanet.ui.fragment.matchdetails.adapter.MatchBallsAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchScorecardBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.ui.fragment.viewpagertab.callBackInterface.DetailsTabLayoutFragmentCallback

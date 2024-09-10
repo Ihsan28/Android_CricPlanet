@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ihsan.cricplanet.adapter.PlayerCareerTeamAdapter
+import com.ihsan.cricplanet.ui.fragment.playerdetails.adapter.PlayerCareerTeamAdapter
 import com.ihsan.cricplanet.databinding.FragmentPlayerCareerBinding
 import com.ihsan.cricplanet.model.player.PlayerDetails
 import com.ihsan.cricplanet.viewmodel.CricViewModel

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.adapter.grid.TeamSquadAdapter
+import com.ihsan.cricplanet.ui.fragment.teamdetails.adapter.grid.TeamSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamSquadBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.viewpager.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible

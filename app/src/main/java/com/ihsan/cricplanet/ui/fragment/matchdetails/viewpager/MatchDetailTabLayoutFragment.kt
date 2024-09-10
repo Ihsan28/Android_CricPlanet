@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ihsan.cricplanet.R
-import com.ihsan.cricplanet.adapter.viewpager.TabMatchDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchDetailTabLayoutBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment

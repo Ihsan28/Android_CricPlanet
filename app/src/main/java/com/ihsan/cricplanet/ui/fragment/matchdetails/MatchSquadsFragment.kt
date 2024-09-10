@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ihsan.cricplanet.adapter.grid.MatchSquadAdapter
+import com.ihsan.cricplanet.ui.fragment.matchdetails.adapter.grid.MatchSquadAdapter
 import com.ihsan.cricplanet.databinding.FragmentMatchSquadsBinding
 import com.ihsan.cricplanet.model.fixture.FixtureByIdWithDetails
 import com.ihsan.cricplanet.model.fixture.scoreboard.lineup.Lineup

@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ihsan.cricplanet.adapter.TeamMatchAdapter
+import com.ihsan.cricplanet.ui.fragment.teamdetails.adapter.TeamMatchAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamFixturesBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.viewpager.TeamDetailsTabLayoutFragment.Companion.mBottomViewVisible

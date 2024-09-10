@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.ihsan.cricplanet.ui.fragment.HomeFragment
+import com.ihsan.cricplanet.ui.fragment.home.HomeFragment
 
 class DataReloadWorker(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {

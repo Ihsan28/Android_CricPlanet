@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ihsan.cricplanet.adapter.viewpager.TabTeamDetailAdapter
 import com.ihsan.cricplanet.databinding.FragmentTeamDetailsTabLayoutBinding
 import com.ihsan.cricplanet.model.team.TeamDetails
 import com.ihsan.cricplanet.ui.fragment.teamdetails.TeamFixturesFragment

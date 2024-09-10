@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="50dp"
-        tools:context=".ui.fragment.RankingFragment">
+        tools:context=".ui.fragment.ranking.RankingFragment">
 
         <com.google.android.material.button.MaterialButtonToggleGroup
 

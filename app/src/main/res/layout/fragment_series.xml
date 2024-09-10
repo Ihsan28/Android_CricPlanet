@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="50dp"
-    tools:context=".ui.fragment.SeriesFragment">
+    tools:context=".ui.fragment.series.SeriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_league"
